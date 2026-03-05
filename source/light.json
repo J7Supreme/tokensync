@@ -1,0 +1,130 @@
+{
+  "semantic": {
+    "background": {
+      "general": {
+        "type": "color",
+        "value": "{primitive.color.white}"
+      },
+      "card": {
+        "type": "color",
+        "value": "{primitive.color.white}"
+      },
+      "modal": {
+        "type": "color",
+        "value": "{primitive.color.gray.50}"
+      },
+      "modal_section": {
+        "type": "color",
+        "value": "{primitive.color.white}"
+      },
+      "modal_section_inner": {
+        "type": "color",
+        "value": "{primitive.color.gray.100}"
+      },
+      "backdrop": {
+        "type": "color",
+        "value": "{primitive.color.white_a80}"
+      }
+    },
+    "text": {
+      "core": {
+        "type": "color",
+        "value": "{primitive.color.navy.900}",
+        "description": "页面核心信息内容，比主文字B的饱和度更高，也避免了整体页面过于沉闷的色值搭配。核心信息例如balance金额，明细金额，页面大抬头等"
+      },
+      "primary": {
+        "type": "color",
+        "value": "{primitive.color.navy.900}",
+        "description": "适用于对应于次标题的主标题等。但该标题尚未到页面核心信息的地位"
+      },
+      "secondary": {
+        "type": "color",
+        "value": "{primitive.color.navy.900_a40}"
+      },
+      "action": {
+        "type": "color",
+        "value": "{primitive.color.blue.500}"
+      },
+      "placeholder": {
+        "type": "color",
+        "value": "{primitive.color.navy.900_a20}"
+      }
+    },
+    "stroke": {
+      "icon_primary": {
+        "type": "color",
+        "value": "{primitive.color.navy.900}"
+      },
+      "icon_secondary": {
+        "type": "color",
+        "value": "{primitive.color.navy.900_a40}"
+      }
+    },
+    "border": {
+      "default": {
+        "type": "color",
+        "value": "{primitive.color.navy.900_a8}"
+      }
+    },
+    "fill": {
+      "icon_chip": {
+        "type": "color",
+        "value": "{primitive.color.gray.100}"
+      },
+      "secondary": {
+        "type": "color",
+        "value": "{primitive.color.navy.900}"
+      },
+      "tertiary": {
+        "type": "color",
+        "value": "{primitive.color.white}"
+      },
+      "logo": {
+        "type": "color",
+        "value": "{primitive.color.navy.900}"
+      },
+      "color_1": {
+        "type": "color",
+        "value": "{primitive.color.white}"
+      },
+      "color_2": {
+        "type": "color",
+        "value": "{primitive.color.white}"
+      }
+    },
+    "gradient": {
+      "general_1": {
+        "type": "color",
+        "value": "{primitive.color.blue.50}"
+      },
+      "general_2": {
+        "type": "color",
+        "value": "{primitive.color.gray.100}"
+      },
+      "main_1": {
+        "type": "color",
+        "value": "{primitive.color.blue.50}"
+      },
+      "main_2": {
+        "type": "color",
+        "value": "{primitive.color.blue.100}"
+      },
+      "xaut_card_1": {
+        "type": "color",
+        "value": "{primitive.color.white_a60}"
+      },
+      "xaut_card_2": {
+        "type": "color",
+        "value": "{primitive.color.blue.200}"
+      },
+      "bar_backdrop_1": {
+        "type": "color",
+        "value": "{primitive.color.white_a0}"
+      },
+      "bar_backdrop_2": {
+        "type": "color",
+        "value": "{primitive.color.white}"
+      }
+    }
+  }
+}

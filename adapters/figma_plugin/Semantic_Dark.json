@@ -1,0 +1,297 @@
+{
+  "background": {
+    "general": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/900}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "card": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/900}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "modal": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/900}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "modal_section": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/800}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "modal_section_inner": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/900}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "backdrop": {
+      "$type": "color",
+      "$value": "{Primitive/color/black_a80}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "text": {
+    "core": {
+      "$type": "color",
+      "$value": "{Primitive/color/white}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/300}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/400_a40}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "action": {
+      "$type": "color",
+      "$value": "{Primitive/color/blue/500_a80}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "placeholder": {
+      "$type": "color",
+      "$value": "{Primitive/color/white_a20}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "stroke": {
+    "icon_primary": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/400_a80}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "icon_secondary": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/400_a40}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "border": {
+    "default": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/400_a8}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "fill": {
+    "icon_chip": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/800}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/400_a80}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "tertiary": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/900}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "logo": {
+      "$type": "color",
+      "$value": "{Primitive/color/white}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "color_1": {
+      "$type": "color",
+      "$value": "{Primitive/color/white}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "color_2": {
+      "$type": "color",
+      "$value": "{Primitive/color/white}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "gradient": {
+    "general_1": {
+      "$type": "color",
+      "$value": "{Primitive/color/black}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "general_2": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/850}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "main_1": {
+      "$type": "color",
+      "$value": "{Primitive/color/black}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "main_2": {
+      "$type": "color",
+      "$value": "{Primitive/color/navy/800}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "xaut_card_1": {
+      "$type": "color",
+      "$value": "{Primitive/color/custom_21_20_23_a70}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "xaut_card_2": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/800}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "bar_backdrop_1": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/950_a0}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "bar_backdrop_2": {
+      "$type": "color",
+      "$value": "{Primitive/color/gray/950}",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Dark"
+  }
+}

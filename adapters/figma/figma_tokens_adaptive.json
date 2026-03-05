@@ -1,0 +1,500 @@
+{
+    "Primitive": {
+        "primitive": {
+            "color": {
+                "white": {
+                    "$type": "color",
+                    "$value": "#FFFFFF",
+                    "$description": "Pure white — used for light mode surfaces, text on dark, and transparent overlays."
+                },
+                "white_a80": {
+                    "$type": "color",
+                    "$value": "rgba(255, 255, 255, 0.8)",
+                    "$description": "White at 80% opacity — frosted glass / backdrop blur effects in light mode."
+                },
+                "white_a60": {
+                    "$type": "color",
+                    "$value": "rgba(255, 255, 255, 0.6)",
+                    "$description": "White at 60% opacity — subtle overlay for glassy card surfaces."
+                },
+                "white_a20": {
+                    "$type": "color",
+                    "$value": "rgba(255, 255, 255, 0.2)",
+                    "$description": "White at 20% opacity — placeholder text on dark backgrounds."
+                },
+                "white_a0": {
+                    "$type": "color",
+                    "$value": "rgba(255, 255, 255, 0)",
+                    "$description": "Fully transparent white — gradient start point for bar backdrops."
+                },
+                "black": {
+                    "$type": "color",
+                    "$value": "#000000",
+                    "$description": "Pure black — dark mode gradient base."
+                },
+                "black_a80": {
+                    "$type": "color",
+                    "$value": "rgba(0, 0, 0, 0.8)",
+                    "$description": "Black at 80% opacity — dark mode backdrop/scrim overlay."
+                },
+                "custom_21_20_23_a70": {
+                    "$type": "color",
+                    "$value": "rgba(21, 20, 23, 0.7)",
+                    "$description": "Near-black with warm undertone at 70% opacity — dark mode card gradient overlay."
+                },
+                "gray": {
+                    "50": {
+                        "$type": "color",
+                        "$value": "#F9FAFB",
+                        "$description": "Lightest gray — light mode modal background, subtle section dividers."
+                    },
+                    "100": {
+                        "$type": "color",
+                        "$value": "#F0F1F3",
+                        "$description": "Light gray — inner sections of modal and icon chip fills in light mode."
+                    },
+                    "300": {
+                        "$type": "color",
+                        "$value": "#D6D7E0",
+                        "$description": "Medium-light gray — primary text in dark mode at full opacity."
+                    },
+                    "400_a8": {
+                        "$type": "color",
+                        "$value": "rgba(221, 222, 234, 0.08)",
+                        "$description": "Gray-400 at 8% opacity — dark mode default border, ultra-subtle dividers."
+                    },
+                    "400_a40": {
+                        "$type": "color",
+                        "$value": "rgba(221, 222, 234, 0.4)",
+                        "$description": "Gray-400 at 40% opacity — dark mode secondary text and icon stroke."
+                    },
+                    "400_a80": {
+                        "$type": "color",
+                        "$value": "rgba(221, 222, 234, 0.8)",
+                        "$description": "Gray-400 at 80% opacity — dark mode primary icon stroke and secondary fills."
+                    },
+                    "800": {
+                        "$type": "color",
+                        "$value": "#2C2C2E",
+                        "$description": "Dark gray — dark mode modal sections and icon chip backgrounds."
+                    },
+                    "850": {
+                        "$type": "color",
+                        "$value": "#1F1F1F",
+                        "$description": "Very dark gray — dark mode gradient secondary stop."
+                    },
+                    "900": {
+                        "$type": "color",
+                        "$value": "#1C1C1E",
+                        "$description": "Near-black gray — dark mode primary surface, cards, and modals."
+                    },
+                    "950": {
+                        "$type": "color",
+                        "$value": "#010306",
+                        "$description": "Darkest gray (near-black) — dark mode bar backdrop gradient end."
+                    },
+                    "950_a0": {
+                        "$type": "color",
+                        "$value": "rgba(1, 3, 6, 0)",
+                        "$description": "Darkest gray at 0% opacity — transparent gradient start for bar backdrop in dark."
+                    }
+                },
+                "navy": {
+                    "800": {
+                        "$type": "color",
+                        "$value": "#003160",
+                        "$description": "Deep navy blue — dark mode gradient secondary stop (main_2)."
+                    },
+                    "900": {
+                        "$type": "color",
+                        "$value": "#111D4A",
+                        "$description": "Darkest navy — light mode primary text, icons, logos, and fills."
+                    },
+                    "900_a8": {
+                        "$type": "color",
+                        "$value": "rgba(17, 29, 74, 0.08)",
+                        "$description": "Navy-900 at 8% opacity — light mode subtle borders and dividers."
+                    },
+                    "900_a20": {
+                        "$type": "color",
+                        "$value": "rgba(17, 29, 74, 0.2)",
+                        "$description": "Navy-900 at 20% opacity — light mode placeholder and hint text."
+                    },
+                    "900_a40": {
+                        "$type": "color",
+                        "$value": "rgba(17, 29, 74, 0.4)",
+                        "$description": "Navy-900 at 40% opacity — light mode secondary text and icon strokes."
+                    }
+                },
+                "blue": {
+                    "50": {
+                        "$type": "color",
+                        "$value": "#F9FDFF",
+                        "$description": "Faintest blue tint — light mode gradient base (general and main)."
+                    },
+                    "100": {
+                        "$type": "color",
+                        "$value": "#D6EBFF",
+                        "$description": "Light sky blue — light mode gradient secondary stop (main_2)."
+                    },
+                    "200": {
+                        "$type": "color",
+                        "$value": "#EEF7FF",
+                        "$description": "Very light blue — light mode XAUT card gradient second stop."
+                    },
+                    "500": {
+                        "$type": "color",
+                        "$value": "#007FFF",
+                        "$description": "Primary brand blue — light mode action text and interactive elements."
+                    },
+                    "500_a80": {
+                        "$type": "color",
+                        "$value": "rgba(0, 127, 255, 0.8)",
+                        "$description": "Brand blue at 80% opacity — dark mode action/link text, softened for dark surfaces."
+                    }
+                }
+            }
+        }
+    },
+    "Light": {
+        "semantic": {
+            "background": {
+                "general": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Primary app background in light mode — pure white for maximum contrast and clarity."
+                },
+                "card": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Card surface background in light mode — white maintains visual separation via shadow rather than color."
+                },
+                "modal": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.50}",
+                    "$description": "Modal container background — faintest gray to slightly elevate modal above page content."
+                },
+                "modal_section": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Modal inner section background — white for content groupings within the modal."
+                },
+                "modal_section_inner": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.100}",
+                    "$description": "Innermost modal content area — light gray to create subtle depth hierarchy within modal."
+                },
+                "backdrop": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white_a80}",
+                    "$description": "Frosted glass backdrop in light mode — 80% white creates blur effect over page content."
+                }
+            },
+            "text": {
+                "core": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900}",
+                    "$description": "Highest-emphasis text — balance amounts, large headings, primary data values. Darkest navy for maximum legibility."
+                },
+                "primary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900}",
+                    "$description": "Primary body and heading text — section titles and main labels."
+                },
+                "secondary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900_a40}",
+                    "$description": "Secondary/supporting text — captions, metadata, supporting labels at 40% navy opacity."
+                },
+                "action": {
+                    "$type": "color",
+                    "$value": "{primitive.color.blue.500}",
+                    "$description": "Interactive/action text — links, CTAs, tappable labels. Brand blue signals affordance."
+                },
+                "placeholder": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900_a20}",
+                    "$description": "Placeholder and hint text — lowest contrast for empty states and input hints at 20% navy."
+                }
+            },
+            "stroke": {
+                "icon_primary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900}",
+                    "$description": "Primary icon stroke/fill in light mode — full navy for strong, legible icons."
+                },
+                "icon_secondary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900_a40}",
+                    "$description": "Secondary/decorative icon stroke in light mode — 40% navy for lower-emphasis icons."
+                }
+            },
+            "border": {
+                "default": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900_a8}",
+                    "$description": "Default border/divider in light mode — ultra-subtle 8% navy line for list separators and card edges."
+                }
+            },
+            "fill": {
+                "icon_chip": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.100}",
+                    "$description": "Icon chip/tag background in light mode — light gray pill background to house icons."
+                },
+                "secondary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900}",
+                    "$description": "Secondary solid fill in light mode — full navy for secondary buttons and solid icon backgrounds."
+                },
+                "tertiary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Tertiary fill in light mode — white for outlined/ghost elements and light surface fills."
+                },
+                "logo": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.900}",
+                    "$description": "Logo fill color in light mode — navy to maintain brand identity on white backgrounds."
+                },
+                "color_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Themeable fill slot 1 in light mode — white for illustrative or decorative elements."
+                },
+                "color_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Themeable fill slot 2 in light mode — white for secondary illustrative elements."
+                }
+            },
+            "gradient": {
+                "general_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.blue.50}",
+                    "$description": "First stop of general page gradient in light mode — faintest blue tint."
+                },
+                "general_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.100}",
+                    "$description": "Second stop of general page gradient in light mode — transitions to light gray."
+                },
+                "main_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.blue.50}",
+                    "$description": "First stop of main hero gradient in light mode — faintest blue."
+                },
+                "main_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.blue.100}",
+                    "$description": "Second stop of main hero gradient in light mode — light sky blue for depth."
+                },
+                "xaut_card_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white_a60}",
+                    "$description": "First stop of XAUT card gradient in light mode — 60% white for glassmorphism effect."
+                },
+                "xaut_card_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.blue.200}",
+                    "$description": "Second stop of XAUT card gradient in light mode — very light blue for brand-tinted glass."
+                },
+                "bar_backdrop_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white_a0}",
+                    "$description": "Transparent start of navigation bar backdrop gradient — fades from nothing."
+                },
+                "bar_backdrop_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Opaque end of navigation bar backdrop gradient — full white for solid nav bar base."
+                }
+            }
+        }
+    },
+    "Dark": {
+        "semantic": {
+            "background": {
+                "general": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.900}",
+                    "$description": "Primary app background in dark mode — near-black gray for OLED-friendly deep dark surface."
+                },
+                "card": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.900}",
+                    "$description": "Card surface in dark mode — elevation expressed via subtle borders rather than color lift."
+                },
+                "modal": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.900}",
+                    "$description": "Modal container background in dark mode — unified dark surface to float above app content."
+                },
+                "modal_section": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.800}",
+                    "$description": "Modal section background in dark mode — slightly lighter dark panel to create inner grouping depth."
+                },
+                "modal_section_inner": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.900}",
+                    "$description": "Innermost modal content area in dark mode — returns to base surface for nested content."
+                },
+                "backdrop": {
+                    "$type": "color",
+                    "$value": "{primitive.color.black_a80}",
+                    "$description": "Scrim/backdrop in dark mode — 80% black overlay to dim content behind modals and sheets."
+                }
+            },
+            "text": {
+                "core": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Highest-emphasis text in dark mode — pure white for critical data like balance amounts and primary headings."
+                },
+                "primary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.300}",
+                    "$description": "Primary body and heading text in dark mode — medium-light gray for comfortable reading on dark surfaces."
+                },
+                "secondary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.400_a40}",
+                    "$description": "Secondary/supporting text in dark mode — 40% gray for captions and metadata."
+                },
+                "action": {
+                    "$type": "color",
+                    "$value": "{primitive.color.blue.500_a80}",
+                    "$description": "Interactive/action text in dark mode — 80% brand blue softened for dark surface legibility."
+                },
+                "placeholder": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white_a20}",
+                    "$description": "Placeholder and hint text in dark mode — 20% white for empty states and input hints."
+                }
+            },
+            "stroke": {
+                "icon_primary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.400_a80}",
+                    "$description": "Primary icon stroke in dark mode — 80% gray for legible but non-glaring icon rendering."
+                },
+                "icon_secondary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.400_a40}",
+                    "$description": "Secondary icon stroke in dark mode — 40% gray for decorative and lower-priority icons."
+                }
+            },
+            "border": {
+                "default": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.400_a8}",
+                    "$description": "Default border/divider in dark mode — 8% gray for subtle separators that don't overpower dark content."
+                }
+            },
+            "fill": {
+                "icon_chip": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.800}",
+                    "$description": "Icon chip/tag background in dark mode — dark elevated surface for icon containers."
+                },
+                "secondary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.400_a80}",
+                    "$description": "Secondary solid fill in dark mode — 80% gray for secondary buttons and solid backgrounds."
+                },
+                "tertiary": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.900}",
+                    "$description": "Tertiary fill in dark mode — base surface color for ghost/outlined element fills."
+                },
+                "logo": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Logo fill in dark mode — pure white for brand mark visibility on dark backgrounds."
+                },
+                "color_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Themeable fill slot 1 in dark mode — white for illustrative or decorative elements."
+                },
+                "color_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.white}",
+                    "$description": "Themeable fill slot 2 in dark mode — white for secondary illustrative elements."
+                }
+            },
+            "gradient": {
+                "general_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.black}",
+                    "$description": "First stop of general page gradient in dark mode — pure black for deep gradient base."
+                },
+                "general_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.850}",
+                    "$description": "Second stop of general page gradient in dark mode — very dark gray for subtle gradient fade."
+                },
+                "main_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.black}",
+                    "$description": "First stop of main hero gradient in dark mode — absolute black for dramatic dark depth."
+                },
+                "main_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.navy.800}",
+                    "$description": "Second stop of main hero gradient in dark mode — deep navy adds brand warmth to dark gradients."
+                },
+                "xaut_card_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.custom_21_20_23_a70}",
+                    "$description": "First stop of XAUT card gradient in dark mode — near-black at 70% for glassmorphism over dark."
+                },
+                "xaut_card_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.800}",
+                    "$description": "Second stop of XAUT card gradient in dark mode — elevated dark gray for card depth."
+                },
+                "bar_backdrop_1": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.950_a0}",
+                    "$description": "Transparent start of navigation bar backdrop gradient in dark — fades from zero opacity."
+                },
+                "bar_backdrop_2": {
+                    "$type": "color",
+                    "$value": "{primitive.color.gray.950}",
+                    "$description": "Opaque end of navigation bar backdrop gradient in dark — near-black for solid dark nav bar base."
+                }
+            }
+        }
+    },
+    "$themes": [
+        {
+            "id": "light",
+            "name": "Light",
+            "selectedTokenSets": {
+                "Primitive": "enabled",
+                "Light": "enabled",
+                "Dark": "disabled"
+            },
+            "group": "Semantic"
+        },
+        {
+            "id": "dark",
+            "name": "Dark",
+            "selectedTokenSets": {
+                "Primitive": "enabled",
+                "Dark": "enabled",
+                "Light": "disabled"
+            },
+            "group": "Semantic"
+        }
+    ],
+    "$metadata": {
+        "tokenSetOrder": [
+            "Primitive",
+            "Light",
+            "Dark"
+        ]
+    }
+}
