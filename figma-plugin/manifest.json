@@ -1,6 +1,6 @@
 {
-    "name": "Design token importer by imToken",
-    "id": "tokensync-adaptive-tokens",
+    "name": "ds skill v2",
+    "id": "ds-skill-v2",
     "api": "1.0.0",
     "main": "code.js",
     "ui": "ui.html",

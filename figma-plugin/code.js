@@ -1,7 +1,7 @@
-// TokenSync Variable Importer — code.js
+// ds skill v2 Variable Importer — code.js
 // Runs inside Figma's plugin sandbox. Uses figma.variables API (free on all plans).
 
-figma.showUI(__html__, { width: 480, height: 560, title: 'Design token importer by imToken' });
+figma.showUI(__html__, { width: 480, height: 560, title: 'ds skill v2' });
 
 figma.ui.onmessage = async (msg) => {
     if (msg.type === 'cancel') {
@@ -100,8 +100,9 @@ async function importVariables(data) {
     }
 
     const primCol = figma.variables.createVariableCollection('Primitive');
-    const primModeId = primCol.defaultModeId;
-    primCol.renameMode(primModeId, 'Default');
+    const primLightModeId = primCol.defaultModeId;
+    primCol.renameMode(primLightModeId, 'Light');
+    const primDarkModeId = primCol.addMode('Dark');
 
     // Flatten: paths like "primitive.color.gray.50"
     const primTokens = flattenTokens(data['Primitive'] || {}, '');
@@ -120,7 +121,10 @@ async function importVariables(data) {
         variable.scopes = [];
 
         const val = resolvePrimitiveValue(token.type, token.value);
-        if (val !== null) variable.setValueForMode(primModeId, val);
+        if (val !== null) {
+            variable.setValueForMode(primLightModeId, val);
+            variable.setValueForMode(primDarkModeId, val);
+        }
 
         primVarMap[token.path] = variable;
         primVarMap[token.path.replace(/^primitive\./, '')] = variable;
@@ -144,7 +148,7 @@ async function importVariables(data) {
             const refPath = rawValue.slice(1, -1);
             const refVar = primVarMap[refPath] || primVarMap[refPath.replace(/^primitive\./, '')];
             if (refVar) return { type: 'VARIABLE_ALIAS', id: refVar.id };
-            console.warn(`[TokenSync] Unresolved alias: ${rawValue}`);
+            console.warn(`[ds skill v2] Unresolved alias: ${rawValue}`);
             return null;
         }
         return null; // not an alias
