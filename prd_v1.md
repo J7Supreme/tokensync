@@ -3,7 +3,7 @@
 **Single Source of Truth + Adaptive Token Pipeline**
 
 作者：James Hou
-版本：v1.2
+版本：v1.3
 状态：Active
 
 ---
@@ -641,7 +641,7 @@ component.button.primary.background
 * 使用 **Token importer by imToken** Figma Plugin 导入
 * Plugin 使用 `figma.variables` API（无需 Enterprise 或付费计划）结合 `figma.createPaintStyle()`
 * 导入行为：
-  * `Primitive`：生成为 **Figma Variables**（单 Default mode）。并且被设置为 `hiddenFromPublishing = true` 和 `scopes = []`，完全在设计师选色面板中隐藏。
+  * `Primitive`：生成为 **Figma Variables**（包含 `Light` + `Dark` 两个 mode，两者的实际 primitive 值输入完全相同，这是由于 Figma 原生 Paint Style 目前不支持自身响应模式的主题切换，必须依赖底层 Variable 的双模属性。）。并且被设置为 `hiddenFromPublishing = true` 和 `scopes = []`，完全在设计师选色面板中隐藏。
   * `Semantic`（非 gradient）：生成为 **Figma Variables**（Light + Dark 两个 mode）。
   * `Semantic`（gradient）：生成为 **Figma Paint Styles**（分 `Light/` 和 `Dark/` 目录结构），因为 Figma Variables 原生暂不支持渐变。
 * 每次导入会完整清除并重建旧 Variables 集合与 Semantic Styles，支持安全重复执行
