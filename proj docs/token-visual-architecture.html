@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TokenSync Visual Architecture</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1a2d;
+      --panel: rgba(12, 27, 47, 0.82);
+      --panel-strong: rgba(17, 38, 63, 0.95);
+      --line: rgba(154, 177, 204, 0.18);
+      --text: #f5f7fb;
+      --muted: #9fb3cc;
+      --blue: #4ea4ff;
+      --cyan: #72e1ff;
+      --green: #8ef0b4;
+      --amber: #ffd978;
+      --red: #ff9d9d;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "SF Pro Display", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(78, 164, 255, 0.25), transparent 34%),
+        radial-gradient(circle at top right, rgba(114, 225, 255, 0.18), transparent 28%),
+        linear-gradient(180deg, #081221 0%, #050c16 100%);
+    }
+
+    main {
+      width: min(1200px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+
+    section {
+      margin-bottom: 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero {
+      position: relative;
+      padding: 40px;
+      background:
+        linear-gradient(135deg, rgba(78, 164, 255, 0.15), rgba(12, 27, 47, 0.9) 48%, rgba(114, 225, 255, 0.08)),
+        var(--panel-strong);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(114, 225, 255, 0.28);
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1.02;
+      max-width: 920px;
+      margin-bottom: 14px;
+    }
+
+    .subtitle {
+      max-width: 860px;
+      color: #d9e4f4;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .chip-grid,
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 14px;
+    }
+
+    .chip-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin-top: 28px;
+    }
+
+    .chip,
+    .card,
+    .mini {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    .chip {
+      padding: 16px;
+    }
+
+    .chip strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .chip span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      display: block;
+    }
+
+    .section-head {
+      padding: 24px 28px 0;
+    }
+
+    .section-head h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .body {
+      padding: 22px 28px 28px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 18px;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .card p,
+    .card li,
+    .mini p,
+    .mini li {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #d4e4f8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .live { background: var(--green); }
+    .plan { background: var(--amber); }
+    .risk { background: var(--red); }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .flow .card {
+      min-height: 178px;
+      position: relative;
+    }
+
+    .flow .card::after {
+      content: "→";
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.28);
+      font-size: 28px;
+    }
+
+    .flow .card:last-child::after {
+      display: none;
+    }
+
+    .layer-stack {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 18px;
+    }
+
+    .stack {
+      padding: 22px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)),
+        rgba(255,255,255,0.02);
+    }
+
+    .layer {
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .layer:last-child {
+      margin-bottom: 0;
+    }
+
+    .layer h3 {
+      margin-bottom: 6px;
+    }
+
+    .primitive {
+      background: linear-gradient(90deg, rgba(78, 164, 255, 0.16), rgba(78, 164, 255, 0.04));
+    }
+
+    .semantic {
+      background: linear-gradient(90deg, rgba(114, 225, 255, 0.16), rgba(114, 225, 255, 0.04));
+    }
+
+    .pattern {
+      background: linear-gradient(90deg, rgba(255, 217, 120, 0.16), rgba(255, 217, 120, 0.04));
+    }
+
+    .component {
+      background: linear-gradient(90deg, rgba(142, 240, 180, 0.16), rgba(142, 240, 180, 0.04));
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+    }
+
+    .table th,
+    .table td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: #dce9fa;
+      font-weight: 600;
+    }
+
+    .table td {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    code {
+      color: #dff4ff;
+      font-family: "SF Mono", "Menlo", monospace;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1px 6px;
+      border-radius: 8px;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .mini {
+      padding: 16px;
+    }
+
+    .callout {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 217, 120, 0.22);
+      background: rgba(255, 217, 120, 0.07);
+      color: #fff6d8;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 18px 28px 26px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .chip-grid,
+      .grid-4,
+      .flow,
+      .mini-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-2,
+      .grid-3,
+      .layer-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .flow .card::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        width: min(100vw - 24px, 1200px);
+        padding-top: 24px;
+      }
+
+      .hero {
+        padding: 26px 20px;
+      }
+
+      .section-head,
+      .body,
+      .footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .chip-grid,
+      .grid-4,
+      .flow,
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">TokenSync Visual Structure</div>
+      <h1>Design Token 视觉结构图：AI Native、DS 原子分子、标准规范三线合一</h1>
+      <p class="subtitle">
+        这份图解同时对齐 <code>prd_v1.md</code> 的目标架构和 <code>source/tokens.json</code> 的当前落地状态。核心结论是：
+        当前 Source 已经具备 AI 可解释的 semantic 层、严格的 Light / Dark mode 对称、以及符合 DTCG 风格的字段结构；
+        下一阶段补齐 <code>pattern</code> 与 <code>component</code> 后，就能完整形成面向 Figma、Runtime、AI 三端的可消费 Design Token 体系。
+      </p>
+
+      <div class="chip-grid">
+        <div class="chip">
+          <strong>1</strong>
+          <span>Single Source of Truth<br />唯一手工编辑入口：<code>source/tokens.json</code></span>
+        </div>
+        <div class="chip">
+          <strong>29</strong>
+          <span>当前 Primitive 数量<br />全部为 color scale，作为视觉原子材料库</span>
+        </div>
+        <div class="chip">
+          <strong>24 × 2</strong>
+          <span>当前 Semantic 数量<br />Light 24 / Dark 24，路径一一对应</span>
+        </div>
+        <div class="chip">
+          <strong>4 × 2</strong>
+          <span>Gradient Semantic<br />每个 mode 含 4 个 gradient，单独承担视觉氛围表达</span>
+        </div>
+        <div class="chip">
+          <strong>Target 4-Layer</strong>
+          <span>PRD 目标层级<br /><code>primitive → semantic → pattern → component</code></span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>1. 系统主结构</h2>
+        <p>先把 token 看成一条单向知识链。设计决策在 Source 形成结构化语义，再由编译器转为 Figma、Runtime 与 AI 各自可消费的格式。</p>
+      </div>
+      <div class="body">
+        <div class="flow">
+          <div class="card">
+            <div class="status"><span class="dot live"></span>Current</div>
+            <h3>Source of Truth</h3>
+            <p><code>source/tokens.json</code></p>
+            <ul>
+              <li>Git 内统一维护</li>
+              <li>保留语义路径和描述</li>
+              <li>禁止其他端反向写回</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="status"><span class="dot plan"></span>PRD Target</div>
+            <h3>Token Compiler</h3>
+            <p>负责 alias 解析、schema 校验、mode 对齐、adapter 生成。</p>
+            <ul>
+              <li>resolve references</li>
+              <li>validate schema</li>
+              <li>build adapters</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="status"><span class="dot plan"></span>Multi Adapter</div>
+            <h3>Figma / Runtime / AI</h3>
+            <p>同一份语义源，面向不同消费端输出不同结构，但不丢失 token 含义。</p>
+            <ul>
+              <li>Figma Variables / Styles</li>
+              <li>CSS / Tailwind / React</li>
+              <li>AI tokens / sourceRef</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="status"><span class="dot live"></span>AI Native Outcome</div>
+            <h3>Reasonable UI Generation</h3>
+            <p>AI 不再只看到颜色值，而是看到 role、mode、hierarchy、component intent。</p>
+            <ul>
+              <li>知道什么是主文本</li>
+              <li>知道什么是卡片背景</li>
+              <li>知道 mode 差异与追溯来源</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>2. Canonical Layer Stack</h2>
+        <p>这是 PRD 的完整目标模型，也是最适合被 AI 和设计系统共同理解的层级组织方式。</p>
+      </div>
+      <div class="body">
+        <div class="layer-stack">
+          <div class="stack">
+            <div class="layer primitive">
+              <div class="status"><span class="dot live"></span>Implemented</div>
+              <h3>Primitive</h3>
+              <p>纯视觉原子材料，不带 UI 语义。当前已实现 29 个 color token。</p>
+              <p><code>primitive.color.blue.500</code></p>
+            </div>
+            <div class="layer semantic">
+              <div class="status"><span class="dot live"></span>Implemented</div>
+              <h3>Semantic</h3>
+              <p>把视觉材料翻译成界面角色语义。当前 Light / Dark 各 24 个，全部引用 primitive。</p>
+              <p><code>semantic.text.primary</code> / <code>semantic.background.card</code></p>
+            </div>
+            <div class="layer pattern">
+              <div class="status"><span class="dot plan"></span>PRD Defined</div>
+              <h3>Pattern</h3>
+              <p>把多个 semantic 组织成可复用界面结构，如 surface、layout、container。</p>
+              <p><code>pattern.surface.card</code></p>
+            </div>
+            <div class="layer component">
+              <div class="status"><span class="dot plan"></span>PRD Defined</div>
+              <h3>Component</h3>
+              <p>把 Pattern 和 Semantic 落到组件消费规则，支持状态、variant 和运行时直接消费。</p>
+              <p><code>component.button.primary.default.background</code></p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>为什么这套层次对 AI 更友好</h3>
+            <ul>
+              <li>Primitive 让模型知道可用材料边界，而不是任意造值。</li>
+              <li>Semantic 让模型理解“用途”，而不是只识别颜色。</li>
+              <li>Pattern 让模型学会常见 UI 组合关系。</li>
+              <li>Component 让模型直接输出可落地的按钮、卡片、输入框规则。</li>
+            </ul>
+            <div class="callout">
+              当前 <code>source/tokens.json</code> 已经完成了 “材料层 + 语义层 + mode 机制”。<br />
+              一旦补齐 <code>pattern</code> 和 <code>component</code>，AI 就能从“识别设计语言”进一步升级为“重建设计系统组件”。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>3. DS 原子 / 分子 / 组件映射</h2>
+        <p>如果用设计系统和 Atomic Design 的语言来解释，这套 token 架构天然就是“由小到大”的可组合结构。</p>
+      </div>
+      <div class="body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Token Layer</th>
+              <th>DS / Atomic Design 映射</th>
+              <th>系统意义</th>
+              <th>AI 可理解的内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>primitive</code></td>
+              <td>视觉原子 / 材料库</td>
+              <td>建立颜色、间距、圆角、阴影等基础尺度</td>
+              <td>知道“允许使用什么值”</td>
+            </tr>
+            <tr>
+              <td><code>semantic</code></td>
+              <td>语义原子 / 功能角色</td>
+              <td>把视觉值映射为 text、background、border、fill 等用途</td>
+              <td>知道“什么值用于什么角色”</td>
+            </tr>
+            <tr>
+              <td><code>pattern</code></td>
+              <td>分子 / Pattern 结构</td>
+              <td>把多个语义 token 组合成 card、modal、layout 之类的交互片段</td>
+              <td>知道“哪些语义通常一起出现”</td>
+            </tr>
+            <tr>
+              <td><code>component</code></td>
+              <td>组件 / Organism / 实例规则</td>
+              <td>直达按钮、输入框、卡片在不同状态下的最终消费属性</td>
+              <td>知道“如何稳定生成组件”</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>4. 当前 Source 已体现的 AI Native 特性</h2>
+        <p>即便当前还没补齐 component 层，现有 <code>tokens.json</code> 已经具备非常明确的 AI-native 基因。</p>
+      </div>
+      <div class="body">
+        <div class="grid-4">
+          <div class="card">
+            <h3>语义路径可推理</h3>
+            <p><code>semantic.text.primary</code>、<code>semantic.background.modal</code> 这类命名天然可被 LLM 解析为界面角色，不是匿名样式表。</p>
+          </div>
+          <div class="card">
+            <h3>$description 可解释</h3>
+            <p>PRD 要求保留非空 <code>$description</code>。这让 AI 不只知道 token 名，还知道使用语境、层级和意图。</p>
+          </div>
+          <div class="card">
+            <h3>双 Mode 对称</h3>
+            <p>Light / Dark 路径完全一致，AI 可以基于同一语义键在不同主题下切换结果，而不是重新学习一套命名。</p>
+          </div>
+          <div class="card">
+            <h3>Alias 而非硬编码</h3>
+            <p>Semantic 层通过 alias 指向 Primitive，形成“语义到材料”的可追踪链路，避免 AI 学到散乱的硬编码值。</p>
+          </div>
+        </div>
+
+        <div class="mini-grid">
+          <div class="mini">
+            <h3>当前已实现</h3>
+            <p><strong>Primitive:</strong> 29 color tokens</p>
+            <p><strong>Light semantic:</strong> 20 color + 4 gradient</p>
+            <p><strong>Dark semantic:</strong> 20 color + 4 gradient</p>
+          </div>
+          <div class="mini">
+            <h3>主题机制</h3>
+            <p><code>$themes</code> 已定义 Light / Dark。</p>
+            <p><code>$metadata.tokenSetOrder</code> 已明确 token set 顺序。</p>
+          </div>
+          <div class="mini">
+            <h3>当前缺口</h3>
+            <p>PRD 要求 <code>Light</code> / <code>Dark</code> 同时包含 <code>semantic</code> 与 <code>component</code>，但当前 Source 尚未加入 <code>component</code>。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>5. 与业界标准和规范的符合点</h2>
+        <p>这里的“符合”不是只指字段长得像标准，而是结构、约束、消费链路都接近成熟 token 体系的工程实践。</p>
+      </div>
+      <div class="body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>规范方向</th>
+              <th>当前 / PRD 对应点</th>
+              <th>意义</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>W3C DTCG 风格字段</td>
+              <td>使用 <code>$type</code>、<code>$value</code>、<code>$description</code>、theme set、metadata</td>
+              <td>便于编译器、插件、转换脚本一致处理</td>
+            </tr>
+            <tr>
+              <td>Alias 驱动</td>
+              <td>Semantic 必须引用 <code>{primitive.*}</code>，Component 优先引用 <code>{semantic.*}</code></td>
+              <td>形成清晰依赖图，减少硬编码漂移</td>
+            </tr>
+            <tr>
+              <td>Theme parity</td>
+              <td>Light / Dark 的 semantic 与 component 路径要求完全一一对应</td>
+              <td>可做自动校验、主题切换与差异比对</td>
+            </tr>
+            <tr>
+              <td>Adapter architecture</td>
+              <td>Source 语义层与 Figma / Runtime / AI 格式层分离</td>
+              <td>符合多端设计令牌的主流编译思路</td>
+            </tr>
+            <tr>
+              <td>Traceability</td>
+              <td>PRD 要求 Runtime 保留 <code>sourceRef</code></td>
+              <td>保证从 UI 输出反查到 token 源头</td>
+            </tr>
+            <tr>
+              <td>Gradient special handling</td>
+              <td>Gradient 作为独立类型处理，并在 Figma 侧走 Paint Styles</td>
+              <td>符合工具能力边界，避免把不兼容能力硬塞进 Variables</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>6. 一张图总结</h2>
+        <p>这套架构本质上是在把“视觉值”升级为“可推理、可组合、可编译、可追溯的设计知识”。</p>
+      </div>
+      <div class="body">
+        <div class="grid-3">
+          <div class="card">
+            <h3>AI Native</h3>
+            <p>AI 读到的不是颜色表，而是带 role、description、mode、path symmetry 的界面语言。</p>
+          </div>
+          <div class="card">
+            <h3>DS 原子分子化</h3>
+            <p>从 Primitive 到 Semantic，再到 Pattern / Component，天然支持 Design System 的可组合演进。</p>
+          </div>
+          <div class="card">
+            <h3>Industry-ready</h3>
+            <p>字段结构、theme 机制、alias 规则、adapter 分层都对齐业界 token 编译实践与 DTCG 方向。</p>
+          </div>
+        </div>
+        <div class="callout">
+          建议下一步：在 <code>source/tokens.json</code> 中补齐 <code>Light.component</code> / <code>Dark.component</code>，必要时再加入 <code>pattern</code>，
+          这样这份视觉结构就不只是“架构说明”，而会变成可以直接驱动 Figma、Runtime、AI 组件生成的完整执行模型。
+        </div>
+      </div>
+      <div class="footer">
+        Based on <code>prd_v1.md</code> v1.3 and the current <code>source/tokens.json</code> checked in this repository on 2026-03-07.
+      </div>
+    </section>
+  </main>
+</body>
+</html>

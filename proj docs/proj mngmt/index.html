@@ -9,29 +9,29 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
         :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #111827;
-            --bg-card: #1e293b;
-            --bg-card-hover: #243047;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
             --text-muted: #64748b;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-cyan: #06b6d4;
-            --accent-green: #10b981;
-            --accent-amber: #f59e0b;
-            --accent-red: #ef4444;
-            --accent-pink: #ec4899;
-            --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            --gradient-warm: linear-gradient(135deg, #f59e0b, #ef4444);
-            --gradient-cool: linear-gradient(135deg, #06b6d4, #3b82f6);
-            --gradient-green: linear-gradient(135deg, #10b981, #06b6d4);
-            --border-subtle: rgba(148, 163, 184, 0.1);
+            --accent-blue: #2563eb;
+            --accent-purple: #7c3aed;
+            --accent-cyan: #0891b2;
+            --accent-green: #059669;
+            --accent-amber: #d97706;
+            --accent-red: #dc2626;
+            --accent-pink: #db2777;
+            --gradient-primary: linear-gradient(135deg, #2563eb, #7c3aed);
+            --gradient-warm: linear-gradient(135deg, #d97706, #dc2626);
+            --gradient-cool: linear-gradient(135deg, #0891b2, #2563eb);
+            --gradient-green: linear-gradient(135deg, #059669, #0891b2);
+            --border-subtle: rgba(15, 23, 42, 0.1);
             --radius: 16px;
             --radius-sm: 10px;
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.15);
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.15);
         }
 
         *,
@@ -287,7 +287,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--bg-card);
+            background: var(--border-subtle);
             border-radius: 2px;
         }
 
@@ -758,7 +758,7 @@
                 <p class="slide-subtitle" style="margin: 0 auto 12px auto; text-align: center;">
                     Design Token 管理架构 · SSOT Pipeline · AI Skill 体系
                 </p>
-                <div class="cover-date">2026年3月5日</div>
+                <div class="cover-date">2026年3月9日</div>
                 <div class="cover-badge">WK2 — 语义化治理 & Skill 迭代阶段</div>
             </div>
         </div>
@@ -922,79 +922,10 @@
             </div>
         </div>
 
-        <!-- ===================== SLIDE 5: 核心产出 ===================== -->
+        <!-- ===================== SLIDE 5: Architecture ===================== -->
         <div class="slide" data-slide="4">
             <div class="slide-content">
-                <div class="slide-label">三 · 核心产出</div>
-                <h1 class="slide-title">已完成的核心节点</h1>
-                <p class="slide-subtitle">四项关键里程碑与交付物</p>
-
-                <div class="cards-grid cols-2">
-                    <div class="card gradient-blue">
-                        <span class="card-icon">🗂️</span>
-                        <div class="card-title">SSOT 与自动化架构确立</div>
-                        <div class="card-desc">建立基于 Git 的单源真理架构，实现从设计源头到交付端的自动化同步流程，确保 Token 资产的一致性与可追溯性。</div>
-                    </div>
-                    <div class="card gradient-purple">
-                        <span class="card-icon">🏷️</span>
-                        <div class="card-title">Webapp DS Token 语义化重构</div>
-                        <div class="card-desc">基于现有 Webapp 设计系统完成 Token 语义化定义与重构，建立符合 AI 理解逻辑的命名规范。</div>
-                    </div>
-                    <div class="card gradient-green">
-                        <span class="card-icon">🔄</span>
-                        <div class="card-title">多场景 Adapter 规则定义</div>
-                        <div class="card-desc">完成 Figma、TokenStudio、Runtime 及 AI 语义化场景的适配器规则，统一 Source Token 结构兼容多平台消费。
-                        </div>
-                    </div>
-                    <div class="card gradient-warm">
-                        <span class="card-icon">🧩</span>
-                        <div class="card-title">低门槛 Skill 适配方案</div>
-                        <div class="card-desc">开发插件化适配器，规避付费计划依赖，显著降低 AI 工具链接入成本。<br><a
-                                href="https://skills.sh/j7supreme/design-system-skills/design-system-governance-workflow"
-                                target="_blank" style="margin-top: 8px; display: inline-block;">🔗 查看 Skill V1 →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===================== SLIDE 6: 卡点 ===================== -->
-        <div class="slide" data-slide="5">
-            <div class="slide-content">
-                <div class="slide-label">三 · 卡点与风险</div>
-                <h1 class="slide-title">当前挑战 & 应对</h1>
-                <p class="slide-subtitle">识别关键阻碍并调整迭代策略</p>
-
-                <div class="risk-card">
-                    <div class="risk-title">⚠️ Skill 能力重叠与定位重塑</div>
-                    <div class="risk-desc">在 WK1 完成 Audit 与 Optimizer 开发后，发现其功能与 R2D2
-                        原生审计能力存在重叠。团队随即回撤并重新审视了两者在决策原则与能力边界上的差异，完成了原则融合、R2D2 局限性定位及 Skill 差异化功能定义。</div>
-                </div>
-
-                <div class="risk-card">
-                    <div class="risk-title">⚠️ 迭代节奏受定位调整影响</div>
-                    <div class="risk-desc">由于需对 Skill 进行重新设计以确保其独特价值，WK2 投入了额外时间进行重构与更新。目前已完成能力对齐，正处于测试迭代阶段。</div>
-                </div>
-
-                <div style="margin-top: 24px;">
-                    <div class="cards-grid cols-2">
-                        <div class="card" style="border-left: 3px solid var(--accent-green);">
-                            <div class="card-title" style="color: var(--accent-green); font-size: 14px;">✅ 已解决</div>
-                            <div class="card-desc">已完成原则融合与能力边界定义，Skill 具备独立差异化价值</div>
-                        </div>
-                        <div class="card" style="border-left: 3px solid var(--accent-amber);">
-                            <div class="card-title" style="color: var(--accent-amber); font-size: 14px;">⚡ 进行中</div>
-                            <div class="card-desc">Skill 测试与迭代持续推进，预计本周完成核心流程验证</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===================== SLIDE 7: Architecture ===================== -->
-        <div class="slide" data-slide="6">
-            <div class="slide-content">
-                <div class="slide-label">四 · 核心架构</div>
+                <div class="slide-label">三 · 核心架构</div>
                 <h1 class="slide-title">SSOT → Adapter → Consumer</h1>
                 <p class="slide-subtitle">三层架构确保设计资产的一致性与多端适配</p>
 
@@ -1033,10 +964,165 @@
             </div>
         </div>
 
-        <!-- ===================== SLIDE 8: Token 四层结构 ===================== -->
+        <!-- ===================== SLIDE 6: 挑战与原因 ===================== -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <div class="slide-label">三 · 架构挑战与原因</div>
+                <h1 class="slide-title">为何采用当前架构</h1>
+                <p class="slide-subtitle">应对平台限制与标准隔离带来的挑战</p>
+
+                <div class="risk-card decision">
+                    <div class="risk-title">🔵 Figma MCP 与 API 能力限制</div>
+                    <div class="risk-desc">
+                        <ul style="padding-left: 20px; list-style-type: disc;">
+                            <li style="margin-bottom: 6px;">Figma MCP 的 <code
+                                    style="background: rgba(59,130,246,0.15); padding: 2px 6px; border-radius: 4px; font-size: 12px;">get variable</code>
+                                无法获取全局 Variable Token 定义，仅能获取页面内 Node 应用的变量。</li>
+                            <li style="margin-bottom: 6px;">REST API 写入变量 (<code
+                                    style="background: rgba(59,130,246,0.15); padding: 2px 6px; border-radius: 4px; font-size: 12px;">file_variables:write</code>)
+                                为 Enterprise 专属权限，且 <strong>无法写入 Styles（如渐变色）</strong>，因此无法实现服务端全自动化闭环。</li>
+                            <li><strong>精准度问题</strong>: MCP 的变量读取局限意味着，普通的 Agent Browser Audit 不能精准读取整套全局设计规范，导致大模型直接生成的
+                                Audit 报告容易失真。</li>
+                        </ul>
+                        <div style="margin-top: 10px; font-weight: 600; color: var(--accent-blue);">↳ 核心定论：当前 <span
+                                style="background: rgba(59,130,246,0.15); padding: 2px 6px; border-radius: 4px;">Org/Pro
+                                Plan + Plugin API 自动化脚本</span> 是打通 Variables + Styles 的最高效可行途径。</div>
+                    </div>
+                </div>
+
+                <div class="risk-card decision">
+                    <div class="risk-title">🔵 Token Schema 差异与兼容性</div>
+                    <div class="risk-desc">
+                        Figma 原生 Schema 较为保守（不支持 Gradient 等）且与其它插件 Schema（TokenStudio）标准存在差异。四层语义必须统一范式。
+                        <div style="margin-top: 6px; font-weight: 600; color: var(--accent-cyan);">↳ 决定采用 <strong>SSOT +
+                                Adapter Layer</strong> 架构，在应用层统一转换与分流。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 7: 体系化治理 ===================== -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <div class="slide-label">四 · 体系化治理</div>
+                <h1 class="slide-title">Design Governance Flow</h1>
+                <p class="slide-subtitle">所有的 Token 修改或新增都必须遵循严格的治理流程，从源头确保正确性。</p>
+
+                <div class="arch-diagram" style="flex-direction: row; gap: 12px; margin-bottom: 40px;">
+                    <div class="flow-step"
+                        style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); color: var(--accent-blue);">
+                        Token Change Request</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"
+                        style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); color: var(--accent-purple);">
+                        Pull Request</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"
+                        style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2); color: var(--accent-cyan);">
+                        Design Review & AI Audit</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"
+                        style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: var(--accent-green);">
+                        Merge to Main</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step"
+                        style="background: var(--bg-card-hover); border: 1px solid var(--border-subtle); color: var(--text-primary);">
+                        Token Rebuild & Sync</div>
+                </div>
+
+                <div class="cards-grid cols-3">
+                    <div class="card" style="border-left: 4px solid var(--accent-blue);">
+                        <div class="card-title">设计治理</div>
+                        <div class="card-desc">所有的变动都能被评审，避免被误改。确保设计资产的质量与合规性。</div>
+                    </div>
+                    <div class="card" style="border-left: 4px solid var(--accent-purple);">
+                        <div class="card-title">版本可追溯</div>
+                        <div class="card-desc">依托 Git 构建了完美的版本变更历史，随时可以回滚或查阅历史变更逻辑。</div>
+                    </div>
+                    <div class="card" style="border-left: 4px solid var(--accent-green);">
+                        <div class="card-title">自动化审计</div>
+                        <div class="card-desc">结合 AI Audit Skill，在 PR 阶段直接拦截不符合四层语义规范的错误，提高工程交付质量。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 8: Schema 差异对比 ===================== -->
         <div class="slide" data-slide="7">
             <div class="slide-content">
-                <div class="slide-label">四 · Token 语义四层结构</div>
+                <div class="slide-label">五 · Token Schema 差异对比</div>
+                <h1 class="slide-title">核心标准兼容性矩阵</h1>
+                <p class="slide-subtitle">对比不同平台对复杂类型、别名及 AI 语义的支持程度</p>
+
+                <div
+                    style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                        <thead>
+                            <tr
+                                style="background: var(--bg-card-hover); border-bottom: 2px solid var(--border-subtle);">
+                                <th style="padding: 14px 20px; color: var(--accent-blue);">对比维度</th>
+                                <th style="padding: 14px 20px;">Figma Native</th>
+                                <th style="padding: 14px 20px;">Token Studio</th>
+                                <th style="padding: 14px 20px; color: var(--accent-purple);">Source (SSOT)</th>
+                                <th style="padding: 14px 20px;">Tailwind CSS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);">
+                                <td style="padding: 14px 20px; font-weight: 600;">复杂类型<br><small
+                                        style="font-weight: 400; opacity: 0.6;">Complex Types</small></td>
+                                <td style="padding: 14px 20px;">仅基础值<br>不支持渐变/阴影</td>
+                                <td style="padding: 14px 20px;">支持广泛<br>包含 Composite</td>
+                                <td style="padding: 14px 20px; color: var(--accent-purple); font-weight: 600;">
+                                    全类型支持<br>包含多模式渐变</td>
+                                <td style="padding: 14px 20px;">Config 导向<br>属性分散</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);">
+                                <td style="padding: 14px 20px; font-weight: 600;">层级结构<br><small
+                                        style="font-weight: 400; opacity: 0.6;">Hierarchy</small></td>
+                                <td style="padding: 14px 20px;">Collection/<br>Mode (2层)</td>
+                                <td style="padding: 14px 20px;">Set 分类<br>(相对扁平)</td>
+                                <td style="padding: 14px 20px; color: var(--accent-purple); font-weight: 600;">
+                                    四层语义体系<br>(严谨分层)</td>
+                                <td style="padding: 14px 20px;">Utility-first<br>(无层级建议)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);">
+                                <td style="padding: 14px 20px; font-weight: 600;">别名机制<br><small
+                                        style="font-weight: 400; opacity: 0.6;">Aliasing</small></td>
+                                <td style="padding: 14px 20px;">支持引用<br>(不可跨 Collection)</td>
+                                <td style="padding: 14px 20px;">强化引用<br>支持数学运算</td>
+                                <td style="padding: 14px 20px; color: var(--accent-purple); font-weight: 600;">
+                                    全局递归关联<br>(无缝衔接)</td>
+                                <td style="padding: 14px 20px;">变量引用<br>(依赖 Theme)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);">
+                                <td style="padding: 14px 20px; font-weight: 600;">AI 语义支持<br><small
+                                        style="font-weight: 400; opacity: 0.6;">AI Native</small></td>
+                                <td style="padding: 14px 20px;">弱<br>(基本无描述)</td>
+                                <td style="padding: 14px 20px;">中<br>(支持 Description)</td>
+                                <td style="padding: 14px 20px; color: var(--accent-purple); font-weight: 600;">
+                                    极强<br>(Schema 内置审计)</td>
+                                <td style="padding: 14px 20px;">中<br>(语义化类名)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 14px 20px; font-weight: 600;">自动化能力<br><small
+                                        style="font-weight: 400; opacity: 0.6;">Automation</small></td>
+                                <td style="padding: 14px 20px;">弱<br>(受 API 权限限制)</td>
+                                <td style="padding: 14px 20px;">中<br>(依赖插件/手动)</td>
+                                <td style="padding: 14px 20px; color: var(--accent-purple); font-weight: 600;">
+                                    极强<br>(Git CI/CD 流水线)</td>
+                                <td style="padding: 14px 20px;">强<br>(构建流深度集成)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 9: Token 四层结构 ===================== -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content">
+                <div class="slide-label">五 · Token 语义四层结构</div>
                 <h1 class="slide-title">设计资产的分层治理</h1>
                 <p class="slide-subtitle">从原子值到动态响应，四层语义逐级抽象</p>
 
@@ -1081,17 +1167,102 @@
             </div>
         </div>
 
-        <!-- ===================== SLIDE 9: AI 工作流 ===================== -->
-        <div class="slide" data-slide="8">
+        <!-- ===================== SLIDE 10: AI Native 对比表 ===================== -->
+        <div class="slide" data-slide="9">
             <div class="slide-content">
-                <div class="slide-label">四 · AI Token 消费流</div>
-                <h1 class="slide-title">AI-Native 工作流与规则限制</h1>
-                <p class="slide-subtitle">AI 从接受 Prompt 到重组组件级的强一致性约束</p>
+                <div class="slide-label">五 · 语义化分层体系</div>
+                <h1 class="slide-title">为什么这是真正的 AI Native？</h1>
+                <p class="slide-subtitle">对比新旧 Token 范式在 AI 适用性上的根本差异</p>
+
+                <div
+                    style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius); overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr
+                                style="background: var(--bg-card-hover); border-bottom: 2px solid var(--border-subtle);">
+                                <th style="padding: 16px 24px; width: 15%; color: var(--accent-blue);">对比维度</th>
+                                <th style="padding: 16px 24px; width: 40%; color: var(--text-muted);">Before: 非 AI
+                                    Native<br><small style="font-weight: 400;">(Original Token JSON)</small></th>
+                                <th style="padding: 16px 24px; width: 45%; color: var(--accent-purple);">After: AI
+                                    Native<br><small style="font-weight: 400;">(重构后的 SSOT Token)</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);">
+                                <td style="padding: 16px 24px; font-weight: 600;">命名结构<br><small
+                                        style="color: var(--text-muted); font-weight: 400;">Naming</small></td>
+                                <td style="padding: 16px 24px; vertical-align: top;">
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
+                                        依赖个人习惯的扁平命名，如：<br><code
+                                            style="background: rgba(15,23,42,0.05); padding: 2px 6px; border-radius: 4px;">"Text": { "Link or button": ... }</code>
+                                    </div>
+                                    <span style="font-size: 12px; color: var(--accent-red); font-weight: 600;">✗
+                                        机器无法建立全局逻辑树</span>
+                                </td>
+                                <td style="padding: 16px 24px; vertical-align: top;">
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
+                                        严格的语义化分层，如：<br><code
+                                            style="background: rgba(124,58,237,0.1); color: var(--accent-purple); padding: 2px 6px; border-radius: 4px;">semantic.text.action</code>
+                                    </div>
+                                    <span style="font-size: 12px; color: var(--accent-green); font-weight: 600;">✓ AI
+                                        可根据路径推理约束，避免随意嵌套</span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-subtle);">
+                                <td style="padding: 16px 24px; font-weight: 600;">视觉取值<br><small
+                                        style="color: var(--text-muted); font-weight: 400;">Value</small></td>
+                                <td style="padding: 16px 24px; vertical-align: top;">
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
+                                        硬编码的绝对色值：<br><code
+                                            style="background: rgba(15,23,42,0.05); padding: 2px 6px; border-radius: 4px;">"hex": "#007FFF"</code>
+                                    </div>
+                                    <span style="font-size: 12px; color: var(--accent-red); font-weight: 600;">✗
+                                        生成代码极易产生不受控的“魔法数字”</span>
+                                </td>
+                                <td style="padding: 16px 24px; vertical-align: top;">
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">引用关联
+                                        (Alias Reference)：<br><code
+                                            style="background: rgba(124,58,237,0.1); color: var(--accent-purple); padding: 2px 6px; border-radius: 4px;">"$value": "{primitive.color.blue.500}"</code>
+                                    </div>
+                                    <span style="font-size: 12px; color: var(--accent-green); font-weight: 600;">✓ 只能指向
+                                        Primitive Scale，杜绝视觉偏差</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 16px 24px; font-weight: 600;">推理依据<br><small
+                                        style="color: var(--text-muted); font-weight: 400;">Reasoning</small></td>
+                                <td style="padding: 16px 24px; vertical-align: top;">
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">缺乏给
+                                        AI 的上下文指令，仅是存储色值的容器。无任何描述机制。</div>
+                                    <span style="font-size: 12px; color: var(--accent-red); font-weight: 600;">✗
+                                        机器无法判断最佳使用场景</span>
+                                </td>
+                                <td style="padding: 16px 24px; vertical-align: top;">
+                                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
+                                        强制包含专属的 <code
+                                            style="background: rgba(124,58,237,0.1); color: var(--accent-purple); padding: 2px 6px; border-radius: 4px;">$description</code>
+                                        供 AI 读取（描述设计意图）。</div>
+                                    <span style="font-size: 12px; color: var(--accent-green); font-weight: 600;">✓
+                                        作为大模型选择/反馈该属性的绝对依据</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 11: AI 工作流 ===================== -->
+        <div class="slide" data-slide="10">
+            <div class="slide-content">
+                <div class="slide-label">五 · AI Token 消费流</div>
+                <h1 class="slide-title">AI-Native 链路与一致性约束</h1>
+                <p class="slide-subtitle">AI 从接受 Prompt 到重组组件级的强一致性规范</p>
 
                 <div class="cards-grid cols-2">
                     <!-- 左侧：工作流流程图 -->
                     <div class="card gradient-purple">
-                        <div class="card-title">🔄 AI链路 (Generation Flow)</div>
+                        <div class="card-title">🔄 生图链路 (Generation Flow)</div>
                         <div class="arch-diagram" style="align-items: stretch; margin-top: 16px; gap: 8px;">
                             <div class="flow-step"
                                 style="background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); color: var(--accent-purple);">
@@ -1115,7 +1286,7 @@
                             <div class="arch-arrow" style="font-size: 14px; padding: 2px 0;">▼</div>
                             <div class="flow-step"
                                 style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); color: var(--accent-green);">
-                                5. Generate UI (按需调用代码或设计模型)
+                                5. Generate UI (基于模型预设产出)
                             </div>
                         </div>
                     </div>
@@ -1126,25 +1297,24 @@
                             <div class="card-title">🧩 AI 重组组件 (Resolution)</div>
                             <div class="card-desc">AI 通过 Token 层级重建组件。读取 <code
                                     style="color: var(--accent-cyan); font-family: monospace;">component.button.primary</code>
-                                时，AI 会自动拆解：</div>
+                                时，会自动拆解并映射：</div>
                             <ul
                                 style="color: var(--text-secondary); font-size: 13px; line-height: 1.8; margin-top: 10px; padding-left: 20px;">
-                                <li>✨ <strong>Background:</strong> 映射至对应的 Semantic 色彩</li>
-                                <li>✨ <strong>Typography:</strong> 匹配标准文本样式</li>
-                                <li>✨ <strong>Spacing/Layout:</strong> 精确对应至 Primitive 比例尺</li>
+                                <li>✨ <strong>色彩/阴影:</strong> 对应 Semantic Token</li>
+                                <li>✨ <strong>字符/段间距:</strong> 映射 Primitive 比例尺</li>
                             </ul>
                         </div>
 
                         <!-- 右下：强一致性约束 -->
                         <div class="card gradient-warm">
-                            <div class="card-title">🛡️ AI 设计强一致性约束</div>
+                            <div class="card-title">🛡️ 强一致性设计约束</div>
                             <div class="card-desc">AI 生成 UI 必须严格匹配设计规范，禁止创造未知视觉偏差：</div>
                             <ul
                                 style="color: var(--text-secondary); font-size: 13px; line-height: 1.8; margin-top: 10px; padding-left: 20px;">
-                                <li>❌ <strong>禁止硬编码颜色:</strong> 严禁直接书写 HEX (如 <del>#007FFF</del>)</li>
-                                <li>❌ <strong>禁止魔法数字:</strong> Spacing 必须来自 Scale (如 <del>7px</del> → <span
+                                <li>❌ <strong>禁止颜色硬编码:</strong> 严禁直接写死色值 (<del>#007FFF</del>)</li>
+                                <li>❌ <strong>禁止魔法数字:</strong> 必须通过 Scale 指定 (<del>7px</del> → <span
                                         style="color: var(--accent-green);">spacing.8</span>)</li>
-                                <li>✅ <strong>绝对映射:</strong> 原则上只应生成结构中预定义的引用和数值</li>
+                                <li>✅ <strong>绝对映射:</strong> 要求对预定义资产的绝对映射应用</li>
                             </ul>
                         </div>
                     </div>
@@ -1152,91 +1322,31 @@
             </div>
         </div>
 
-        <!-- ===================== SLIDE 10: Token Flow & 决策 ===================== -->
-        <div class="slide" data-slide="9">
-            <div class="slide-content">
-                <div class="slide-label">五 · 原因 & 决策背景</div>
-                <h1 class="slide-title">关键技术决策</h1>
-                <p class="slide-subtitle">为什么选择 SSOT + Adapter 路线</p>
-
-                <div class="risk-card decision">
-                    <div class="risk-title">🔵 Figma MCP 与 API 能力限制</div>
-                    <div class="risk-desc">
-                        Figma MCP 的 <code
-                            style="background: rgba(59,130,246,0.15); padding: 2px 6px; border-radius: 4px; font-size: 12px;">get variable</code>
-                        无法获取全局 Variable Token 定义，仅能获取页面内 Node 应用的变量。REST API 写入变量 (<code
-                            style="background: rgba(59,130,246,0.15); padding: 2px 6px; border-radius: 4px; font-size: 12px;">file_variables:write</code>)
-                        为 Enterprise 专属权限，成本效益较低。
-                    </div>
-                </div>
-
-                <div class="risk-card decision">
-                    <div class="risk-title">🔵 Token Schema 差异与兼容性</div>
-                    <div class="risk-desc">
-                        Figma 原生 Schema 不支持 Gradient 等复杂属性；TokenStudio 完整 Schema 需 Pro 计划。这些格式与四层语义结构存在差异 → 决定采用 <strong
-                            style="color: var(--accent-cyan);">SSOT + Adapter Layer</strong> 架构，在应用层统一转换。
-                    </div>
-                </div>
-
-                <div style="margin-top: 20px;">
-                    <div class="arch-label" style="margin-bottom: 14px;">Token Flow 示例</div>
-                    <div class="flow-row">
-                        <div class="flow-step"
-                            style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); color: var(--accent-blue);">
-                            primitive.color.blue.500</div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step"
-                            style="background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); color: var(--accent-purple);">
-                            semantic.text.primary</div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step"
-                            style="background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.3); color: var(--accent-cyan);">
-                            button.primary.background</div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step"
-                            style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); color: var(--accent-green);">
-                            Figma / Runtime / AI</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===================== SLIDE 11: Next Steps ===================== -->
-        <div class="slide" data-slide="10">
+        <!-- ===================== SLIDE 12: Next Steps ===================== -->
+        <div class="slide" data-slide="11">
             <div class="slide-content cover-slide">
-                <div class="slide-label">下一步</div>
-                <h1 class="slide-title">接下来的计划</h1>
+                <div class="slide-label">六 · 之后计划</div>
+                <h1 class="slide-title">本周计划（双轴推进）</h1>
                 <p class="slide-subtitle" style="text-align: center; margin: 0 auto 32px auto;">
-                    聚焦 Token 语义治理完成与 Skill 端到端验证
+                    Skill 工程化与 Component Token 构建
                 </p>
 
-                <div class="cards-grid cols-3" style="max-width: 900px; margin: 0 auto;">
-                    <div class="card gradient-blue" style="text-align: center;">
-                        <span class="card-icon">📝</span>
-                        <div class="card-title">完成语义化治理</div>
-                        <div class="card-desc">完成 AI-Native 语义化治理，修改和扩充 Token 值</div>
-                    </div>
+                <div class="cards-grid cols-2" style="max-width: 800px; margin: 0 auto;">
                     <div class="card gradient-purple" style="text-align: center;">
-                        <span class="card-icon">🧪</span>
-                        <div class="card-title">Skill 测试闭环</div>
-                        <div class="card-desc">完成 Skill 端到端测试，推进内部测试计划</div>
+                        <span class="card-icon">📂</span>
+                        <div class="card-title">Skill 资产梳理</div>
+                        <div class="card-desc">Skill 化文件目录，整理和规范 Agent 工作流文件。</div>
                     </div>
                     <div class="card gradient-green" style="text-align: center;">
-                        <span class="card-icon">🚀</span>
-                        <div class="card-title">Source → Figma 同步</div>
-                        <div class="card-desc">应用到 Source JSON & Figma，完成全链路打通</div>
+                        <span class="card-icon">🧱</span>
+                        <div class="card-title">修改现在的 Design Token</div>
+                        <div class="card-desc">聚焦具体 Token 的<strong>值的修改</strong>而非语义结构，并正式增加 Component 实例化层级 Token。
+                        </div>
                     </div>
                 </div>
 
-                <div style="margin-top: 40px; text-align: center;">
-                    <a href="https://skills.sh/j7supreme/design-system-skills/design-system-governance-workflow"
-                        target="_blank" class="cover-badge" style="text-decoration: none;">
-                        🔗 Design System Governance Skill V1
-                    </a>
-                </div>
-
-                <div class="cover-date" style="margin-top: 32px; font-size: 14px;">
-                    Thank you · Q&A
+                <div class="cover-date" style="margin-top: 48px; font-size: 14px;">
+                    Thank you
                 </div>
             </div>
         </div>
