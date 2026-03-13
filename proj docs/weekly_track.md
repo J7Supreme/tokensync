@@ -68,20 +68,33 @@
 ## 📅 Tuesday (周二)
 
 ### 📝 更新总结
-- 
+*   **实现自动化工作追踪工具链**：
+    *   开发并上线 `auto_weekly_track.sh` 自动化脚本，核心逻辑包括：定时提取多伦多时间跨度内的 Git Diff 记录，集成 Gemini AI API 进行内容摘要，并利用 Python 脚本实现 Markdown 目标日期区块的精准回填。
+    *   支持根据不同日期（周日至周五）自动定位更新区域，并同步归档变更的文件列表。
+*   **项目管理与治理规范化**：
+    *   新增 `governance_flow.md`，明确了项目治理流程与协作机制。
+    *   重构文档目录结构，将 `weekly_track.md` 迁移至 `proj docs/` 统一管理，规范化项目资产路径。
+*   **Design Token 架构与规范演进**：
+    *   在文档中明确了 `primitive`、`semantic`、`pattern`、`component` 四层 Token 架构，重点定义了 `pattern` Token 的适用场景及其与组件 Token 的取舍原则。
+    *   同步更新了 Source 文件规范及编译校验规则，确保工具链适配。
+*   **工具链适配迁移**：
+    *   完成了 Design Token 适配器从 Figma Plugin 向 Token Studio 的迁移，并更新了相应的 JSON 定义文件。
 
 ### 🔗 引用文档链接
-- 
+- `governance_flow.md`
+- `proj docs/weekly_track.md`
+- `scripts/auto_weekly_track.sh`
+- `weekly_track.md`
 
 ---
 
 ## 📅 Wednesday (周三)
 
 ### 📝 更新总结
-- 
+- [自动打卡] 今日无代码本地提交更新记录
 
 ### 🔗 引用文档链接
-- 
+- 无相关文档更新
 
 ---
 

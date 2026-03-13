@@ -4,7 +4,7 @@
 # 设定时区为多伦多
 export TZ="America/Toronto"
 
-REPO_DIR="/Users/jameshou/Desktop/Repos/tokensync"
+REPO_DIR="/Users/jameshou/Desktop/Repos/dsskillv2"
 MD_FILE="$REPO_DIR/proj docs/weekly_track.md"
 
 # ==========================================
@@ -12,7 +12,7 @@ MD_FILE="$REPO_DIR/proj docs/weekly_track.md"
 # ==========================================
 # 如果您使用的是 Gemini API，请确保密钥正确，并填写模型名称
 export API_KEY="AIzaSyBvBQSOSIPXCUpbmUmJeIfGLhMWJid4he4" 
-export MODEL_NAME="gemini-2.5-flash" # 推荐使用 gemini-2.5-flash 或 gemini-1.5-flash
+export MODEL_NAME="gemini-flash-latest" # 使用官方推荐的最新 Flash 别名
 # ==========================================
 
 # 昨天的日期
