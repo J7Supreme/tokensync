@@ -1,11 +1,12 @@
 #!/bin/bash
-# 自动提取昨日的 Git 提交记录和文档，调用大模型 API 生成总结，更新到 weekly_track.md
+# 自动提取昨日的 Git 提交记录和文档，调用大模型 API 生成总结，更新到 proj mngmt 下的 weekly_track.md
 
 # 设定时区为多伦多
 export TZ="America/Toronto"
 
-REPO_DIR="/Users/jameshou/Desktop/Repos/dsskillv2"
-MD_FILE="$REPO_DIR/proj docs/weekly_track.md"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+MD_FILE="$SCRIPT_DIR/weekly_track.md"
 
 # ==========================================
 # 🚨 用户配置区：请填入您的 API 信息

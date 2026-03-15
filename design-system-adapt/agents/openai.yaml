@@ -1,0 +1,7 @@
+interface:
+  display_name: "Design System Adapt"
+  short_description: "Adapt a canonical design system into AI, design, or runtime schemas."
+  default_prompt: "Use $design-system-adapt to translate the canonical design-system model into a target consumer format while preserving token semantics and component contracts."
+
+policy:
+  allow_implicit_invocation: true

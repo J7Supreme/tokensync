@@ -713,7 +713,7 @@
           "description": "Supporting and secondary text in light mode — 40% navy for captions, metadata, and sublabels."
         },
         "action": {
-          "value": "rgba(0, 127, 255, 0.8)",
+          "value": "#066BD2",
           "sourceRef": "semantic.text.action",
           "type": "color",
           "description": "Interactive action text in light mode — brand blue to signal links, CTAs, and affordance."
@@ -755,7 +755,7 @@
           "description": "Icon chip background in light mode — light gray pill for icon-and-label chip components."
         },
         "secondary": {
-          "value": "rgba(221, 222, 234, 0.8)",
+          "value": "#B6B7C1",
           "sourceRef": "semantic.fill.secondary",
           "type": "color",
           "description": "Secondary solid fill in light mode — full navy for secondary buttons and badge backgrounds."
@@ -1199,13 +1199,13 @@
               "description": "Primary button horizontal padding alias."
             },
             "background": {
-              "value": "rgba(221, 222, 234, 0.8)",
+              "value": "#B6B7C1",
               "sourceRef": "component.button.primary.default.background",
               "type": "color",
               "description": "Primary button background alias for light mode."
             },
             "text": {
-              "value": "rgba(0, 127, 255, 0.8)",
+              "value": "#066BD2",
               "sourceRef": "component.button.primary.default.text",
               "type": "color",
               "description": "Primary button text alias resolved to semantic action text."

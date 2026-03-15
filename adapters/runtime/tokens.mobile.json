@@ -531,7 +531,7 @@
         "type": "color"
       },
       "semantic.text.action": {
-        "value": "rgba(0, 127, 255, 0.8)",
+        "value": "#066BD2",
         "sourceRef": "semantic.text.action",
         "type": "color"
       },
@@ -561,7 +561,7 @@
         "type": "color"
       },
       "semantic.fill.secondary": {
-        "value": "rgba(221, 222, 234, 0.8)",
+        "value": "#B6B7C1",
         "sourceRef": "semantic.fill.secondary",
         "type": "color"
       },
@@ -898,12 +898,12 @@
         "type": "dimension"
       },
       "component.button.primary.default.background": {
-        "value": "rgba(221, 222, 234, 0.8)",
+        "value": "#B6B7C1",
         "sourceRef": "component.button.primary.default.background",
         "type": "color"
       },
       "component.button.primary.default.text": {
-        "value": "rgba(0, 127, 255, 0.8)",
+        "value": "#066BD2",
         "sourceRef": "component.button.primary.default.text",
         "type": "color"
       },
@@ -1501,7 +1501,7 @@
         "type": "color"
       },
       "semantic.text.action": {
-        "value": "rgba(0, 127, 255, 0.8)",
+        "value": "#066BD2",
         "sourceRef": "semantic.text.action",
         "type": "color"
       },
@@ -1531,7 +1531,7 @@
         "type": "color"
       },
       "semantic.fill.secondary": {
-        "value": "rgba(221, 222, 234, 0.8)",
+        "value": "#B6B7C1",
         "sourceRef": "semantic.fill.secondary",
         "type": "color"
       },
@@ -1868,12 +1868,12 @@
         "type": "dimension"
       },
       "component.button.primary.default.background": {
-        "value": "rgba(221, 222, 234, 0.8)",
+        "value": "#B6B7C1",
         "sourceRef": "component.button.primary.default.background",
         "type": "color"
       },
       "component.button.primary.default.text": {
-        "value": "rgba(0, 127, 255, 0.8)",
+        "value": "#066BD2",
         "sourceRef": "component.button.primary.default.text",
         "type": "color"
       },

@@ -1,7 +1,0 @@
-interface:
-  display_name: "DSSkillV2"
-  short_description: "Maintain a source-of-truth token sync system."
-  default_prompt: "Use $dsskillv2 to update the canonical token source, adapter outputs, or token architecture docs."
-
-policy:
-  allow_implicit_invocation: true

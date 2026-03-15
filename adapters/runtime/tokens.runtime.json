@@ -141,7 +141,7 @@
           "sourceRef": "semantic.text.action"
         },
         "dark": {
-          "value": "rgba(0, 127, 255, 0.8)",
+          "value": "#066BD2",
           "sourceRef": "semantic.text.action"
         }
       },
@@ -225,7 +225,7 @@
           "sourceRef": "semantic.fill.secondary"
         },
         "dark": {
-          "value": "rgba(221, 222, 234, 0.8)",
+          "value": "#B6B7C1",
           "sourceRef": "semantic.fill.secondary"
         }
       },
@@ -1120,7 +1120,7 @@
               "sourceRef": "component.button.primary.default.background"
             },
             "dark": {
-              "value": "rgba(221, 222, 234, 0.8)",
+              "value": "#B6B7C1",
               "sourceRef": "component.button.primary.default.background"
             }
           },
@@ -1133,7 +1133,7 @@
               "sourceRef": "component.button.primary.default.text"
             },
             "dark": {
-              "value": "rgba(0, 127, 255, 0.8)",
+              "value": "#066BD2",
               "sourceRef": "component.button.primary.default.text"
             }
           },

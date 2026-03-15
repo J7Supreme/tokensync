@@ -82,8 +82,8 @@
 
 ### 🔗 引用文档链接
 - `governance_flow.md`
-- `proj docs/weekly_track.md`
-- `scripts/auto_weekly_track.sh`
+- `proj docs/proj mngmt/weekly_track.md`
+- `proj docs/proj mngmt/auto_weekly_track.sh`
 - `weekly_track.md`
 
 ---
@@ -125,8 +125,8 @@
 - `dsskillv2/references/repo-workflow.md`
 - `dsskillv2/references/token-architecture.md`
 - `index.html`
-- `proj docs/weekly_track.md`
-- `scripts/auto_weekly_track.sh`
+- `proj docs/proj mngmt/weekly_track.md`
+- `proj docs/proj mngmt/auto_weekly_track.sh`
 - `source/.DS_Store`
 
 ---

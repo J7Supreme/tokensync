@@ -398,7 +398,7 @@
             "sourceRef": "semantic.text.secondary"
           },
           "semantic-text-action": {
-            "value": "rgba(0, 127, 255, 0.8)",
+            "value": "#066BD2",
             "sourceRef": "semantic.text.action"
           },
           "semantic-text-placeholder": {
@@ -422,7 +422,7 @@
             "sourceRef": "semantic.fill.icon_chip"
           },
           "semantic-fill-secondary": {
-            "value": "rgba(221, 222, 234, 0.8)",
+            "value": "#B6B7C1",
             "sourceRef": "semantic.fill.secondary"
           },
           "semantic-fill-tertiary": {
@@ -526,11 +526,11 @@
             "sourceRef": "component.modal.default.default.body"
           },
           "component-button-primary-default-background": {
-            "value": "rgba(221, 222, 234, 0.8)",
+            "value": "#B6B7C1",
             "sourceRef": "component.button.primary.default.background"
           },
           "component-button-primary-default-text": {
-            "value": "rgba(0, 127, 255, 0.8)",
+            "value": "#066BD2",
             "sourceRef": "component.button.primary.default.text"
           },
           "component-menu-default-signedOut-background": {

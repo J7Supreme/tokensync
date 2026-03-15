@@ -10,6 +10,18 @@ The most effective setup is not to choose between the Figma design file and adap
 
 Each layer serves a different stage of design, AI generation, and handoff.
 
+## Positioning
+
+This workflow describes DSSkillV2 as a source-first design-system operating model.
+
+It is designed to keep one canonical schema aligned across:
+
+- AI prototype generation
+- Figma-based design workflows
+- runtime implementation
+
+In practice, it is not just a token repository. It is a shared translation layer between product intent, design artifacts, and engineering outputs.
+
 ## Recommended layering
 
 ### 1. Figma design file
@@ -65,6 +77,60 @@ Examples:
 - `runtime adapter`: for code and theme systems
 
 Adapters should be generated, not manually edited.
+
+## Primary users
+
+### PM
+
+PMs primarily use the AI-friendly schema as structured input for prototype generation.
+
+Typical use:
+
+- define goals in product language
+- generate prototypes from natural-language requirements
+- explore feature directions without rebuilding token and component assumptions each time
+
+What PMs get:
+
+- faster prototype generation
+- more consistent AI outputs
+- less ambiguity between PRD language and UI structure
+
+### UX
+
+UX uses the workflow in two main ways:
+
+1. maintain and evolve the design system
+2. apply the same system to Figma designs and AI-generated prototypes
+
+Typical use:
+
+- update token definitions, naming, and structure
+- map design intent into Figma-compatible and AI-compatible forms
+- validate token changes against design files and prototype outputs
+- audit Figma files for design-system and quality issues
+
+What UX gets:
+
+- a better DS maintenance workflow
+- a clearer bridge between token definitions and design artifacts
+- more reliable reuse of system rules in Figma and AI-assisted design work
+
+### DEV
+
+Developers use the workflow to translate the shared system into runtime-friendly outputs.
+
+Typical use:
+
+- consume or generate schemas that are easier to use in application code and pipelines
+- adapt the same token source into runtime-safe formats
+- keep implementation aligned with the canonical token source instead of hand-maintaining parallel definitions
+
+What DEV gets:
+
+- a cleaner integration path from design tokens to runtime
+- reduced schema drift
+- better consistency between source, adapters, and shipped UI
 
 ## Core principle
 
@@ -242,6 +308,40 @@ Why:
 - Use Figma for the design working surface
 - Use the source schema as the system truth
 - Use adapters as tailored outputs for Figma, AI, and runtime consumers
+
+## Suggested workflow by role
+
+### PM workflow
+
+1. Start from product intent, feature requirements, or prototype goals.
+2. Use the AI-friendly schema as the primary structured input.
+3. Generate prototype concepts from that schema.
+4. Hand off the result to UX for design-system alignment and refinement.
+
+### UX workflow
+
+1. Maintain the source token model and design-system structure.
+2. Refine or complete token definitions in the source layer.
+3. Generate the adapter outputs needed for Figma or AI usage.
+4. Audit Figma files for design-system consistency and design quality.
+5. Feed improvements back into the source model.
+
+### DEV workflow
+
+1. Start from the canonical source and generated schema outputs.
+2. Use the runtime-oriented adapter as the implementation input.
+3. Integrate the output into application or platform code.
+4. Keep implementation aligned with source-of-truth updates rather than patching downstream outputs by hand.
+
+## Collaboration model
+
+The intended collaboration model is:
+
+- PM defines intent and uses the AI-friendly schema for prototyping
+- UX governs and evolves the design system while applying it to design artifacts and prototypes
+- DEV converts the same system into runtime-friendly schema and implementation outputs
+
+This keeps product, design, and engineering working from the same source model, with different adapters for different jobs.
 
 ## One-line workflow summary
 
