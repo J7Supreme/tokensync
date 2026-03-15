@@ -12,9 +12,16 @@ figma.ui.onmessage = async (msg) => {
     if (msg.type === 'import') {
         try {
             const data = JSON.parse(msg.json);
-            await importVariables(data);
-            figma.notify('✅ Variables synced! Primitive + Semantic (Light & Dark) updated in place.', { timeout: 5000 });
-            figma.closePlugin();
+            const report = await importVariables(data);
+            const warningCount = report.unsupported.length;
+            const summary = warningCount
+                ? `✅ Variables synced with ${warningCount} unsupported token issue${warningCount === 1 ? '' : 's'}.`
+                : '✅ Variables synced successfully.';
+            figma.notify(summary, { timeout: 5000 });
+            figma.ui.postMessage({ type: 'import-result', report });
+            if (!warningCount) {
+                figma.closePlugin();
+            }
         } catch (err) {
             figma.ui.postMessage({ type: 'error', message: err.message });
         }
@@ -45,6 +52,10 @@ function parseFigmaColor(value) {
     if (value.startsWith('#')) return hexToFigmaColor(value);
     if (/^rgba?\(/i.test(value)) return rgbaToFigmaColor(value);
     return null;
+}
+
+function isMissingValue(value) {
+    return value === '[MISSING]';
 }
 
 // Maps W3C / Tokens Studio $type → Figma variable resolvedType
@@ -165,6 +176,13 @@ function getOrCreatePaintStyle(name, existingStyleMap) {
 // ─── Main import ───────────────────────────────────────────────────────────
 
 async function importVariables(data) {
+    const report = {
+        unsupported: []
+    };
+
+    function addUnsupported(path, reason) {
+        report.unsupported.push({ path, reason });
+    }
 
     // ── 1. PRIMITIVE collection (find or create, update in place) ────────────
 
@@ -181,8 +199,13 @@ async function importVariables(data) {
     const primVarMap = {};
 
     for (const token of primTokens) {
+        if (isMissingValue(token.value)) continue;
         const displayName = token.path.replace(/^primitive\./, '').replace(/\./g, '/');
         const figmaType = TYPE_MAP[token.type] || 'STRING';
+        if (!TYPE_MAP[token.type]) {
+            addUnsupported(token.path, `Unsupported primitive token type "${token.type}"`);
+            continue;
+        }
 
         const variable = getOrCreateVariable(displayName, primCol, figmaType, primExistingVars);
         if (token.description) variable.description = token.description;
@@ -195,6 +218,8 @@ async function importVariables(data) {
         if (val !== null) {
             variable.setValueForMode(primLightModeId, val);
             variable.setValueForMode(primDarkModeId, val);
+        } else {
+            addUnsupported(token.path, `Unsupported primitive value for type "${token.type}"`);
         }
 
         // Register under both full path and path without "primitive." prefix
@@ -223,84 +248,129 @@ async function importVariables(data) {
             const refPath = rawValue.slice(1, -1);
             const refVar = primVarMap[refPath] || primVarMap[refPath.replace(/^primitive\./, '')];
             if (refVar) return { type: 'VARIABLE_ALIAS', id: refVar.id };
-            console.warn(`[ds skill v2] Unresolved alias: ${rawValue}`);
             return null;
         }
         return null;
     }
 
-    function resolveSemanticValue(tokenType, rawValue) {
+    function resolveSemanticValue(path, tokenType, rawValue) {
+        if (isMissingValue(rawValue)) return null;
         const alias = resolveAlias(rawValue);
         if (alias) return alias;
-        return resolvePrimitiveValue(tokenType, rawValue);
+        const resolved = resolvePrimitiveValue(tokenType, rawValue);
+        if (resolved === null && isAliasLike(rawValue)) {
+            addUnsupported(path, `Unresolved alias ${rawValue}`);
+        }
+        return resolved;
     }
 
-    function upsertGradientStyle(name, tokenValue, description) {
+    function upsertGradientStyle(path, name, tokenValue, description) {
+        if (!tokenValue || !Array.isArray(tokenValue.stops)) {
+            addUnsupported(path, 'Gradient token is missing stops');
+            return;
+        }
         const style = getOrCreatePaintStyle(name, existingStyleMap);
         if (description) style.description = description;
 
         const stops = tokenValue.stops.map(s => {
             const hexOrAlias = s.color;
             let rgb = { r: 0, g: 0, b: 0, a: 1 };
+            let colorBinding = null;
 
-            if (hexOrAlias.startsWith('{')) {
+            if (typeof hexOrAlias === 'string' && hexOrAlias.startsWith('{')) {
                 const refPath = hexOrAlias.slice(1, -1).replace(/^primitive\./, '');
                 const refVar = primVarMap[refPath];
                 if (refVar) {
                     const val = refVar.valuesByMode[Object.keys(refVar.valuesByMode)[0]];
                     if (val) rgb = { r: val.r, g: val.g, b: val.b, a: val.a !== undefined ? val.a : 1 };
+                    colorBinding = { type: 'VARIABLE_ALIAS', id: refVar.id };
+                } else {
+                    addUnsupported(path, `Unresolved gradient alias ${hexOrAlias}`);
                 }
             } else {
                 const parsed = parseFigmaColor(hexOrAlias);
                 if (parsed) rgb = parsed;
+                else addUnsupported(path, `Unsupported gradient stop color ${hexOrAlias}`);
             }
-            return { position: s.position, color: rgb };
+            const stop = { position: s.position, color: rgb };
+            if (colorBinding) {
+                stop.boundVariables = { color: colorBinding };
+            }
+            return stop;
         });
 
-        style.paints = [{
+        const gradientPaint = {
             type: 'GRADIENT_LINEAR',
             gradientTransform: [
                 [0, 1, 0],
                 [-1, 0, 1]
             ],
             gradientStops: stops
-        }];
+        };
+
+        try {
+            style.paints = [gradientPaint];
+        } catch (err) {
+            // Fallback for runtimes that reject variable-bound gradient stops.
+            const fallbackPaint = {
+                type: 'GRADIENT_LINEAR',
+                gradientTransform: gradientPaint.gradientTransform,
+                gradientStops: stops.map(({ position, color }) => ({ position, color }))
+            };
+            style.paints = [fallbackPaint];
+            addUnsupported(path, `Gradient stop variable binding not applied: ${err.message}`);
+        }
     }
 
     for (const lightToken of lightTokens) {
+        if (isMissingValue(lightToken.value)) continue;
         const displayName = lightToken.path.replace(/\./g, '/');
 
         // Gradient tokens → Paint Styles (Figma Variables don't support gradients natively)
         if (lightToken.type === 'gradient') {
             try {
-                upsertGradientStyle(`Semantic/Light/${displayName}`, lightToken.value, lightToken.description);
+                upsertGradientStyle(lightToken.path, `Semantic/Light/${displayName}`, lightToken.value, lightToken.description);
                 const darkToken = darkByPath[lightToken.path];
-                if (darkToken) {
-                    upsertGradientStyle(`Semantic/Dark/${displayName}`, darkToken.value, darkToken.description);
+                if (darkToken && !isMissingValue(darkToken.value)) {
+                    upsertGradientStyle(darkToken.path, `Semantic/Dark/${displayName}`, darkToken.value, darkToken.description);
                 }
             } catch (e) {
-                console.warn(`[ds skill v2] Gradient failed for "${displayName}": ${e.message}`);
+                addUnsupported(lightToken.path, `Gradient import failed: ${e.message}`);
             }
             continue;
         }
 
         // Standard tokens → Variables
         const figmaType = TYPE_MAP[lightToken.type] || 'STRING';
+        if (!TYPE_MAP[lightToken.type]) {
+            addUnsupported(lightToken.path, `Unsupported token type "${lightToken.type}"`);
+            continue;
+        }
         const variable = getOrCreateVariable(displayName, semCol, figmaType, semExistingVars);
         if (lightToken.description) variable.description = lightToken.description;
 
-        const lightVal = resolveSemanticValue(lightToken.type, lightToken.value);
+        const lightVal = resolveSemanticValue(lightToken.path, lightToken.type, lightToken.value);
         if (lightVal !== null) variable.setValueForMode(lightModeId, lightVal);
 
         const darkToken = darkByPath[lightToken.path];
-        if (darkToken) {
-            const darkVal = resolveSemanticValue(darkToken.type, darkToken.value);
+        if (darkToken && !isMissingValue(darkToken.value)) {
+            if (!TYPE_MAP[darkToken.type]) {
+                addUnsupported(darkToken.path, `Unsupported token type "${darkToken.type}"`);
+                continue;
+            }
+            const darkVal = resolveSemanticValue(darkToken.path, darkToken.type, darkToken.value);
             if (darkVal !== null) variable.setValueForMode(darkModeId, darkVal);
         }
     }
+
+    return report;
 }
 
 // ─── Primitive value resolver ────────────────────────────────────────────────
+
+function isAliasLike(rawValue) {
+    return typeof rawValue === 'string' && rawValue.startsWith('{') && rawValue.endsWith('}');
+}
 
 function resolvePrimitiveValue(tokenType, rawValue) {
     const figmaType = TYPE_MAP[tokenType] || 'STRING';

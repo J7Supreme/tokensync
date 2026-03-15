@@ -555,6 +555,18 @@
         btn.disabled = false;
         btn.textContent = '⚡ Import Variables';
       }
+      if (msg.type === 'import-result') {
+        const btn = document.getElementById('importBtn');
+        btn.disabled = false;
+        btn.textContent = '⚡ Import Variables';
+        const unsupported = (msg.report && msg.report.unsupported) || [];
+        if (unsupported.length) {
+          showError('Imported with unsupported tokens: ' + unsupported.map(item => `${item.path} (${item.reason})`).join(' · '));
+          setStatus(`Imported with ${unsupported.length} unsupported token issue${unsupported.length === 1 ? '' : 's'}`, 'err');
+        } else {
+          setStatus('✓ Import completed', 'ok');
+        }
+      }
     };
   </script>
 </body>
