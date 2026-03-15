@@ -64,6 +64,7 @@ const TYPE_MAP = {
     string: 'STRING',
     number: 'FLOAT',
     float: 'FLOAT',
+    dimension: 'FLOAT',
     boolean: 'BOOLEAN',
     gradient: 'GRADIENT', // Special marker — handled as Paint Styles
     // Tokens Studio aliases
@@ -78,6 +79,8 @@ const TYPE_MAP = {
     borderWidth: 'FLOAT',
     opacity: 'FLOAT',
 };
+
+const COLLECTION_ORDER = ['primitive', 'semantic', 'pattern', 'component'];
 
 /**
  * Recursively flatten a token object into { path, type, value, description }.
@@ -145,7 +148,16 @@ function buildVarNameMap(col) {
  * Mutates existingVarMap to register newly created variables for later lookups.
  */
 function getOrCreateVariable(displayName, col, figmaType, existingVarMap) {
-    if (existingVarMap[displayName]) return existingVarMap[displayName];
+    if (existingVarMap[displayName]) {
+        const existing = existingVarMap[displayName];
+        if (existing.resolvedType === figmaType) return existing;
+        if (typeof existing.remove === 'function') {
+            existing.remove();
+            delete existingVarMap[displayName];
+        } else {
+            throw new Error(`Existing variable "${displayName}" has incompatible type ${existing.resolvedType}`);
+        }
+    }
     const v = figma.variables.createVariable(displayName, col, figmaType);
     existingVarMap[displayName] = v;
     return v;
@@ -173,6 +185,95 @@ function getOrCreatePaintStyle(name, existingStyleMap) {
     return style;
 }
 
+function titleCaseCollectionName(name) {
+    if (!name) return name;
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+function normalizeModeName(name) {
+    if (!name) return name;
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+function getPrimitiveSetKey(data) {
+    if (data.Primitive) return 'Primitive';
+    if (data.primitive) return 'primitive';
+    return null;
+}
+
+function analyzePayload(data) {
+    const primitiveKey = getPrimitiveSetKey(data);
+    const collectionMap = {};
+    const topLevelKeys = Object.keys(data).filter(k => !k.startsWith('$'));
+    const splitSetKeys = topLevelKeys.filter(k => k.includes('/'));
+
+    if (splitSetKeys.length) {
+        for (const key of splitSetKeys) {
+            const [collectionName, rawModeName] = key.split('/');
+            if (!collectionName || !rawModeName) continue;
+            const normalizedCollectionKey = collectionName.toLowerCase();
+            if (!collectionMap[normalizedCollectionKey]) {
+                collectionMap[normalizedCollectionKey] = {
+                    key: normalizedCollectionKey,
+                    figmaName: titleCaseCollectionName(collectionName),
+                    modes: {}
+                };
+            }
+            collectionMap[normalizedCollectionKey].modes[normalizeModeName(rawModeName)] = data[key];
+        }
+    } else if (data.Light || data.Dark) {
+        for (const modeName of ['Light', 'Dark']) {
+            const modeRoot = data[modeName];
+            if (!modeRoot || typeof modeRoot !== 'object') continue;
+            for (const [collectionName, subtree] of Object.entries(modeRoot)) {
+                if (collectionName.startsWith('$')) continue;
+                const normalizedCollectionKey = collectionName.toLowerCase();
+                if (!collectionMap[normalizedCollectionKey]) {
+                    collectionMap[normalizedCollectionKey] = {
+                        key: normalizedCollectionKey,
+                        figmaName: titleCaseCollectionName(collectionName),
+                        modes: {}
+                    };
+                }
+                collectionMap[normalizedCollectionKey].modes[modeName] = subtree;
+            }
+        }
+    }
+
+    const collections = Object.values(collectionMap).sort((a, b) => {
+        const aIndex = COLLECTION_ORDER.indexOf(a.key);
+        const bIndex = COLLECTION_ORDER.indexOf(b.key);
+        if (aIndex === -1 && bIndex === -1) return a.key.localeCompare(b.key);
+        if (aIndex === -1) return 1;
+        if (bIndex === -1) return -1;
+        return aIndex - bIndex;
+    });
+
+    return { primitiveKey, collections };
+}
+
+function sortModeNames(modeNames) {
+    const preferredOrder = ['Light', 'Dark'];
+    return [...modeNames].sort((a, b) => {
+        const aIndex = preferredOrder.indexOf(a);
+        const bIndex = preferredOrder.indexOf(b);
+        if (aIndex === -1 && bIndex === -1) return a.localeCompare(b);
+        if (aIndex === -1) return 1;
+        if (bIndex === -1) return -1;
+        return aIndex - bIndex;
+    });
+}
+
+function safelySetValueForMode(variable, modeId, value, path, addUnsupported) {
+    try {
+        variable.setValueForMode(modeId, value);
+        return true;
+    } catch (err) {
+        addUnsupported(path, `setValueForMode failed: ${err.message}`);
+        return false;
+    }
+}
+
 // ─── Main import ───────────────────────────────────────────────────────────
 
 async function importVariables(data) {
@@ -184,19 +285,35 @@ async function importVariables(data) {
         report.unsupported.push({ path, reason });
     }
 
+    const payload = analyzePayload(data);
+    if (!payload.primitiveKey) {
+        throw new Error('Missing primitive token set');
+    }
+
     // ── 1. PRIMITIVE collection (find or create, update in place) ────────────
 
     const { col: primCol, isNew: primIsNew } = getOrCreateCollection('Primitive');
     const primLightModeId = ensureMode(primCol, 'Light', primIsNew, true);
     const primDarkModeId = ensureMode(primCol, 'Dark', primIsNew, false);
 
-    const primTokens = flattenTokens(data['Primitive'] || {}, '');
+    const primTokens = flattenTokens(data[payload.primitiveKey] || {}, '');
 
     // Existing variables in this collection (name → Variable)
     const primExistingVars = buildVarNameMap(primCol);
 
-    // Path → Variable map used for alias resolution during semantic import
-    const primVarMap = {};
+    // Path → Variable map used for alias resolution across collections.
+    const aliasVarMap = {};
+
+    function registerPrimitiveAliases(tokenPath, variable) {
+        aliasVarMap[tokenPath] = variable;
+        aliasVarMap[tokenPath.replace(/^primitive\./, '')] = variable;
+    }
+
+    function registerCollectionAliases(collectionKey, modeName, tokenPath, variable) {
+        aliasVarMap[`${collectionKey}.${tokenPath}`] = variable;
+        aliasVarMap[`${collectionKey}/${modeName.toLowerCase()}.${tokenPath}`] = variable;
+        aliasVarMap[`${collectionKey}/${modeName}.${tokenPath}`] = variable;
+    }
 
     for (const token of primTokens) {
         if (isMissingValue(token.value)) continue;
@@ -216,44 +333,27 @@ async function importVariables(data) {
 
         const val = resolvePrimitiveValue(token.type, token.value);
         if (val !== null) {
-            variable.setValueForMode(primLightModeId, val);
-            variable.setValueForMode(primDarkModeId, val);
+            safelySetValueForMode(variable, primLightModeId, val, token.path, addUnsupported);
+            safelySetValueForMode(variable, primDarkModeId, val, token.path, addUnsupported);
         } else {
             addUnsupported(token.path, `Unsupported primitive value for type "${token.type}"`);
         }
 
-        // Register under both full path and path without "primitive." prefix
-        primVarMap[token.path] = variable;
-        primVarMap[token.path.replace(/^primitive\./, '')] = variable;
+        registerPrimitiveAliases(token.path, variable);
     }
-
-    // ── 2. SEMANTIC collection (find or create, update in place) ─────────────
-
-    const { col: semCol, isNew: semIsNew } = getOrCreateCollection('Semantic');
-    const lightModeId = ensureMode(semCol, 'Light', semIsNew, true);
-    const darkModeId = ensureMode(semCol, 'Dark', semIsNew, false);
-
-    const lightTokens = flattenTokens(data['Light'] || {}, '');
-    const darkTokens = flattenTokens(data['Dark'] || {}, '');
-
-    // Build dark token lookup by path for O(1) access
-    const darkByPath = {};
-    for (const t of darkTokens) darkByPath[t.path] = t;
-
-    const semExistingVars = buildVarNameMap(semCol);
     const existingStyleMap = buildStyleNameMap();
 
     function resolveAlias(rawValue) {
         if (typeof rawValue === 'string' && rawValue.startsWith('{') && rawValue.endsWith('}')) {
             const refPath = rawValue.slice(1, -1);
-            const refVar = primVarMap[refPath] || primVarMap[refPath.replace(/^primitive\./, '')];
+            const refVar = aliasVarMap[refPath] || aliasVarMap[refPath.replace(/^primitive\./, '')];
             if (refVar) return { type: 'VARIABLE_ALIAS', id: refVar.id };
             return null;
         }
         return null;
     }
 
-    function resolveSemanticValue(path, tokenType, rawValue) {
+    function resolveTokenValue(path, tokenType, rawValue) {
         if (isMissingValue(rawValue)) return null;
         const alias = resolveAlias(rawValue);
         if (alias) return alias;
@@ -278,8 +378,8 @@ async function importVariables(data) {
             let colorBinding = null;
 
             if (typeof hexOrAlias === 'string' && hexOrAlias.startsWith('{')) {
-                const refPath = hexOrAlias.slice(1, -1).replace(/^primitive\./, '');
-                const refVar = primVarMap[refPath];
+                const refPath = hexOrAlias.slice(1, -1);
+                const refVar = aliasVarMap[refPath] || aliasVarMap[refPath.replace(/^primitive\./, '')];
                 if (refVar) {
                     const val = refVar.valuesByMode[Object.keys(refVar.valuesByMode)[0]];
                     if (val) rgb = { r: val.r, g: val.g, b: val.b, a: val.a !== undefined ? val.a : 1 };
@@ -322,44 +422,84 @@ async function importVariables(data) {
         }
     }
 
-    for (const lightToken of lightTokens) {
-        if (isMissingValue(lightToken.value)) continue;
-        const displayName = lightToken.path.replace(/\./g, '/');
+    for (const collection of payload.collections) {
+        const modeNames = sortModeNames(Object.keys(collection.modes));
+        if (!modeNames.length) continue;
 
-        // Gradient tokens → Paint Styles (Figma Variables don't support gradients natively)
-        if (lightToken.type === 'gradient') {
-            try {
-                upsertGradientStyle(lightToken.path, `Semantic/Light/${displayName}`, lightToken.value, lightToken.description);
-                const darkToken = darkByPath[lightToken.path];
-                if (darkToken && !isMissingValue(darkToken.value)) {
-                    upsertGradientStyle(darkToken.path, `Semantic/Dark/${displayName}`, darkToken.value, darkToken.description);
+        const { col, isNew } = getOrCreateCollection(collection.figmaName);
+        const modeIds = {};
+        for (let index = 0; index < modeNames.length; index += 1) {
+            modeIds[modeNames[index]] = ensureMode(col, modeNames[index], isNew, index === 0);
+        }
+        const existingVars = buildVarNameMap(col);
+
+        const tokensByMode = {};
+        const tokenPaths = [];
+        const seenPaths = new Set();
+        for (const modeName of modeNames) {
+            const tokens = flattenTokens(collection.modes[modeName] || {}, '');
+            const byPath = {};
+            for (const token of tokens) {
+                byPath[token.path] = token;
+                if (!seenPaths.has(token.path)) {
+                    seenPaths.add(token.path);
+                    tokenPaths.push(token.path);
                 }
-            } catch (e) {
-                addUnsupported(lightToken.path, `Gradient import failed: ${e.message}`);
             }
-            continue;
+            tokensByMode[modeName] = byPath;
         }
 
-        // Standard tokens → Variables
-        const figmaType = TYPE_MAP[lightToken.type] || 'STRING';
-        if (!TYPE_MAP[lightToken.type]) {
-            addUnsupported(lightToken.path, `Unsupported token type "${lightToken.type}"`);
-            continue;
-        }
-        const variable = getOrCreateVariable(displayName, semCol, figmaType, semExistingVars);
-        if (lightToken.description) variable.description = lightToken.description;
+        for (const tokenPath of tokenPaths) {
+            const seedToken = modeNames.map(modeName => tokensByMode[modeName][tokenPath]).find(Boolean);
+            if (!seedToken || isMissingValue(seedToken.value)) continue;
 
-        const lightVal = resolveSemanticValue(lightToken.path, lightToken.type, lightToken.value);
-        if (lightVal !== null) variable.setValueForMode(lightModeId, lightVal);
-
-        const darkToken = darkByPath[lightToken.path];
-        if (darkToken && !isMissingValue(darkToken.value)) {
-            if (!TYPE_MAP[darkToken.type]) {
-                addUnsupported(darkToken.path, `Unsupported token type "${darkToken.type}"`);
+            const displayName = tokenPath.replace(/\./g, '/');
+            if (seedToken.type === 'gradient') {
+                try {
+                    for (const modeName of modeNames) {
+                        const modeToken = tokensByMode[modeName][tokenPath];
+                        if (!modeToken || isMissingValue(modeToken.value)) continue;
+                        upsertGradientStyle(
+                            `${collection.key}.${tokenPath}`,
+                            `${collection.figmaName}/${modeName}/${displayName}`,
+                            modeToken.value,
+                            modeToken.description
+                        );
+                    }
+                } catch (e) {
+                    addUnsupported(`${collection.key}.${tokenPath}`, `Gradient import failed: ${e.message}`);
+                }
                 continue;
             }
-            const darkVal = resolveSemanticValue(darkToken.path, darkToken.type, darkToken.value);
-            if (darkVal !== null) variable.setValueForMode(darkModeId, darkVal);
+
+            const figmaType = TYPE_MAP[seedToken.type] || 'STRING';
+            if (!TYPE_MAP[seedToken.type]) {
+                addUnsupported(`${collection.key}.${tokenPath}`, `Unsupported token type "${seedToken.type}"`);
+                continue;
+            }
+
+            const variable = getOrCreateVariable(displayName, col, figmaType, existingVars);
+            if (seedToken.description) variable.description = seedToken.description;
+
+            for (const modeName of modeNames) {
+                const modeToken = tokensByMode[modeName][tokenPath];
+                if (!modeToken || isMissingValue(modeToken.value)) continue;
+                if ((TYPE_MAP[modeToken.type] || 'STRING') !== figmaType) {
+                    addUnsupported(`${collection.key}.${tokenPath}`, `Mode type mismatch in ${modeName}`);
+                    continue;
+                }
+                const resolvedValue = resolveTokenValue(`${collection.key}.${tokenPath}`, modeToken.type, modeToken.value);
+                if (resolvedValue !== null) {
+                    safelySetValueForMode(
+                        variable,
+                        modeIds[modeName],
+                        resolvedValue,
+                        `${collection.key}/${modeName.toLowerCase()}.${tokenPath}`,
+                        addUnsupported
+                    );
+                }
+                registerCollectionAliases(collection.key, modeName, tokenPath, variable);
+            }
         }
     }
 

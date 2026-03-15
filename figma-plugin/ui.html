@@ -334,13 +334,13 @@
 
 <body>
 
-  <div class="header">
-    <div class="logo">⬡</div>
-    <div class="header-text">
-      <h1>Token importer by imToken</h1>
-      <p>Import design tokens as Figma Variables with Light &amp; Dark modes</p>
+    <div class="header">
+      <div class="logo">⬡</div>
+      <div class="header-text">
+        <h1>Token importer by imToken</h1>
+        <p>Import design tokens as Figma Variables with multi-collection Light &amp; Dark modes</p>
+      </div>
     </div>
-  </div>
 
   <div class="main">
 
@@ -355,13 +355,13 @@
         <input type="file" accept=".json" id="fileInput" />
         <div class="drop-icon">📂</div>
         <div class="drop-label">Drop your token JSON here</div>
-        <div class="drop-sub">or click to browse — accepts <code>figma_tokens_adaptive.json</code> format</div>
+        <div class="drop-sub">or click to browse — recommended: 4-collection token JSON</div>
         <div class="file-selected" id="fileName"></div>
       </div>
       <div class="notice">
-        <strong>Expected format:</strong> A JSON file with <code>Primitive</code>, <code>Light</code>, and
-        <code>Dark</code> token sets. Each semantic token in Light/Dark must alias a Primitive via
-        <code>{primitive.color.*}</code> references.
+        <strong>Recommended format:</strong> Split collections such as <code>primitive</code>,
+        <code>semantic/light</code>, <code>pattern/light</code>, <code>component/light</code> and matching dark
+        modes. Legacy <code>Primitive / Light / Dark</code> input is still supported for compatibility.
       </div>
     </div>
 
@@ -369,13 +369,15 @@
     <div class="panel" id="panel-paste">
       <textarea class="paste-area" id="pasteArea" placeholder='Paste your token JSON here…
 {
-  "Primitive": { "primitive": { "color": { ... } } },
-  "Light": { "semantic": { ... } },
-  "Dark":  { "semantic": { ... } }
+  "primitive": { "primitive": { "color": { ... } } },
+  "semantic/light": { ... },
+  "semantic/dark": { ... },
+  "pattern/light": { ... },
+  "component/light": { ... }
 }'></textarea>
       <div class="notice">
-        Paste any JSON following the <strong>Primitive / Light / Dark</strong> structure. Semantic tokens should use
-        <code>{primitive.color.*}</code> aliases.
+        Prefer the split collection structure. Aliases can target primitive tokens or themed collection paths such as
+        <code>{semantic/light.text.primary}</code>. Legacy input remains supported for compatibility.
       </div>
     </div>
 
@@ -388,9 +390,9 @@
           <div class="card-sub">raw color values</div>
         </div>
         <div class="card">
-          <div class="card-label">Semantic Variables</div>
+          <div class="card-label">Themed Variables</div>
           <div class="card-value" id="semCount">—</div>
-          <div class="card-sub">aliases · 2 modes</div>
+          <div class="card-sub">semantic · pattern · component</div>
         </div>
       </div>
       <div class="card" style="flex-direction:row; justify-content:space-between; align-items:center;">
@@ -403,7 +405,7 @@
         </div>
         <div style="text-align:right;">
           <div class="card-label">Collections</div>
-          <div style="font-size:12px; color:#9ca3af; margin-top:4px;">Primitive + Semantic</div>
+          <div style="font-size:12px; color:#9ca3af; margin-top:4px;">Primitive + themed collections</div>
         </div>
       </div>
     </div>
@@ -486,9 +488,16 @@
 
     function validate(data) {
       const errs = [];
-      if (!data.Primitive) errs.push('Missing "Primitive" token set');
-      if (!data.Light) errs.push('Missing "Light" token set');
-      if (!data.Dark) errs.push('Missing "Dark" token set');
+      const hasPrimitive = Boolean(data.Primitive || data.primitive);
+      const hasLegacyModes = Boolean(data.Light && data.Dark);
+      const topLevelKeys = Object.keys(data).filter(k => !k.startsWith('$'));
+      const splitSets = topLevelKeys.filter(k => k.includes('/'));
+      const hasSplitCollections = splitSets.length > 0;
+
+      if (!hasPrimitive) errs.push('Missing primitive token set');
+      if (!hasLegacyModes && !hasSplitCollections) {
+        errs.push('Missing themed token sets: provide legacy "Light/Dark" or split sets like "semantic/light"');
+      }
       return errs;
     }
 
@@ -502,10 +511,20 @@
     }
 
     function showPreview(data) {
-      const primCount = countTokens(data.Primitive || {});
-      const semCount = countTokens(data.Light || {});
+      const primitiveRoot = data.Primitive || data.primitive || {};
+      let themedCount = 0;
+      const topLevelKeys = Object.keys(data).filter(k => !k.startsWith('$'));
+      const splitSets = topLevelKeys.filter(k => k.includes('/'));
+
+      if (splitSets.length) {
+        themedCount = splitSets.reduce((sum, key) => sum + countTokens(data[key] || {}), 0);
+      } else {
+        themedCount = countTokens(data.Light || {}) + countTokens(data.Dark || {});
+      }
+
+      const primCount = countTokens(primitiveRoot);
       document.getElementById('primCount').textContent = primCount;
-      document.getElementById('semCount').textContent = semCount;
+      document.getElementById('semCount').textContent = themedCount;
       const preview = document.getElementById('preview');
       preview.style.display = 'flex';
     }

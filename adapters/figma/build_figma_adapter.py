@@ -3,8 +3,11 @@ import json
 import os
 
 
-TOKEN_SETS = ("Primitive", "Light", "Dark")
-THEME_SETS = ("Light", "Dark")
+COLLECTIONS = ("semantic", "pattern", "component")
+OUTPUT_FILES = (
+    "adapters/figma/figma_tokens_adaptive.json",
+    "adapters/figma/figma_tokens_4_collections.json",
+)
 
 
 def is_token_node(node):
@@ -13,22 +16,6 @@ def is_token_node(node):
 
 def get_token_value(node):
     return node.get("$value", node.get("value"))
-
-
-def flatten_tokens(obj, prefix=""):
-    out = {}
-    if not isinstance(obj, dict):
-        return out
-
-    for key, value in obj.items():
-        if key.startswith("$"):
-            continue
-        path = f"{prefix}.{key}" if prefix else key
-        if is_token_node(value):
-            out[path] = value
-        elif isinstance(value, dict):
-            out.update(flatten_tokens(value, path))
-    return out
 
 
 def infer_type_from_value(raw_value):
@@ -58,82 +45,76 @@ def infer_type_from_value(raw_value):
     return "string"
 
 
-def is_alias(raw_value):
-    return isinstance(raw_value, str) and raw_value.startswith("{") and raw_value.endswith("}")
-
-
 def infer_type_from_path(path):
-    if path.startswith("primitive.spacing."):
+    if any(
+        segment in path
+        for segment in (
+            ".iconSize",
+            ".padding",
+            ".gap",
+            ".height",
+            ".width",
+            ".paddingX",
+            ".paddingY",
+            ".paddingTop",
+            ".dragHandleWidth",
+            ".dragHandleHeight",
+            ".closeButtonSize",
+            ".contentTopGap",
+            ".fieldPaddingX",
+            ".fieldHeight",
+            ".sectionGap",
+            ".actionGap",
+            ".rowGap",
+        )
+    ):
+        return "dimension"
+    if any(
+        segment in path
+        for segment in (".background", ".text", ".stroke", ".border", ".fill", ".backdrop", ".logo", ".icon")
+    ):
+        return "color"
+    if ".spacing." in path:
         return "spacing"
-    if path.startswith("primitive.size."):
+    if ".size." in path:
         return "sizing"
-    if path.startswith("primitive.radius."):
-        return "string"
+    if ".radius." in path:
+        return "borderRadius"
     return None
 
 
-def build_lookup_tables(data):
-    lookups = {"Primitive": {}, "Light": {}, "Dark": {}}
+def normalize_alias(raw_value, theme_name):
+    if not (isinstance(raw_value, str) and raw_value.startswith("{") and raw_value.endswith("}")):
+        return raw_value
 
-    primitive_root = data.get("Primitive", {})
-    lookups["Primitive"].update(flatten_tokens(primitive_root, ""))
-
-    for theme in THEME_SETS:
-        theme_root = data.get(theme, {})
-        lookups[theme].update(flatten_tokens(theme_root, ""))
-
-    return lookups
-
-
-def resolve_reference_node(ref_path, scope, lookups):
+    ref_path = raw_value[1:-1]
     if ref_path.startswith("primitive."):
-        return lookups["Primitive"].get(ref_path) or lookups["Primitive"].get(f"Primitive.{ref_path}")
+        return raw_value
 
-    return lookups[scope].get(ref_path) or lookups[scope].get(f"{scope}.{ref_path}")
+    if ref_path.startswith(("semantic.", "pattern.", "component.")):
+        base_collection, remainder = ref_path.split(".", 1)
+        return "{" + f"{base_collection}/{theme_name}.{remainder}" + "}"
 
-
-def infer_token_type(path, token, scope, lookups, cache, active=None):
-    cache_key = (scope, path)
-    if cache_key in cache:
-        return cache[cache_key]
-
-    active = active or set()
-    if cache_key in active:
-        return infer_type_from_value(get_token_value(token))
-
-    active.add(cache_key)
-
-    explicit_type = token.get("$type") or token.get("type")
-    if explicit_type:
-        if explicit_type == "dimension":
-            explicit_type = infer_type_from_path(path) or "number"
-        cache[cache_key] = explicit_type
-        active.remove(cache_key)
-        return explicit_type
-
-    path_based_type = infer_type_from_path(path)
-    if path_based_type:
-        cache[cache_key] = path_based_type
-        active.remove(cache_key)
-        return path_based_type
-
-    raw_value = get_token_value(token)
-    if is_alias(raw_value):
-        ref_path = raw_value[1:-1]
-        ref_node = resolve_reference_node(ref_path, scope, lookups)
-        if ref_node:
-            inferred = infer_token_type(ref_path, ref_node, "Primitive" if ref_path.startswith("primitive.") else scope, lookups, cache, active)
-            cache[cache_key] = inferred
-            active.remove(cache_key)
-            return inferred
-
-    inferred = infer_type_from_value(raw_value)
-    cache[cache_key] = inferred
-    active.remove(cache_key)
-    return inferred
+    return raw_value
 
 
-def normalize_tree(obj, prefix, scope, lookups, cache):
+def normalize_nested_value(raw_value, theme_name):
+    if isinstance(raw_value, dict):
+        normalized = {}
+        for key, value in raw_value.items():
+            if isinstance(value, list):
+                normalized[key] = [normalize_nested_value(item, theme_name) for item in value]
+            else:
+                normalized[key] = normalize_nested_value(value, theme_name)
+        return normalized
+
+    if isinstance(raw_value, list):
+        return [normalize_nested_value(item, theme_name) for item in raw_value]
+
+    return normalize_alias(raw_value, theme_name)
+
+
+def normalize_tree(obj, prefix, theme_name):
     if not isinstance(obj, dict):
         return obj
 
@@ -146,49 +127,151 @@ def normalize_tree(obj, prefix, scope, lookups, cache):
         path = f"{prefix}.{key}" if prefix else key
         if is_token_node(value):
             token = copy.deepcopy(value)
-            token["$value"] = get_token_value(token)
+            token["$value"] = normalize_nested_value(get_token_value(token), theme_name)
             token.pop("value", None)
             token.setdefault("$description", "")
-            token["$type"] = infer_token_type(path, token, scope, lookups, cache)
+            token.setdefault("$type", infer_type_from_path(path) or infer_type_from_value(token["$value"]))
             normalized[key] = token
         elif isinstance(value, dict):
-            normalized[key] = normalize_tree(value, path, scope, lookups, cache)
+            normalized[key] = normalize_tree(value, path, theme_name)
         else:
             normalized[key] = copy.deepcopy(value)
 
     return normalized
 
 
-def build_adaptive_payload(source_data):
-    lookups = build_lookup_tables(source_data)
+def flatten_tokens(obj, prefix=""):
+    out = {}
+    if not isinstance(obj, dict):
+        return out
+    for key, value in obj.items():
+        if key.startswith("$"):
+            continue
+        path = f"{prefix}.{key}" if prefix else key
+        if is_token_node(value):
+            out[path] = value
+        elif isinstance(value, dict):
+            out.update(flatten_tokens(value, path))
+    return out
+
+
+def refine_alias_types(payload):
+    flat = {}
+    for top_key, top_value in payload.items():
+        if top_key.startswith("$"):
+            continue
+        flat.update(flatten_tokens(top_value, top_key))
+
     cache = {}
 
-    payload = {}
-    payload["Primitive"] = normalize_tree(source_data.get("Primitive", {}), "", "Primitive", lookups, cache)
-    payload["Light"] = normalize_tree(source_data.get("Light", {}), "", "Light", lookups, cache)
-    payload["Dark"] = normalize_tree(source_data.get("Dark", {}), "", "Dark", lookups, cache)
+    def infer(path):
+        if path in cache:
+            return cache[path]
+        node = flat.get(path)
+        if not node:
+            return None
+        explicit = node.get("$type")
+        raw_value = node.get("$value")
+        if isinstance(raw_value, str) and raw_value.startswith("{") and raw_value.endswith("}"):
+            ref_path = raw_value[1:-1]
+            ref_type = infer(ref_path)
+            if ref_type:
+                cache[path] = ref_type
+                return ref_type
+        cache[path] = explicit
+        return explicit
 
-    if "$themes" in source_data:
-        payload["$themes"] = copy.deepcopy(source_data["$themes"])
-    if "$metadata" in source_data:
-        payload["$metadata"] = copy.deepcopy(source_data["$metadata"])
+    for path, node in flat.items():
+        raw_value = node.get("$value")
+        if isinstance(raw_value, str) and raw_value.startswith("{") and raw_value.endswith("}"):
+            inferred = infer(path)
+            if inferred and node.get("$type") != inferred:
+                node["$type"] = inferred
 
+
+def build_payload(source_data):
+    payload = {
+        "primitive": {
+            "primitive": normalize_tree(
+                source_data.get("Primitive", {}).get("primitive", {}),
+                "primitive",
+                "base",
+            )
+        }
+    }
+
+    for theme_name, source_theme in (("light", "Light"), ("dark", "Dark")):
+        theme_root = source_data.get(source_theme, {})
+        for collection in COLLECTIONS:
+            payload[f"{collection}/{theme_name}"] = normalize_tree(
+                theme_root.get(collection, {}),
+                collection,
+                theme_name,
+            )
+
+    payload["$themes"] = [
+        {
+            "id": "light",
+            "name": "Light",
+            "selectedTokenSets": {
+                "primitive": "enabled",
+                "semantic/light": "enabled",
+                "semantic/dark": "disabled",
+                "pattern/light": "enabled",
+                "pattern/dark": "disabled",
+                "component/light": "enabled",
+                "component/dark": "disabled",
+            },
+        },
+        {
+            "id": "dark",
+            "name": "Dark",
+            "selectedTokenSets": {
+                "primitive": "enabled",
+                "semantic/light": "disabled",
+                "semantic/dark": "enabled",
+                "pattern/light": "disabled",
+                "pattern/dark": "enabled",
+                "component/light": "disabled",
+                "component/dark": "enabled",
+            },
+        },
+    ]
+
+    payload["$metadata"] = {
+        "tokenSetOrder": [
+            "primitive",
+            "semantic/light",
+            "semantic/dark",
+            "pattern/light",
+            "pattern/dark",
+            "component/light",
+            "component/dark",
+        ]
+    }
+
+    refine_alias_types(payload)
     return payload
+
+
+def write_payload(payload):
+    os.makedirs("adapters/figma", exist_ok=True)
+    for out_path in OUTPUT_FILES:
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, ensure_ascii=False)
+            f.write("\n")
 
 
 def main():
     with open("source/tokens.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
+        source_data = json.load(f)
 
-    adaptive = build_adaptive_payload(data)
+    payload = build_payload(source_data)
+    write_payload(payload)
 
-    os.makedirs("adapters/figma", exist_ok=True)
-    out_path = "adapters/figma/figma_tokens_adaptive.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(adaptive, f, indent=2, ensure_ascii=False)
-        f.write("\n")
-
-    print(f"✅ Generated Figma adaptive token format at: {out_path}")
+    print("Generated:")
+    for out_path in OUTPUT_FILES:
+        print(f"- {out_path}")
 
 
 if __name__ == "__main__":
