@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System Status & Workflow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
+  }
+
+  /* ==========================================
+     THEME
+     ========================================== */
+  :root {
+    --bg: #fafafa;
+    --fg: #111;
+    --muted: #666;
+    --accent-light: #f0f0f0;
+    --rule: #e0e0e0;
+    --tag-bg: #111;
+    --tag-fg: #fff;
+
+    --title-size: clamp(2.5rem, 6vw, 5rem);
+    --h2-size: clamp(1.4rem, 3vw, 2.2rem);
+    --h3-size: clamp(1rem, 2vw, 1.4rem);
+    --body-size: clamp(0.85rem, 1.4vw, 1.05rem);
+    --small-size: clamp(0.7rem, 1vw, 0.82rem);
+
+    --pad-x: clamp(1.5rem, 8vw, 8rem);
+    --pad-y: clamp(3rem, 8vh, 6rem);
+    --gap: clamp(0.75rem, 1.5vw, 1.25rem);
+    --max-w: 960px;
+  }
+
+  /* ==========================================
+     TYPOGRAPHY
+     ========================================== */
+  h1 { font-size: var(--title-size); font-weight: 300; line-height: 1.08; letter-spacing: -0.02em; }
+  h2 { font-size: var(--h2-size); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em; }
+  h3 { font-size: var(--h3-size); font-weight: 500; line-height: 1.3; }
+  p, li { font-size: var(--body-size); line-height: 1.7; color: var(--muted); font-weight: 300; }
+  strong { font-weight: 500; color: var(--fg); }
+
+  /* ==========================================
+     LAYOUT
+     ========================================== */
+  .page-section {
+    padding: var(--pad-y) var(--pad-x);
+    border-bottom: 1px solid var(--rule);
+  }
+  .page-section:last-of-type { border-bottom: none; }
+
+  .inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  .row { display: flex; align-items: flex-start; gap: clamp(1.5rem, 4vw, 4rem); }
+  .col { flex: 1; }
+
+  .rule { border: none; border-top: 1px solid var(--rule); margin: var(--gap) 0; }
+
+  .label {
+    font-size: var(--small-size);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6em;
+    display: block;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    background: var(--tag-bg);
+    color: var(--tag-fg);
+    font-size: var(--small-size);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin-bottom: 0.6em;
+  }
+
+  ul { list-style: none; display: flex; flex-direction: column; gap: var(--gap); }
+  ul li { padding-left: 1.2em; position: relative; }
+  ul li::before { content: '—'; position: absolute; left: 0; color: var(--rule); }
+
+  /* ==========================================
+     SECTION DIVIDER (dark banner)
+     ========================================== */
+  .section-banner {
+    background: var(--fg);
+    padding: clamp(2rem, 5vh, 3.5rem) var(--pad-x);
+    border-bottom: none;
+  }
+  .section-banner h2 { color: var(--bg); font-weight: 300; }
+  .section-banner .label { color: rgba(255,255,255,0.4); }
+  .section-banner .rule { border-color: rgba(255,255,255,0.15); }
+  .section-banner p { color: rgba(255,255,255,0.45); }
+
+  /* ==========================================
+     HERO (title section)
+     ========================================== */
+  .hero {
+    padding: clamp(4rem, 12vh, 8rem) var(--pad-x) var(--pad-y);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero .inner { display: flex; flex-direction: column; gap: 1.25rem; }
+  .hero p { max-width: 480px; }
+
+  /* ==========================================
+     USER ROLE CARDS
+     ========================================== */
+  .user-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+    margin-top: var(--gap);
+  }
+  .user-card {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+  }
+  .user-card-icon { font-size: 1.25rem; color: var(--muted); margin-bottom: 0.2em; }
+  .user-card h3 { font-size: clamp(0.9rem, 1.6vw, 1.1rem); font-weight: 500; }
+  .user-card p { font-size: clamp(0.78rem, 1.1vw, 0.9rem); color: var(--muted); line-height: 1.55; flex: 1; }
+  .user-card-tool {
+    font-size: clamp(0.65rem, 0.9vw, 0.75rem);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.6em;
+    margin-top: 0.4em;
+  }
+
+  /* ==========================================
+     USE CASE OVERVIEW CARDS
+     ========================================== */
+  .usecase-overview {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+    margin-top: var(--gap);
+    align-items: start;
+  }
+  .usecase-card {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+  }
+  .usecase-card--primary { border-color: var(--fg); }
+  .usecase-card .num { font-size: var(--small-size); font-weight: 600; letter-spacing: 0.1em; color: var(--muted); }
+  .usecase-card h3 { font-size: clamp(0.9rem, 1.6vw, 1.1rem); font-weight: 500; }
+  .usecase-card p { font-size: clamp(0.78rem, 1.1vw, 0.9rem); color: var(--muted); line-height: 1.55; }
+  .usecase-skills-hint {
+    font-size: clamp(0.65rem, 0.9vw, 0.75rem);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.6em;
+    margin-top: 0.2em;
+  }
+
+  /* ==========================================
+     DS DIAGRAM (UC 01)
+     ========================================== */
+  .ds-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: var(--gap);
+  }
+  .ds-foundation {
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: 4px;
+    padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1.25rem, 3vw, 2rem);
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+  }
+  .ds-foundation-badge {
+    white-space: nowrap;
+    font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 2px;
+    padding: 0.25em 0.55em;
+    flex-shrink: 0;
+  }
+  .ds-foundation-name {
+    font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .ds-foundation-desc {
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+  .ds-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 2rem;
+    position: relative;
+  }
+  .ds-connector-line { width: 1px; flex: 1; background: var(--rule); }
+  .ds-connector-spread {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 clamp(2rem, 10vw, 8rem);
+  }
+  .ds-connector-branch { width: 1px; height: 0.6rem; background: var(--rule); }
+  .ds-supporting {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+  }
+  .ds-skill {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: clamp(0.85rem, 1.5vw, 1.1rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+  }
+  .ds-skill-name { font-size: clamp(0.78rem, 1.2vw, 0.92rem); font-weight: 500; color: var(--fg); }
+  .ds-skill-desc { font-size: clamp(0.68rem, 0.95vw, 0.8rem); color: var(--muted); line-height: 1.5; }
+  .ds-goal {
+    margin-top: clamp(0.75rem, 2vh, 1.25rem);
+    border-left: 2px solid var(--fg);
+    padding: 0.5em 0 0.5em clamp(0.75rem, 1.5vw, 1.25rem);
+    font-size: clamp(0.75rem, 1.05vw, 0.88rem);
+    color: var(--muted);
+    line-height: 1.55;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+  }
+  .ds-goal-label {
+    font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg);
+    flex-shrink: 0;
+  }
+
+  /* ==========================================
+     PATTERN CARDS
+     ========================================== */
+  .pattern-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    margin-top: var(--gap);
+  }
+  .pattern-card {
+    border-top: 2px solid var(--fg);
+    padding-top: clamp(0.75rem, 1.5vw, 1.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+  }
+  .pattern-card .num { font-size: var(--small-size); font-weight: 600; letter-spacing: 0.08em; color: var(--muted); }
+  .pattern-card h3 { font-size: clamp(0.85rem, 1.5vw, 1.05rem); font-weight: 500; }
+  .pattern-card p { font-size: clamp(0.72rem, 1.1vw, 0.88rem); color: var(--muted); line-height: 1.5; }
+
+  /* ==========================================
+     FULL-WIDTH MEDIA CONTAINER
+     ========================================== */
+  .full-media {
+    width: 100%;
+    height: clamp(16rem, 40vh, 32rem);
+    background: var(--accent-light);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: var(--small-size);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ==========================================
+     IMAGE PLACEHOLDER
+     ========================================== */
+  .img-placeholder {
+    background: var(--accent-light);
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: var(--small-size);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ==========================================
+     SSOT FILE GRID
+     ========================================== */
+  .ssot-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.5rem, 1.2vw, 1rem);
+    margin-top: var(--gap);
+  }
+  .ssot-card {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: clamp(1rem, 2vw, 1.4rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+  }
+  .ssot-filename {
+    font-size: clamp(0.78rem, 1.2vw, 0.95rem);
+    font-weight: 600;
+    color: var(--fg);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    letter-spacing: -0.01em;
+  }
+  .ssot-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3em;
+  }
+  .ssot-tag {
+    display: inline-block;
+    padding: 0.18em 0.55em;
+    font-size: clamp(0.58rem, 0.8vw, 0.68rem);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    background: var(--bg);
+  }
+  .ssot-tag--primary {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  .ssot-desc {
+    font-size: clamp(0.7rem, 1vw, 0.82rem);
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  @media (max-width: 680px) {
+    .ssot-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 400px) {
+    .ssot-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ==========================================
+     WORKFLOW CALLOUTS
+     ========================================== */
+  .workflow-callouts {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .workflow-callout {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1.25rem, 3vw, 2rem);
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+  }
+  .workflow-callout:last-child { border-bottom: none; }
+  .workflow-callout--emphasis { background: var(--fg); }
+  .workflow-callout--emphasis .workflow-callout-num { color: rgba(255,255,255,0.35); }
+  .workflow-callout--emphasis .workflow-callout-text { color: #fff; }
+  .workflow-callout-num {
+    font-size: clamp(0.7rem, 1vw, 0.8rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    flex-shrink: 0;
+    width: 2em;
+  }
+  .workflow-callout-text {
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  @media (max-width: 600px) {
+    .workflow-callout { flex-direction: column; gap: 0.4em; }
+  }
+
+  /* ==========================================
+     FLOW DIAGRAM (CSS-only)
+     ========================================== */
+  .flow-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    padding: clamp(1rem, 2vw, 1.5rem) 0;
+  }
+  .fd-row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .fd-center { justify-content: center; }
+  .fd-gap { gap: clamp(0.4rem, 1vw, 0.75rem); }
+  .fd-node {
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 0.45em 0.85em;
+    font-size: clamp(0.68rem, 1vw, 0.82rem);
+    font-weight: 500;
+    color: var(--fg);
+    background: var(--bg);
+    white-space: nowrap;
+    position: relative;
+  }
+  .fd-node--dark {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  .fd-node--primary {
+    border-color: var(--fg);
+  }
+  .fd-node--optional {
+    border-style: dashed;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+  .fd-optional-label {
+    font-size: 0.75em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+  .fd-arrow-down {
+    width: 1px;
+    height: clamp(1rem, 2vh, 1.5rem);
+    background: var(--rule);
+    margin: 0 auto;
+    position: relative;
+  }
+  .fd-arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--rule);
+  }
+  .fd-arrow-short { height: clamp(0.6rem, 1.2vh, 1rem); }
+  /* Split connector */
+  .fd-split {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .fd-split-line {
+    width: 1px;
+    height: clamp(0.6rem, 1.2vh, 1rem);
+    background: var(--rule);
+  }
+  .fd-split-branches {
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--rule);
+    padding-top: 0;
+  }
+  .fd-branch-left,
+  .fd-branch-right {
+    width: 1px;
+    height: clamp(0.6rem, 1.2vh, 1rem);
+    background: var(--rule);
+    position: relative;
+  }
+  .fd-branch-left::after,
+  .fd-branch-right::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--rule);
+  }
+  /* Outputs row */
+  .fd-outputs {
+    width: 55%;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .fd-output {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .fd-output-label {
+    font-size: clamp(0.6rem, 0.85vw, 0.7rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.4em;
+    text-align: center;
+  }
+  .fd-bidir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    padding: 0 0.25rem;
+  }
+  .fd-bidir-arrow {
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--muted);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  /* ==========================================
+     MERMAID DIAGRAM
+     ========================================== */
+  .mermaid-wrap {
+    margin-top: var(--gap);
+    overflow-x: auto;
+  }
+  .mermaid-wrap svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* ==========================================
+     LANGUAGE TOGGLE
+     ========================================== */
+  .lang-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    z-index: 200;
+    display: flex;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--bg);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .lang-btn {
+    padding: 0.32em 0.75em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    transition: background 0.12s, color 0.12s;
+  }
+  .lang-btn.active {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .lang-btn:not(.active):hover { background: var(--accent-light); }
+
+  /* ==========================================
+     SCROLL REVEAL
+     ========================================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ==========================================
+     RESPONSIVE
+     ========================================== */
+  @media (max-width: 680px) {
+    .user-cards,
+    .pattern-row,
+    .ds-supporting { grid-template-columns: 1fr; }
+    .usecase-overview { grid-template-columns: 1fr; }
+    .row { flex-direction: column; }
+    .ds-foundation { flex-direction: column; align-items: flex-start; gap: 0.5em; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Language toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" id="btn-zh" onclick="setLang('zh')">中文</button>
+</div>
+
+<!-- ==========================================
+     HERO — TITLE
+     ========================================== -->
+<div class="hero">
+  <div class="inner">
+    <p class="label reveal" data-i18n="hero-date">April 2026</p>
+    <h1 class="reveal reveal-delay-1" data-i18n="hero-h1">Design System<br>Status &amp; Workflow</h1>
+    <hr class="rule reveal reveal-delay-2">
+    <p class="reveal reveal-delay-3" data-i18n="hero-desc">A briefing for designers — current state, skills, and working patterns.</p>
+  </div>
+</div>
+
+<!-- ==========================================
+     SECTION 1 — CURRENT STATUS
+     ========================================== -->
+<section class="page-section" id="status">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s1-label">01 — Status</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s1-h2">Where we are today</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <!-- Solid foundation: content left 40%, image right 60% -->
+    <div class="reveal reveal-delay-3" style="display:flex;align-items:flex-start;gap:clamp(1.5rem,4vw,4rem);">
+      <div style="flex:0 0 40%;">
+        <p data-i18n="s1-p1"><strong>Solid foundation.</strong> The design system has a core structure and optimized workflow. It is usable today — components are live and functional.</p>
+      </div>
+      <div style="flex:0 0 60%;">
+        <img src="assets/1-1.png" alt="Figma variables panel" style="width:80%;height:auto;display:block;border-radius:4px;">
+      </div>
+    </div>
+
+    <!-- Still expanding: image left 60%, content right 40% -->
+    <div class="reveal" style="display:flex;align-items:flex-start;gap:clamp(1.5rem,4vw,4rem);margin-top:clamp(2rem,4vw,3rem);">
+      <div style="flex:0 0 60%;">
+        <img src="assets/1-2.png" alt="Component library" style="width:80%;height:auto;display:block;border-radius:4px;">
+      </div>
+      <div style="flex:0 0 40%;">
+        <p data-i18n="s1-p2"><strong>Still expanding.</strong> The system is growing toward completeness. New components are being added progressively as needs arise.</p>
+      </div>
+    </div>
+
+    <hr class="rule reveal" style="margin-top: clamp(1.5rem, 3vw, 2.5rem);">
+    <p class="label reveal" style="margin-top: var(--gap);" data-i18n="ssot-label">Key files — Single Source of Truth</p>
+    <div class="ssot-grid reveal reveal-delay-1">
+      <div class="ssot-card">
+        <div class="ssot-filename">token.json</div>
+        <div class="ssot-tags">
+          <span class="ssot-tag ssot-tag--primary" data-i18n="ssot-tag-ssot">Single Source of Truth</span>
+          <span class="ssot-tag" data-i18n="ssot-tag-structured">Structured</span>
+        </div>
+        <p class="ssot-desc" data-i18n="ssot-token-desc">The authoritative source. All token values live here. Everything else derives from or references it.</p>
+      </div>
+      <div class="ssot-card">
+        <div class="ssot-filename">design.md</div>
+        <div class="ssot-tags">
+          <span class="ssot-tag" data-i18n="ssot-tag-semantic">Semantic</span>
+        </div>
+        <p class="ssot-desc" data-i18n="ssot-design-desc">Describes the design system in natural language. Semantic meaning, usage rules, and component intent.</p>
+      </div>
+      <div class="ssot-card">
+        <div class="ssot-filename">component schema</div>
+        <div class="ssot-tags">
+          <span class="ssot-tag" data-i18n="ssot-tag-structured2">Structured</span>
+        </div>
+        <p class="ssot-desc" data-i18n="ssot-schema-desc">Explicit component definitions. Added on demand — only when a component's complexity demands it.</p>
+      </div>
+      <div class="ssot-card">
+        <div class="ssot-filename">Figma design system</div>
+        <div class="ssot-tags">
+          <span class="ssot-tag" data-i18n="ssot-tag-visualized">Visualized</span>
+        </div>
+        <p class="ssot-desc" data-i18n="ssot-figma-desc">The visual canvas. Organized for designers to explore, discuss, and iterate. Reflects the source of truth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 2 — PROPOSED WORKFLOW
+     ========================================== -->
+<section class="page-section" id="workflow">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s2-label">02 — Workflow</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s2-h2">Who uses it and how</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="user-cards reveal reveal-delay-3">
+      <div class="user-card">
+        <div class="user-card-icon">✦</div>
+        <h3 data-i18n="s2-designer-h3">Designers</h3>
+        <p data-i18n="s2-designer-p">Figma as the discussion canvas — visual, organized, easy to iterate on. Primary working surface.</p>
+        <div class="user-card-tool" data-i18n="s2-designer-tool">Tool: Figma</div>
+      </div>
+      <div class="user-card">
+        <div class="user-card-icon">⌥</div>
+        <h3 data-i18n="s2-engineer-h3">Engineers</h3>
+        <p data-i18n="s2-engineer-p">Source of truth is the design markdown file and token JSON. Components translatable directly to code.</p>
+        <div class="user-card-tool" data-i18n="s2-engineer-tool">Source: Design MD + Token JSON</div>
+      </div>
+      <div class="user-card">
+        <div class="user-card-icon">◈</div>
+        <h3 data-i18n="s2-pm-h3">Product Managers</h3>
+        <p data-i18n="s2-pm-p">Reads from both surfaces. Component schemas added on demand when complexity requires explicit definition.</p>
+        <div class="user-card-tool" data-i18n="s2-pm-tool">Source: Figma + Design MD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 3 — KEY STRENGTH
+     ========================================== -->
+<section class="page-section" id="strength">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s3-label">03 — Highlight</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s3-h2">The key differences</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="reveal reveal-delay-3" style="display:flex;flex-direction:column;gap:var(--gap);max-width:560px;">
+      <p data-i18n="s3-p1"><strong>AI-native, well-scoped, well-structured.</strong></p>
+      <p data-i18n="s3-p2">Purpose-built so that any part of it can be cleanly translated into a structured design markdown file — machine-readable and directly usable for code generation.</p>
+    </div>
+  </div>
+  <div class="inner">
+    <div class="reveal" style="margin-top:20px;">
+      <video autoplay muted loop playsinline style="width:100%;height:auto;display:block;border-radius:4px;">
+        <source src="assets/2.webm" type="video/webm">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 4 — USE CASE OVERVIEW
+     ========================================== -->
+<section class="page-section" id="usecases">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s4-label">04 — Skills by Use Case</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s4-h2">Two use cases, different goals</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="usecase-overview reveal reveal-delay-3">
+      <div class="usecase-card usecase-card--primary">
+        <span class="num">UC 01</span>
+        <h3 data-i18n="s4-uc01-h3">Generate or Clean Up Design System</h3>
+        <p data-i18n="s4-uc01-p">Build the system from scratch, from a messy existing one, or from code. Goal: all bindings ready, all semantic meanings scoped — so designers can keep working in Figma.</p>
+        <div class="usecase-skills-hint">/figma-generate-library · /audit-design-system · /apply-design-system · /sync-design-tokens</div>
+      </div>
+      <div class="usecase-card">
+        <span class="num">UC 02</span>
+        <h3 data-i18n="s4-uc02-h3">Generate Design</h3>
+        <p data-i18n="s4-uc02-p">Produce actual screen designs from the system. Components, variables, and styles should be bound — but cleanup is part of the process.</p>
+        <div class="usecase-skills-hint">/figma-generate-design</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 5 — UC01 DIAGRAM
+     ========================================== -->
+<section class="page-section" id="uc01">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s5-label">05 — Generate / Clean Up Design System</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s5-h2">Figma Generate Library is the foundation</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="ds-diagram reveal reveal-delay-3">
+      <div class="ds-foundation">
+        <div class="ds-foundation-badge" data-i18n="s5-badge">Foundation · 80% of the work</div>
+        <div class="ds-foundation-name">/figma-generate-library</div>
+        <div class="ds-foundation-desc" data-i18n="s5-foundation-desc">Builds the entire library structure. Strict rules govern how it runs. Everything else depends on what this produces.</div>
+      </div>
+      <div class="ds-connector">
+        <div class="ds-connector-line"></div>
+        <div class="ds-connector-spread">
+          <div class="ds-connector-branch"></div>
+          <div class="ds-connector-branch"></div>
+          <div class="ds-connector-branch"></div>
+        </div>
+      </div>
+      <div class="ds-supporting">
+        <div class="ds-skill">
+          <div class="ds-skill-name">/audit-design-system</div>
+          <div class="ds-skill-desc" data-i18n="s5-audit-desc">Checks component quality. Used only after foundations are established.</div>
+        </div>
+        <div class="ds-skill">
+          <div class="ds-skill-name">/apply-design-system</div>
+          <div class="ds-skill-desc" data-i18n="s5-apply-desc">Applies and binds the system to components. Requires variables + styles to exist first.</div>
+        </div>
+        <div class="ds-skill">
+          <div class="ds-skill-name">/sync-design-tokens</div>
+          <div class="ds-skill-desc" data-i18n="s5-sync-desc">Generates code schema from the Figma canvas. Useful backwards sync for our context.</div>
+        </div>
+      </div>
+      <div class="ds-goal">
+        <span class="ds-goal-label" data-i18n="s5-goal-label">Goal</span>
+        <span data-i18n="s5-goal-text">All bindings ready. Semantic meanings scoped. Designers can continue working entirely in Figma.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 5.1 — /figma-generate-library WORKFLOW
+     ========================================== -->
+<section class="page-section" id="library-workflow">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s51-label">05.1 — Skill Deep Dive</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s51-h2">/figma-generate-library workflow</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <p class="reveal reveal-delay-3" data-i18n="s51-p">This skill is never a one-shot task. It requires 20–100+ sequential Figma API calls across five mandatory phases. Skipping or reordering phases causes structural failures that are expensive to undo. <strong>Variables always come before components.</strong> Every phase ends with a required checkpoint.</p>
+
+    <div class="row reveal reveal-delay-3" style="align-items: stretch; gap: var(--gap); margin-top: clamp(2rem, 4vw, 3.5rem);">
+      <div class="col" style="display: flex; flex-direction: column;">
+        <div class="workflow-callouts" style="margin-top: 0; flex: 1; justify-content: space-between;">
+          <div class="workflow-callout">
+            <div class="workflow-callout-num">01</div>
+            <div class="workflow-callout-text" data-i18n="s51-c1">Use it to start a design system from scratch — full build, nothing pre-existing.</div>
+          </div>
+          <div class="workflow-callout">
+            <div class="workflow-callout-num">02</div>
+            <div class="workflow-callout-text" data-i18n="s51-c2">Use it as a scoped implementation — run only the phases needed to set up a single component or a specific part of the system.</div>
+          </div>
+          <div class="workflow-callout">
+            <div class="workflow-callout-num">03</div>
+            <div class="workflow-callout-text" data-i18n="s51-c3">Phase 0 — Discovery — is always the first step. It cannot be skipped, even in a scoped run. No writes happen until Phase 0 is complete and approved.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mermaid-wrap">
+          <div class="mermaid" id="mermaid-main">
+flowchart TD
+    A(["/figma-generate-library"]) --> B
+
+    B["Phase 0 · Discovery\nAnalyze codebase · inspect Figma file\nSearch subscribed libraries · lock v1 scope\nMap code to Figma · resolve conflicts"]
+    B --> CP0(["✋  Checkpoint — approve full plan before any writes"])
+
+    CP0 --> C["Phase 1 · Foundations\nCreate variable collections and modes\nPrimitive variables → semantic aliases\nSet scopes + code syntax on every variable\nCreate text styles and effect styles"]
+    C --> CP1(["✋  Checkpoint — review token summary"])
+
+    CP1 --> D["Phase 2 · File Structure\nCreate page skeleton\nFoundations docs: color swatches · type specimens · spacing"]
+    D --> CP2(["✋  Checkpoint — review pages + screenshot"])
+
+    CP2 --> E["Phase 3 · Components  (one at a time)\nDedicated page per component\nBase component · auto-layout · variable bindings\nVariant matrix · component properties · validate"]
+    E --> F{More\ncomponents?}
+    F -- yes --> E
+    F -- no --> G
+
+    G["Phase 4 · Integration and QA\nFinalize Code Connect mappings\nAccessibility · naming · binding audit\nFinal screenshots of every page"]
+    G --> Done(["✅  Sign-off"])
+
+    style A fill:#111,color:#fafafa,stroke:none
+    style CP0 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style CP1 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style CP2 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style F fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style Done fill:#111,color:#fafafa,stroke:none
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 6 — UC02: GENERATE DESIGN
+     ========================================== -->
+<section class="page-section" id="uc02">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s6-label">06 — Generate Design</span>
+    <h2 class="reveal reveal-delay-1" style="margin-top:0.5em;" data-i18n="s6-h2">Figma Generate Design</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="reveal reveal-delay-3">
+      <p data-i18n="s6-p1"><strong>What works well.</strong> Most generated designs come with components, variables, and styles already bound.</p>
+      <p style="margin-top:1em;" data-i18n="s6-p2"><strong>What to watch for.</strong> Unbound components and unbound variables still appear — manual cleanup is part of the process.</p>
+    </div>
+    <div class="reveal reveal-delay-3" style="display:flex;flex-direction:column;gap:32px;margin-top:20px;">
+      <video autoplay muted loop playsinline style="width:100%;height:auto;display:block;border-radius:4px;">
+        <source src="assets/6-1.webm" type="video/webm">
+      </video>
+      <video autoplay muted loop playsinline style="width:100%;height:auto;display:block;border-radius:4px;">
+        <source src="assets/6-2.webm" type="video/webm">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     DIVIDER — WORKING PATTERNS
+     ========================================== -->
+<div class="section-banner" id="patterns">
+  <div class="inner">
+    <span class="label reveal" data-i18n="part02-label">Part 02</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="part02-h2">Working patterns</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <p class="reveal reveal-delay-3" data-i18n="part02-p">Three modes. Different first-class objects. Different rules.</p>
+  </div>
+</div>
+
+<!-- ==========================================
+     SECTION 7 — PATTERN OVERVIEW
+     ========================================== -->
+<section class="page-section" id="patterns-overview">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s7-label">07 — Patterns</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s7-h2">Three working patterns</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="pattern-row reveal reveal-delay-3">
+      <div class="pattern-card">
+        <span class="num">P1</span>
+        <h3 data-i18n="s7-p1-h3">Code-First</h3>
+        <p data-i18n="s7-p1-p">Figma as canvas. Design markdown + token schema are first-class. Figma DS is second-class.</p>
+      </div>
+      <div class="pattern-card">
+        <span class="num">P2</span>
+        <h3 data-i18n="s7-p2-h3">Figma as Design Tool</h3>
+        <p data-i18n="s7-p2-p">Designer-heavy. DS must be fully bound. Code generated from schema and Figma map pages.</p>
+      </div>
+      <div class="pattern-card">
+        <span class="num">P3</span>
+        <h3 data-i18n="s7-p3-h3">AI-First</h3>
+        <p data-i18n="s7-p3-p">Two sub-cases: exploration (fast, loose) and active production (strict, bound, markdown-driven).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 8 — PATTERN 1: CODE-FIRST
+     ========================================== -->
+<section class="page-section" id="p1">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s8-label">08 — P1</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s8-h2">Code-First</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="row reveal reveal-delay-3">
+      <div class="col">
+        <p data-i18n="s8-p">Figma is a visualization canvas. Design markdown and token schema drive everything. Figma reflects code, not the other way around.</p>
+      </div>
+      <div class="col">
+        <div class="flow-diagram">
+          <div class="fd-row fd-center">
+            <div class="fd-node fd-node--dark">Agent</div>
+          </div>
+          <div class="fd-arrow-down"></div>
+          <div class="fd-row fd-gap">
+            <div class="fd-node fd-node--primary">design.md</div>
+            <div class="fd-node fd-node--primary">token.json</div>
+            <div class="fd-node fd-node--optional">component schema<span class="fd-optional-label" data-i18n="fd-optional">optional</span></div>
+          </div>
+          <div class="fd-split">
+            <div class="fd-split-line"></div>
+            <div class="fd-split-branches">
+              <div class="fd-branch-left"></div>
+              <div class="fd-branch-right"></div>
+            </div>
+          </div>
+          <div class="fd-row fd-gap fd-outputs">
+            <div class="fd-output">
+              <div class="fd-arrow-down fd-arrow-short"></div>
+              <div class="fd-node fd-node--dark" data-i18n="fd-code-gen">Code generation</div>
+              <div class="fd-output-label" data-i18n="s8-primary-output">primary output</div>
+            </div>
+            <div class="fd-bidir">
+              <div class="fd-bidir-arrow">↔</div>
+            </div>
+            <div class="fd-output">
+              <div class="fd-arrow-down fd-arrow-short"></div>
+              <div class="fd-node">Figma</div>
+              <div class="fd-output-label" data-i18n="s8-discussion-canvas">discussion canvas</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 9 — PATTERN 2: FIGMA-FIRST
+     ========================================== -->
+<section class="page-section" id="p2">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s9-label">09 — P2</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s9-h2">Figma as Proprietary Tool</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="row reveal reveal-delay-3">
+      <div class="col">
+        <p data-i18n="s9-p">Designer is the primary user. DS must be fully bound at the component level. Code generation pulls from schema and Figma map pages both.</p>
+      </div>
+      <div class="col">
+        <div class="flow-diagram">
+          <div class="fd-row fd-center">
+            <div class="fd-node fd-node--dark">Agent</div>
+          </div>
+          <div class="fd-arrow-down"></div>
+          <div class="fd-row fd-gap">
+            <div class="fd-node fd-node--primary">design.md</div>
+            <div class="fd-node fd-node--primary">token.json</div>
+            <div class="fd-node fd-node--optional">component schema<span class="fd-optional-label" data-i18n="fd-optional2">optional</span></div>
+          </div>
+          <div class="fd-arrow-down"></div>
+          <div class="fd-row fd-center">
+            <div class="fd-node" data-i18n="fd-coded-exploration">Coded Exploration</div>
+          </div>
+          <div class="fd-arrow-down"></div>
+          <div class="fd-row fd-center">
+            <div class="fd-node" data-i18n="fd-figma-draft">Figma Draft</div>
+          </div>
+          <div class="fd-arrow-down"></div>
+          <div class="fd-row fd-center">
+            <div class="fd-node fd-node--primary" data-i18n="fd-figma-design">Figma Design</div>
+          </div>
+          <div class="fd-arrow-down"></div>
+          <div class="fd-row fd-center">
+            <div class="fd-node fd-node--dark" data-i18n="fd-code">Code</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SECTION 10 — PATTERN 3: AI-FIRST
+     ========================================== -->
+<section class="page-section" id="p3">
+  <div class="inner">
+    <span class="label reveal" data-i18n="s10-label">10 — P3</span>
+    <h2 class="reveal reveal-delay-1" data-i18n="s10-h2">AI-First</h2>
+    <hr class="rule reveal reveal-delay-2">
+    <div class="row reveal reveal-delay-3">
+      <div class="col">
+        <p data-i18n="s10-p">Input is a prompt, a file, or natural language. The agent reads the design files directly and generates code — no Figma step required.</p>
+      </div>
+      <div class="col">
+        <div class="flow-diagram">
+          <div class="fd-row fd-center">
+            <div class="fd-node fd-node--dark">Agent</div>
+          </div>
+          <div class="fd-arrow-down"></div>
+          <div class="fd-row fd-gap">
+            <div class="fd-node fd-node--primary">design.md</div>
+            <div class="fd-node fd-node--primary">token.json</div>
+            <div class="fd-node fd-node--optional">component schema<span class="fd-optional-label" data-i18n="fd-optional3">optional</span></div>
+          </div>
+          <div class="fd-arrow-down"></div>
+          <div class="fd-row fd-center">
+            <div class="fd-node fd-node--dark" data-i18n="fd-code-gen2">Code generation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#f0f0f0',
+      primaryTextColor: '#111',
+      primaryBorderColor: '#e0e0e0',
+      lineColor: '#aaa',
+      fontSize: '13px',
+      fontFamily: 'Inter, system-ui, sans-serif'
+    }
+  });
+  window._mermaid = mermaid;
+  document.addEventListener('DOMContentLoaded', () => {
+    mermaid.run({ querySelector: '#mermaid-main' });
+  });
+</script>
+
+<script>
+  // ==========================================
+  // TRANSLATIONS
+  // ==========================================
+  const MERMAID_EN = `flowchart TD
+    A(["/figma-generate-library"]) --> B
+
+    B["Phase 0 · Discovery\\nAnalyze codebase · inspect Figma file\\nSearch subscribed libraries · lock v1 scope\\nMap code to Figma · resolve conflicts"]
+    B --> CP0(["✋  Checkpoint — approve full plan before any writes"])
+
+    CP0 --> C["Phase 1 · Foundations\\nCreate variable collections and modes\\nPrimitive variables → semantic aliases\\nSet scopes + code syntax on every variable\\nCreate text styles and effect styles"]
+    C --> CP1(["✋  Checkpoint — review token summary"])
+
+    CP1 --> D["Phase 2 · File Structure\\nCreate page skeleton\\nFoundations docs: color swatches · type specimens · spacing"]
+    D --> CP2(["✋  Checkpoint — review pages + screenshot"])
+
+    CP2 --> E["Phase 3 · Components  (one at a time)\\nDedicated page per component\\nBase component · auto-layout · variable bindings\\nVariant matrix · component properties · validate"]
+    E --> F{More\\ncomponents?}
+    F -- yes --> E
+    F -- no --> G
+
+    G["Phase 4 · Integration and QA\\nFinalize Code Connect mappings\\nAccessibility · naming · binding audit\\nFinal screenshots of every page"]
+    G --> Done(["✅  Sign-off"])
+
+    style A fill:#111,color:#fafafa,stroke:none
+    style CP0 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style CP1 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style CP2 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style F fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style Done fill:#111,color:#fafafa,stroke:none`;
+
+  const MERMAID_ZH = `flowchart TD
+    A(["/figma-generate-library"]) --> B
+
+    B["第 0 阶段 · 探索\\n分析代码库 · 检查 Figma 文件\\n搜索订阅库 · 锁定 v1 范围\\n代码映射 Figma · 解决冲突"]
+    B --> CP0(["✋  检查点 — 在任何写入前审批完整计划"])
+
+    CP0 --> C["第 1 阶段 · 基础建立\\n创建变量集合和模式\\n原始变量 → 语义别名\\n为每个变量设置范围和代码语法\\n创建文字样式和效果样式"]
+    C --> CP1(["✋  检查点 — 审查 Token 摘要"])
+
+    CP1 --> D["第 2 阶段 · 文件结构\\n创建页面框架\\n基础文档：色板 · 字型样本 · 间距"]
+    D --> CP2(["✋  检查点 — 审查页面和截图"])
+
+    CP2 --> E["第 3 阶段 · 组件（逐一处理）\\n每个组件独立页面\\n基础组件 · 自动布局 · 变量绑定\\n变体矩阵 · 组件属性 · 验证"]
+    E --> F{还有更多\\n组件吗？}
+    F -- 是 --> E
+    F -- 否 --> G
+
+    G["第 4 阶段 · 集成与 QA\\n完成 Code Connect 映射\\n无障碍性 · 命名 · 绑定审查\\n每页最终截图"]
+    G --> Done(["✅  完成签收"])
+
+    style A fill:#111,color:#fafafa,stroke:none
+    style CP0 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style CP1 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style CP2 fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style F fill:#f5f5f5,color:#111,stroke:#e0e0e0
+    style Done fill:#111,color:#fafafa,stroke:none`;
+
+  const i18n = {
+    en: {
+      'hero-date': 'April 2026',
+      'hero-h1': 'Design System<br>Status &amp; Workflow',
+      'hero-desc': 'A briefing for designers — current state, skills, and working patterns.',
+      's1-label': '01 — Status',
+      's1-h2': 'Where we are today',
+      's1-p1': '<strong>Solid foundation.</strong> The design system has a core structure and optimized workflow. It is usable today — components are live and functional.',
+      's1-p2': '<strong>Still expanding.</strong> The system is growing toward completeness. New components are being added progressively as needs arise.',
+      'ssot-label': 'Key files — Single Source of Truth',
+      'ssot-tag-ssot': 'Single Source of Truth',
+      'ssot-tag-structured': 'Structured',
+      'ssot-tag-semantic': 'Semantic',
+      'ssot-tag-structured2': 'Structured',
+      'ssot-tag-visualized': 'Visualized',
+      'ssot-token-desc': 'The authoritative source. All token values live here. Everything else derives from or references it.',
+      'ssot-design-desc': 'Describes the design system in natural language. Semantic meaning, usage rules, and component intent.',
+      'ssot-schema-desc': "Explicit component definitions. Added on demand — only when a component's complexity demands it.",
+      'ssot-figma-desc': 'The visual canvas. Organized for designers to explore, discuss, and iterate. Reflects the source of truth.',
+      's2-label': '02 — Workflow',
+      's2-h2': 'Who uses it and how',
+      's2-designer-h3': 'Designers',
+      's2-designer-p': 'Figma as the discussion canvas — visual, organized, easy to iterate on. Primary working surface.',
+      's2-designer-tool': 'Tool: Figma',
+      's2-engineer-h3': 'Engineers',
+      's2-engineer-p': 'Source of truth is the design markdown file and token JSON. Components translatable directly to code.',
+      's2-engineer-tool': 'Source: Design MD + Token JSON',
+      's2-pm-h3': 'Product Managers',
+      's2-pm-p': 'Reads from both surfaces. Component schemas added on demand when complexity requires explicit definition.',
+      's2-pm-tool': 'Source: Figma + Design MD',
+      's3-label': '03 — Highlight',
+      's3-h2': 'The key differences',
+      's3-p1': '<strong>AI-native, well-scoped, well-structured.</strong>',
+      's3-p2': 'Purpose-built so that any part of it can be cleanly translated into a structured design markdown file — machine-readable and directly usable for code generation.',
+      's4-label': '04 — Skills by Use Case',
+      's4-h2': 'Two use cases, different goals',
+      's4-uc01-h3': 'Generate or Clean Up Design System',
+      's4-uc01-p': 'Build the system from scratch, from a messy existing one, or from code. Goal: all bindings ready, all semantic meanings scoped — so designers can keep working in Figma.',
+      's4-uc02-h3': 'Generate Design',
+      's4-uc02-p': 'Produce actual screen designs from the system. Components, variables, and styles should be bound — but cleanup is part of the process.',
+      's5-label': '05 — Generate / Clean Up Design System',
+      's5-h2': 'Figma Generate Library is the foundation',
+      's5-badge': 'Foundation · 80% of the work',
+      's5-foundation-desc': 'Builds the entire library structure. Strict rules govern how it runs. Everything else depends on what this produces.',
+      's5-audit-desc': 'Checks component quality. Used only after foundations are established.',
+      's5-apply-desc': 'Applies and binds the system to components. Requires variables + styles to exist first.',
+      's5-sync-desc': 'Generates code schema from the Figma canvas. Useful backwards sync for our context.',
+      's5-goal-label': 'Goal',
+      's5-goal-text': 'All bindings ready. Semantic meanings scoped. Designers can continue working entirely in Figma.',
+      's51-label': '05.1 — Skill Deep Dive',
+      's51-h2': '/figma-generate-library workflow',
+      's51-p': 'This skill is never a one-shot task. It requires 20–100+ sequential Figma API calls across five mandatory phases. Skipping or reordering phases causes structural failures that are expensive to undo. <strong>Variables always come before components.</strong> Every phase ends with a required checkpoint.',
+      's51-c1': 'Use it to start a design system from scratch — full build, nothing pre-existing.',
+      's51-c2': 'Use it as a scoped implementation — run only the phases needed to set up a single component or a specific part of the system.',
+      's51-c3': 'Phase 0 — Discovery — is always the first step. It cannot be skipped, even in a scoped run. No writes happen until Phase 0 is complete and approved.',
+      's6-label': '06 — Generate Design',
+      's6-h2': 'Figma Generate Design',
+      's6-p1': '<strong>What works well.</strong> Most generated designs come with components, variables, and styles already bound.',
+      's6-p2': '<strong>What to watch for.</strong> Unbound components and unbound variables still appear — manual cleanup is part of the process.',
+      'part02-label': 'Part 02',
+      'part02-h2': 'Working patterns',
+      'part02-p': 'Three modes. Different first-class objects. Different rules.',
+      's7-label': '07 — Patterns',
+      's7-h2': 'Three working patterns',
+      's7-p1-h3': 'Code-First',
+      's7-p1-p': 'Figma as canvas. Design markdown + token schema are first-class. Figma DS is second-class.',
+      's7-p2-h3': 'Figma as Design Tool',
+      's7-p2-p': 'Designer-heavy. DS must be fully bound. Code generated from schema and Figma map pages.',
+      's7-p3-h3': 'AI-First',
+      's7-p3-p': 'Two sub-cases: exploration (fast, loose) and active production (strict, bound, markdown-driven).',
+      's8-label': '08 — P1',
+      's8-h2': 'Code-First',
+      's8-p': 'Figma is a visualization canvas. Design markdown and token schema drive everything. Figma reflects code, not the other way around.',
+      'fd-optional': 'optional',
+      'fd-optional2': 'optional',
+      'fd-optional3': 'optional',
+      'fd-code-gen': 'Code generation',
+      'fd-code-gen2': 'Code generation',
+      's8-primary-output': 'primary output',
+      's8-discussion-canvas': 'discussion canvas',
+      's9-label': '09 — P2',
+      's9-h2': 'Figma as Proprietary Tool',
+      's9-p': 'Designer is the primary user. DS must be fully bound at the component level. Code generation pulls from schema and Figma map pages both.',
+      'fd-coded-exploration': 'Coded Exploration',
+      'fd-figma-draft': 'Figma Draft',
+      'fd-figma-design': 'Figma Design',
+      'fd-code': 'Code',
+      's10-label': '10 — P3',
+      's10-h2': 'AI-First',
+      's10-p': 'Input is a prompt, a file, or natural language. The agent reads the design files directly and generates code — no Figma step required.',
+    },
+    zh: {
+      'hero-date': '2026年4月',
+      'hero-h1': '设计系统<br>现状与工作流',
+      'hero-desc': '设计师简报 — 当前状态、工具技能与工作模式。',
+      's1-label': '01 — 现状',
+      's1-h2': '我们现在在哪里',
+      's1-p1': '<strong>坚实基础。</strong>设计系统已具备核心结构和优化的工作流程，现在即可使用 — 组件已上线并正常运行。',
+      's1-p2': '<strong>持续扩展。</strong>系统正朝完整性迈进，根据需求逐步添加新组件。',
+      'ssot-label': '核心文件 — 单一真实来源',
+      'ssot-tag-ssot': '单一真实来源',
+      'ssot-tag-structured': '结构化',
+      'ssot-tag-semantic': '语义化',
+      'ssot-tag-structured2': '结构化',
+      'ssot-tag-visualized': '可视化',
+      'ssot-token-desc': '权威来源，所有 Token 值均存储于此，其他一切均从此派生或引用。',
+      'ssot-design-desc': '以自然语言描述设计系统，涵盖语义含义、使用规则和组件意图。',
+      'ssot-schema-desc': '明确的组件定义，按需添加 — 仅在组件复杂度需要时才加入。',
+      'ssot-figma-desc': '可视化画布，为设计师整理呈现，用于探索、讨论与迭代，反映真实来源。',
+      's2-label': '02 — 工作流',
+      's2-h2': '谁在使用及如何使用',
+      's2-designer-h3': '设计师',
+      's2-designer-p': 'Figma 作为讨论画布 — 直观、有序、易于迭代，是主要工作平台。',
+      's2-designer-tool': '工具：Figma',
+      's2-engineer-h3': '工程师',
+      's2-engineer-p': '真实来源为设计 Markdown 文件和 Token JSON，组件可直接转换为代码。',
+      's2-engineer-tool': '来源：Design MD + Token JSON',
+      's2-pm-h3': '产品经理',
+      's2-pm-p': '同时读取两端，当复杂度需要明确定义时，按需添加组件 Schema。',
+      's2-pm-tool': '来源：Figma + Design MD',
+      's3-label': '03 — 亮点',
+      's3-h2': '核心差异',
+      's3-p1': '<strong>AI 原生、范围明确、结构清晰。</strong>',
+      's3-p2': '专门构建，使任何部分都能清晰转化为结构化设计 Markdown 文件 — 机器可读，可直接用于代码生成。',
+      's4-label': '04 — 按用例划分的技能',
+      's4-h2': '两种用例，不同目标',
+      's4-uc01-h3': '生成或清理设计系统',
+      's4-uc01-p': '从头构建、从杂乱现有系统或从代码开始。目标：所有绑定就绪，所有语义含义已界定 — 让设计师可以持续在 Figma 中工作。',
+      's4-uc02-h3': '生成设计',
+      's4-uc02-p': '从系统生成实际屏幕设计。组件、变量和样式应已绑定 — 但清理是流程的一部分。',
+      's5-label': '05 — 生成 / 清理设计系统',
+      's5-h2': '/figma-generate-library 是核心基础',
+      's5-badge': '基础 · 占 80% 的工作量',
+      's5-foundation-desc': '构建完整的库结构，严格的规则约束其运行方式，其他一切均依赖于其产出。',
+      's5-audit-desc': '检查组件质量，仅在基础建立后使用。',
+      's5-apply-desc': '将系统应用并绑定到组件，需要先有变量和样式。',
+      's5-sync-desc': '从 Figma 画布生成代码 Schema，在我们的场景下用于反向同步。',
+      's5-goal-label': '目标',
+      's5-goal-text': '所有绑定就绪，语义含义已界定，设计师可完全在 Figma 中继续工作。',
+      's51-label': '05.1 — 技能深度解析',
+      's51-h2': '/figma-generate-library 工作流',
+      's51-p': '此技能从不是一次性任务，需要跨五个必要阶段进行 20–100+ 次连续 Figma API 调用。跳过或调换阶段顺序会导致难以撤销的结构性错误。<strong>变量始终在组件之前。</strong>每个阶段结束时都有必须完成的检查点。',
+      's51-c1': '用于从零开始构建设计系统 — 完整构建，无任何预有内容。',
+      's51-c2': '作为范围化实施使用 — 仅运行设置单个组件或系统特定部分所需的阶段。',
+      's51-c3': 'Phase 0 — 探索阶段 — 始终是第一步，即使在范围化运行中也不可跳过。Phase 0 完成并获批前不会进行任何写入操作。',
+      's6-label': '06 — 生成设计',
+      's6-h2': 'Figma Generate Design',
+      's6-p1': '<strong>运行良好。</strong>大多数生成的设计已绑定组件、变量和样式。',
+      's6-p2': '<strong>需要注意。</strong>未绑定的组件和变量仍会出现 — 手动清理是流程的一部分。',
+      'part02-label': '第二部分',
+      'part02-h2': '工作模式',
+      'part02-p': '三种模式，不同的核心对象，不同的规则。',
+      's7-label': '07 — 模式',
+      's7-h2': '三种工作模式',
+      's7-p1-h3': '代码优先',
+      's7-p1-p': 'Figma 作为画布，设计 Markdown + Token Schema 是第一优先级，Figma DS 是次要的。',
+      's7-p2-h3': 'Figma 作为设计工具',
+      's7-p2-p': '设计师主导，DS 必须完全绑定，代码从 Schema 和 Figma 映射页面生成。',
+      's7-p3-h3': 'AI 优先',
+      's7-p3-p': '两种子场景：探索（快速、灵活）和主动生产（严格、已绑定、Markdown 驱动）。',
+      's8-label': '08 — P1',
+      's8-h2': '代码优先',
+      's8-p': 'Figma 是可视化画布，设计 Markdown 和 Token Schema 驱动一切。Figma 反映代码，而非反过来。',
+      'fd-optional': '可选',
+      'fd-optional2': '可选',
+      'fd-optional3': '可选',
+      'fd-code-gen': '代码生成',
+      'fd-code-gen2': '代码生成',
+      's8-primary-output': '主要输出',
+      's8-discussion-canvas': '讨论画布',
+      's9-label': '09 — P2',
+      's9-h2': 'Figma 作为专用设计工具',
+      's9-p': '设计师是主要用户，DS 必须在组件层面完全绑定。代码生成同时依赖 Schema 和 Figma 映射页面。',
+      'fd-coded-exploration': '代码探索',
+      'fd-figma-draft': 'Figma 草图',
+      'fd-figma-design': 'Figma 设计稿',
+      'fd-code': '代码',
+      's10-label': '10 — P3',
+      's10-h2': 'AI 优先',
+      's10-p': '输入可以是提示词、文件或自然语言。Agent 直接读取设计文件并生成代码 — 无需 Figma 步骤。',
+    }
+  };
+
+  let currentLang = 'en';
+
+  function setLang(lang) {
+    if (lang === currentLang) return;
+    currentLang = lang;
+
+    // Update button states
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+
+    // Swap all i18n text
+    const dict = i18n[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+
+    // Re-render mermaid with correct language
+    const mermaidEl = document.getElementById('mermaid-main');
+    if (mermaidEl && window._mermaid) {
+      mermaidEl.removeAttribute('data-processed');
+      mermaidEl.innerHTML = lang === 'zh' ? MERMAID_ZH : MERMAID_EN;
+      window._mermaid.run({ nodes: [mermaidEl] });
+    }
+  }
+
+  // ==========================================
+  // SCROLL REVEAL
+  // ==========================================
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealEls.forEach(el => io.observe(el));
+</script>
+<footer style="padding: clamp(1.5rem, 4vh, 2.5rem) var(--pad-x); border-top: 1px solid var(--rule);">
+  <div class="inner" style="display:flex; align-items:center; justify-content:space-between;">
+    <span style="font-size:var(--small-size); color:var(--muted); letter-spacing:0.05em; width:100%; text-align:center;">April 2026 — James Hou</span>
+  </div>
+</footer>
+</body>
+</html>

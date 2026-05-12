@@ -1,0 +1,2925 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$metadata": {
+    "source": "https://www.figma.com/design/DBQdb8ymhIfTPS9GmcTqaR/imToken-Web-Design-System?node-id=1297-17025&p=f&t=Kn32EbjtJ1oMwhTP-11",
+    "fileKey": "DBQdb8ymhIfTPS9GmcTqaR",
+    "sourceNodeId": "1297:17025",
+    "exportedAt": "2026-05-11T00:00:00-04:00",
+    "direction": "figma_to_code",
+    "deletePolicy": "archive_only",
+    "conflictPolicy": "prefer_figma",
+    "namingPolicy": "Preserve Figma slash-delimited variable names as nested DTCG token paths; style names remain under style.*; Primitive/* pages export to component.*, Product/* pages export to pattern.*.",
+    "modePolicy": "Primitive uses a single Default value; Semantic values preserve Figma Light and Dark modes.",
+    "coverage": {
+      "variableCollections": 2,
+      "variables": 145,
+      "paintStyles": 10,
+      "textStyles": 10,
+      "effectStyles": 19,
+      "gridStyles": 0,
+      "componentPages": "Primitive/*",
+      "patternPages": "Product/*"
+    },
+    "notes": [
+      "Component and pattern sections aggregate variant dimensions, spacing, radius, layout mode, component properties, and unique token/style bindings from reusable Product and Primitive pages.",
+      "Icon artwork pages are treated as assets, not component or pattern tokens."
+    ]
+  },
+  "primitive": {
+    "color": {
+      "white": {
+        "0": {
+          "$type": "color",
+          "$value": "rgba(255, 255, 255, 0)"
+        },
+        "40": {
+          "$type": "color",
+          "$value": "rgba(255, 255, 255, 0.4)"
+        },
+        "60": {
+          "$type": "color",
+          "$value": "rgba(255, 255, 255, 0.6)"
+        },
+        "80": {
+          "$type": "color",
+          "$value": "rgba(255, 255, 255, 0.8)"
+        },
+        "$type": "color",
+        "$value": "#FFFFFF"
+      },
+      "black": {
+        "80": {
+          "$type": "color",
+          "$value": "rgba(0, 0, 0, 0.8)"
+        },
+        "$type": "color",
+        "$value": "#000000"
+      },
+      "gray": {
+        "0": {
+          "$type": "color",
+          "$value": "rgba(1, 3, 6, 0)"
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#F9FAFB"
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#F0F1F3"
+        },
+        "250": {
+          "$type": "color",
+          "$value": "#DDDEEA"
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#D6D7E0"
+        },
+        "350": {
+          "$type": "color",
+          "$value": "#8B8B91"
+        },
+        "450": {
+          "$type": "color",
+          "$value": "#B4B4BC"
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#B6B7C1"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#49494C"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#2C2C2E"
+        },
+        "850": {
+          "$type": "color",
+          "$value": "#1F1F1F"
+        },
+        "880": {
+          "$type": "color",
+          "$value": "#2C2C30"
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#1C1C1E"
+        },
+        "950": {
+          "$type": "color",
+          "$value": "#010306"
+        },
+        "250_a8": {
+          "$type": "color",
+          "$value": "rgba(221, 222, 234, 0.0784)"
+        },
+        "250_a60": {
+          "$type": "color",
+          "$value": "rgba(221, 222, 234, 0.6)"
+        }
+      },
+      "navy": {
+        "50": {
+          "$type": "color",
+          "$value": "#ECEDF0"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#D0D2DB"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#A0A5B7"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#003160"
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#111D4A"
+        },
+        "900_a8": {
+          "$type": "color",
+          "$value": "rgba(17, 29, 74, 0.0784)"
+        },
+        "900_a60": {
+          "$type": "color",
+          "$value": "rgba(17, 29, 74, 0.6)"
+        }
+      },
+      "blue": {
+        "50": {
+          "$type": "color",
+          "$value": "#F9FDFF"
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#D6EBFF"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#EEF7FF"
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#007FFF"
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#066BD2"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#004C99"
+        },
+        "500_a8": {
+          "$type": "color",
+          "$value": "rgba(0, 127, 255, 0.08)"
+        },
+        "500_a20": {
+          "$type": "color",
+          "$value": "rgba(0, 127, 255, 0.2)"
+        },
+        "500_a40": {
+          "$type": "color",
+          "$value": "rgba(0, 127, 255, 0.4)"
+        },
+        "500_a60": {
+          "$type": "color",
+          "$value": "rgba(0, 127, 255, 0.6)"
+        }
+      },
+      "green": {
+        "500": {
+          "$type": "color",
+          "$value": "#4BCE71"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#2D7C44"
+        },
+        "500_a20": {
+          "$type": "color",
+          "$value": "rgba(75, 206, 113, 0.2)"
+        },
+        "500_a40": {
+          "$type": "color",
+          "$value": "rgba(75, 206, 113, 0.4)"
+        },
+        "500_a60": {
+          "$type": "color",
+          "$value": "rgba(75, 206, 113, 0.6)"
+        }
+      },
+      "red": {
+        "500": {
+          "$type": "color",
+          "$value": "#F3636F"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#923B43"
+        },
+        "500_a20": {
+          "$type": "color",
+          "$value": "rgba(243, 99, 111, 0.2)"
+        },
+        "500_a40": {
+          "$type": "color",
+          "$value": "rgba(243, 99, 111, 0.4)"
+        },
+        "500_a60": {
+          "$type": "color",
+          "$value": "rgba(243, 99, 111, 0.6)"
+        }
+      },
+      "orange": {
+        "500": {
+          "$type": "color",
+          "$value": "#FC8C4D"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#97542E"
+        },
+        "500_a20": {
+          "$type": "color",
+          "$value": "rgba(252, 140, 77, 0.2)"
+        },
+        "500_a40": {
+          "$type": "color",
+          "$value": "rgba(252, 140, 77, 0.4)"
+        }
+      }
+    },
+    "spacing": {
+      "4": {
+        "$type": "dimension",
+        "$value": 4
+      },
+      "8": {
+        "$type": "dimension",
+        "$value": 8
+      },
+      "12": {
+        "$type": "dimension",
+        "$value": 12
+      },
+      "16": {
+        "$type": "dimension",
+        "$value": 16
+      },
+      "20": {
+        "$type": "dimension",
+        "$value": 20
+      },
+      "24": {
+        "$type": "dimension",
+        "$value": 24
+      },
+      "32": {
+        "$type": "dimension",
+        "$value": 32
+      },
+      "40": {
+        "$type": "dimension",
+        "$value": 40
+      },
+      "48": {
+        "$type": "dimension",
+        "$value": 48
+      },
+      "64": {
+        "$type": "dimension",
+        "$value": 64
+      },
+      "72": {
+        "$type": "dimension",
+        "$value": 72
+      }
+    },
+    "size": {
+      "4": {
+        "$type": "dimension",
+        "$value": 4
+      },
+      "16": {
+        "$type": "dimension",
+        "$value": 16
+      },
+      "20": {
+        "$type": "dimension",
+        "$value": 20
+      },
+      "24": {
+        "$type": "dimension",
+        "$value": 24
+      },
+      "32": {
+        "$type": "dimension",
+        "$value": 32
+      },
+      "36": {
+        "$type": "dimension",
+        "$value": 36
+      },
+      "40": {
+        "$type": "dimension",
+        "$value": 40
+      },
+      "44": {
+        "$type": "dimension",
+        "$value": 44
+      },
+      "48": {
+        "$type": "dimension",
+        "$value": 48
+      },
+      "52": {
+        "$type": "dimension",
+        "$value": 52
+      },
+      "56": {
+        "$type": "dimension",
+        "$value": 56
+      },
+      "62": {
+        "$type": "dimension",
+        "$value": 62
+      },
+      "64": {
+        "$type": "dimension",
+        "$value": 64
+      },
+      "68": {
+        "$type": "dimension",
+        "$value": 68
+      },
+      "90": {
+        "$type": "dimension",
+        "$value": 90
+      },
+      "343": {
+        "$type": "dimension",
+        "$value": 343
+      },
+      "356": {
+        "$type": "dimension",
+        "$value": 356
+      },
+      "375": {
+        "$type": "dimension",
+        "$value": 375
+      },
+      "1200": {
+        "$type": "dimension",
+        "$value": 1200
+      }
+    },
+    "radius": {
+      "sm": {
+        "$type": "dimension",
+        "$value": 4
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": 10
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": 16
+      },
+      "full": {
+        "$type": "dimension",
+        "$value": 9999
+      },
+      "xs": {
+        "$type": "dimension",
+        "$value": 8
+      }
+    },
+    "typography": {
+      "family": {
+        "sans": {
+          "$type": "string",
+          "$value": "Noto Sans"
+        },
+        "jp": {
+          "$type": "string",
+          "$value": "Noto Sans JP"
+        },
+        "sc": {
+          "$type": "string",
+          "$value": "Noto Sans SC"
+        }
+      },
+      "weight": {
+        "regular": {
+          "$type": "dimension",
+          "$value": 400
+        },
+        "medium": {
+          "$type": "dimension",
+          "$value": 500
+        },
+        "bold": {
+          "$type": "dimension",
+          "$value": 700
+        }
+      },
+      "size": {
+        "xs": {
+          "$type": "dimension",
+          "$value": 10
+        },
+        "sm": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": 14
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "xl": {
+          "$type": "dimension",
+          "$value": 20
+        },
+        "2xl": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "3xl": {
+          "$type": "dimension",
+          "$value": 32
+        }
+      },
+      "lineHeight": {
+        "tight": {
+          "$type": "dimension",
+          "$value": 130
+        },
+        "normal": {
+          "$type": "dimension",
+          "$value": 140
+        }
+      },
+      "letterSpacing": {
+        "normal": {
+          "$type": "dimension",
+          "$value": 4
+        }
+      }
+    }
+  },
+  "semantic": {
+    "background": {
+      "general": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.white}",
+          "Dark": "{primitive.color.gray.900}"
+        }
+      },
+      "card": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.white}",
+          "Dark": "{primitive.color.gray.900}"
+        }
+      },
+      "modal": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.gray.50}",
+          "Dark": "{primitive.color.gray.900}"
+        }
+      },
+      "modal_section": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.white}",
+          "Dark": "{primitive.color.gray.800}"
+        }
+      },
+      "modal_section_inner": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.gray.100}",
+          "Dark": "{primitive.color.gray.900}"
+        }
+      },
+      "backdrop": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.white.80}",
+          "Dark": "{primitive.color.black.80}"
+        }
+      }
+    },
+    "text": {
+      "core": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.900}",
+          "Dark": "{primitive.color.white}"
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.900}",
+          "Dark": "{primitive.color.gray.300}"
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.700}",
+          "Dark": "{primitive.color.gray.350}"
+        }
+      },
+      "action": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.blue.500}",
+          "Dark": "{primitive.color.blue.600}"
+        }
+      },
+      "placeholder": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.200}",
+          "Dark": "{primitive.color.gray.700}"
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.green.500}",
+          "Dark": "{primitive.color.green.500}"
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.red.500}",
+          "Dark": "{primitive.color.red.500}"
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.orange.500}",
+          "Dark": "{primitive.color.orange.500}"
+        }
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.white}",
+          "Dark": "{primitive.color.white}"
+        }
+      }
+    },
+    "stroke": {
+      "icon_primary": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.900}",
+          "Dark": "{primitive.color.gray.450}"
+        }
+      },
+      "icon_secondary": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.700}",
+          "Dark": "{primitive.color.gray.350}"
+        }
+      },
+      "logo": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.900}",
+          "Dark": "{primitive.color.white}"
+        }
+      },
+      "icon_inverse": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.white}",
+          "Dark": "{primitive.color.white}"
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.50}",
+          "Dark": "{primitive.color.gray.880}"
+        }
+      }
+    },
+    "fill": {
+      "icon_chip": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.gray.100}",
+          "Dark": "{primitive.color.gray.800}"
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.900}",
+          "Dark": "{primitive.color.gray.500}"
+        }
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.white}",
+          "Dark": "{primitive.color.gray.900}"
+        }
+      },
+      "logo": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.900}",
+          "Dark": "{primitive.color.white}"
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.green.500}",
+          "Dark": "{primitive.color.green.500}"
+        }
+      },
+      "success_subtle": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.green.500_a20}",
+          "Dark": "{primitive.color.green.500_a20}"
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.red.500}",
+          "Dark": "{primitive.color.red.500}"
+        }
+      },
+      "error_subtle": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.red.500_a20}",
+          "Dark": "{primitive.color.red.500_a20}"
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.orange.500}",
+          "Dark": "{primitive.color.orange.500}"
+        }
+      },
+      "warning_subtle": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.orange.500_a20}",
+          "Dark": "{primitive.color.orange.500_a20}"
+        }
+      },
+      "action": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.blue.500}",
+          "Dark": "{primitive.color.blue.600}"
+        }
+      },
+      "action_subtle": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.blue.500_a20}",
+          "Dark": "{primitive.color.blue.500_a20}"
+        }
+      },
+      "tag_inverse": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.900_a8}",
+          "Dark": "{primitive.color.gray.250_a8}"
+        }
+      },
+      "tag_selected_dismissible": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.navy.900}",
+          "Dark": "{primitive.color.gray.250}"
+        }
+      }
+    },
+    "status": {
+      "success": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.green.500}",
+          "Dark": "{primitive.color.green.500}"
+        }
+      },
+      "success_subtle": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.green.500_a20}",
+          "Dark": "{primitive.color.green.500_a20}"
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.red.500}",
+          "Dark": "{primitive.color.red.500}"
+        }
+      },
+      "error_subtle": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.red.500_a20}",
+          "Dark": "{primitive.color.red.500_a20}"
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.orange.500}",
+          "Dark": "{primitive.color.orange.500}"
+        }
+      },
+      "warning_subtle": {
+        "$type": "color",
+        "$value": {
+          "Light": "{primitive.color.orange.500_a20}",
+          "Dark": "{primitive.color.orange.500_a20}"
+        }
+      }
+    }
+  },
+  "style": {
+    "paint": {
+      "Light": {
+        "gradient": {
+          "general": {
+            "$type": "paint",
+            "$value": [
+              {
+                "type": "GRADIENT_LINEAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "position": 0,
+                    "color": "#F9FDFF"
+                  },
+                  {
+                    "position": 1,
+                    "color": "#F0F1F3"
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "$description": "Semantic page background for most pages. Light theme variant."
+          },
+          "main": {
+            "$type": "paint",
+            "$value": [
+              {
+                "type": "GRADIENT_LINEAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "position": 0,
+                    "color": "#F9FDFF"
+                  },
+                  {
+                    "position": 1,
+                    "color": "#D6EBFF"
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "$description": "Semantic page background for token main, claim, and other promotional pages. Light theme variant."
+          },
+          "xaut_card": {
+            "$type": "paint",
+            "$value": [
+              {
+                "type": "GRADIENT_LINEAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "position": 0,
+                    "color": "rgba(255, 255, 255, 0.6)"
+                  },
+                  {
+                    "position": 1,
+                    "color": "#EEF7FF"
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "$description": "XAUT card gradient — 60% white glassmorphism to pale blue accent."
+          },
+          "bar_backdrop": {
+            "$type": "paint",
+            "$value": [
+              {
+                "type": "GRADIENT_LINEAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "position": 0,
+                    "color": "rgba(255, 255, 255, 0)"
+                  },
+                  {
+                    "position": 1,
+                    "color": "#FFFFFF"
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "$description": "Tab bar backdrop gradient — transparent white to solid white for feathered top edge."
+          }
+        }
+      },
+      "Dark": {
+        "gradient": {
+          "general": {
+            "$type": "paint",
+            "$value": [
+              {
+                "type": "GRADIENT_LINEAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "position": 0,
+                    "color": "#000000"
+                  },
+                  {
+                    "position": 1,
+                    "color": "#1F1F1F"
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "$description": "Semantic page background for most pages. Dark theme variant."
+          },
+          "main": {
+            "$type": "paint",
+            "$value": [
+              {
+                "type": "GRADIENT_LINEAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "position": 0,
+                    "color": "#000000"
+                  },
+                  {
+                    "position": 1,
+                    "color": "#003160"
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "$description": "Semantic page background for token main, claim, and other promotional pages. Dark theme variant."
+          },
+          "xaut_card": {
+            "$type": "paint",
+            "$value": [
+              {
+                "type": "GRADIENT_LINEAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "position": 0,
+                    "color": "rgba(21, 20, 23, 0.702)"
+                  },
+                  {
+                    "position": 1,
+                    "color": "#2C2C2E"
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "$description": "XAUT card gradient in dark mode — near-black warm undertone to elevated dark gray."
+          },
+          "bar_backdrop": {
+            "$type": "paint",
+            "$value": [
+              {
+                "type": "GRADIENT_LINEAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "position": 0,
+                    "color": "rgba(1, 3, 6, 0)"
+                  },
+                  {
+                    "position": 1,
+                    "color": "#010306"
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    0,
+                    1,
+                    0
+                  ],
+                  [
+                    -1,
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "$description": "Tab bar backdrop gradient in dark mode — transparent near-black to near-pure-black."
+          }
+        }
+      },
+      "component": {
+        "button": {
+          "primary": {
+            "fill": {
+              "$type": "paint",
+              "$value": [
+                {
+                  "type": "GRADIENT_RADIAL",
+                  "visible": true,
+                  "opacity": 0.7,
+                  "blendMode": "NORMAL",
+                  "gradientStops": [
+                    {
+                      "position": 0,
+                      "color": "#0CC5FF"
+                    },
+                    {
+                      "position": 1,
+                      "color": "#007FFF"
+                    }
+                  ],
+                  "gradientTransform": [
+                    [
+                      -0.25062549114227295,
+                      -0.43337324261665344,
+                      1.1752420663833618
+                    ],
+                    [
+                      0.43337324261665344,
+                      -0.25062549114227295,
+                      0.38447728753089905
+                    ]
+                  ]
+                }
+              ]
+            },
+            "stroke": {
+              "$type": "paint",
+              "$value": [
+                {
+                  "type": "GRADIENT_LINEAR",
+                  "visible": true,
+                  "opacity": 1,
+                  "blendMode": "NORMAL",
+                  "gradientStops": [
+                    {
+                      "position": 0,
+                      "color": "rgba(255, 255, 255, 0.5)"
+                    },
+                    {
+                      "position": 0.29,
+                      "color": "rgba(49, 143, 239, 0.07)"
+                    },
+                    {
+                      "position": 1,
+                      "color": "rgba(12, 197, 255, 0.07)"
+                    }
+                  ],
+                  "gradientTransform": [
+                    [
+                      0.5132105350494385,
+                      0.9093258380889893,
+                      -0.2274799793958664
+                    ],
+                    [
+                      -0.9093258380889893,
+                      0.5132105350494385,
+                      0.7238123416900635
+                    ]
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "text": {
+      "heroTitle": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Bold",
+          "fontSize": 32,
+          "lineHeight": "140px",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "heroAmount": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Bold",
+          "fontSize": 24,
+          "lineHeight": "140px",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "sectionLead": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Medium",
+          "fontSize": 20,
+          "lineHeight": "140%",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "navTitle": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Bold",
+          "fontSize": 16,
+          "lineHeight": "140%",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "bodyPrimary": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Medium",
+          "fontSize": 16,
+          "lineHeight": "140%",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "actionLabel": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Regular",
+          "fontSize": 16,
+          "lineHeight": "140%",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "bodySecondary": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Regular",
+          "fontSize": 14,
+          "lineHeight": "140%",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "sectionTitle": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Medium",
+          "fontSize": 14,
+          "lineHeight": "140%",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "supportingText": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Regular",
+          "fontSize": 12,
+          "lineHeight": "130%",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      },
+      "tabLabel": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Noto Sans",
+          "fontStyle": "Regular",
+          "fontSize": 10,
+          "lineHeight": "140%",
+          "letterSpacing": "4%",
+          "paragraphSpacing": 0
+        }
+      }
+    },
+    "effect": {
+      "effect": {
+        "shadow": {
+          "sm": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 0,
+                  "y": 1
+                },
+                "radius": 3,
+                "spread": 0
+              }
+            ]
+          },
+          "md": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 0,
+                  "y": 4
+                },
+                "radius": 8,
+                "spread": 0
+              }
+            ]
+          },
+          "lg": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 0,
+                  "y": 8
+                },
+                "radius": 16,
+                "spread": 0
+              }
+            ]
+          },
+          "xl": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.16)",
+                "offset": {
+                  "x": 0,
+                  "y": 16
+                },
+                "radius": 32,
+                "spread": 0
+              }
+            ]
+          },
+          "glass-button-md": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 16
+              },
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 2,
+                  "y": 2
+                },
+                "radius": 20,
+                "spread": 6
+              }
+            ]
+          },
+          "glass-button-lg": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 16
+              },
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 4,
+                  "y": 4
+                },
+                "radius": 32,
+                "spread": 6
+              }
+            ]
+          },
+          "floating-menu": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 2,
+                  "y": 2
+                },
+                "radius": 20,
+                "spread": 1
+              }
+            ]
+          },
+          "floating-toast": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 0,
+                  "y": 4
+                },
+                "radius": 16,
+                "spread": 0
+              }
+            ]
+          },
+          "glass-beta": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 6.75
+              },
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 1.5,
+                  "y": 1.5
+                },
+                "radius": 15,
+                "spread": 4.5
+              }
+            ]
+          },
+          "glass-card": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 13.7143
+              },
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 1.7143,
+                  "y": 1.7143
+                },
+                "radius": 17.1429,
+                "spread": 5.1429
+              }
+            ]
+          },
+          "token-main": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 0,
+                  "y": 4
+                },
+                "radius": 4,
+                "spread": 0
+              }
+            ]
+          },
+          "floating-cta": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 0,
+                  "y": 4
+                },
+                "radius": 20,
+                "spread": 0
+              }
+            ]
+          },
+          "floating-token-logo": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "DROP_SHADOW",
+                "visible": true,
+                "blendMode": "NORMAL",
+                "color": "rgba(0, 0, 0, 0.12)",
+                "offset": {
+                  "x": 1.3333,
+                  "y": 1.3333
+                },
+                "radius": 13.3333,
+                "spread": 0
+              }
+            ]
+          }
+        },
+        "blur": {
+          "background-none": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 0
+              }
+            ]
+          },
+          "background-md": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 16
+              }
+            ]
+          },
+          "layer-xs": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "LAYER_BLUR",
+                "visible": true,
+                "radius": 2
+              }
+            ]
+          },
+          "layer-sm": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "LAYER_BLUR",
+                "visible": true,
+                "radius": 4
+              }
+            ]
+          },
+          "layer-md": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "LAYER_BLUR",
+                "visible": true,
+                "radius": 5
+              }
+            ]
+          },
+          "layer-lg": {
+            "$type": "effect",
+            "$value": [
+              {
+                "type": "LAYER_BLUR",
+                "visible": true,
+                "radius": 12
+              }
+            ]
+          }
+        }
+      }
+    },
+    "grid": {}
+  },
+  "component": {
+    "Progress_bar": {
+      "Progress bar": {
+        "$type": "componentSet",
+        "$value": {
+          "figma": {
+            "id": "3948:4",
+            "key": "071ccb6adbfab7522a4c454fafdea1629cc0d34f",
+            "page": "Primitive/Progress_bar"
+          },
+          "componentProperties": {
+            "Progress": {
+              "type": "VARIANT",
+              "defaultValue": "Partial",
+              "variantOptions": [
+                "Partial",
+                "Complete"
+              ]
+            }
+          },
+          "variantCount": 2,
+          "tokens": {
+            "width": [
+              311
+            ],
+            "height": [
+              12
+            ],
+            "paddingTop": [
+              0
+            ],
+            "paddingRight": [
+              0
+            ],
+            "paddingBottom": [
+              0
+            ],
+            "paddingLeft": [
+              0
+            ],
+            "itemSpacing": [
+              0
+            ],
+            "cornerRadius": [
+              0
+            ],
+            "layoutMode": [
+              "NONE"
+            ]
+          },
+          "bindings": {
+            "RECTANGLE.fills": [
+              "{semantic.background.modal_section_inner}",
+              "{semantic.fill.action}"
+            ]
+          }
+        }
+      }
+    },
+    "Tag": {
+      "Tag": {
+        "$type": "componentSet",
+        "$value": {
+          "figma": {
+            "id": "3995:32",
+            "key": "000ba1002d93fc270c9d90bdbb2d24f7f7c1362b",
+            "page": "Primitive/Tag"
+          },
+          "componentProperties": {
+            "Label#3995:0": {
+              "type": "TEXT",
+              "defaultValue": "Tag"
+            },
+            "Icon#3995:5": {
+              "type": "INSTANCE_SWAP",
+              "defaultValue": "4002:25"
+            },
+            "Status": {
+              "type": "VARIANT",
+              "defaultValue": "Inverse",
+              "variantOptions": [
+                "Inverse",
+                "NotForSelection",
+                "NotSelected",
+                "Selected",
+                "SelectedDismissible"
+              ]
+            }
+          },
+          "variantCount": 5,
+          "tokens": {
+            "width": [
+              54,
+              56,
+              61,
+              64
+            ],
+            "height": [
+              24,
+              32
+            ],
+            "paddingTop": [
+              6,
+              8
+            ],
+            "paddingRight": [
+              8,
+              12
+            ],
+            "paddingBottom": [
+              6,
+              8
+            ],
+            "paddingLeft": [
+              8,
+              12
+            ],
+            "itemSpacing": [
+              10
+            ],
+            "cornerRadius": [
+              16,
+              32,
+              40
+            ],
+            "layoutMode": [
+              "HORIZONTAL"
+            ]
+          },
+          "bindings": {
+            "COMPONENT.fills": [
+              "{semantic.background.card}",
+              "{semantic.fill.icon_chip}",
+              "{semantic.fill.tag_inverse}",
+              "{semantic.fill.tag_selected_dismissible}"
+            ],
+            "TEXT.fills": [
+              "{semantic.text.core}",
+              "{semantic.text.inverse}",
+              "{unresolved.VariableID:4002:14}",
+              "{unresolved.VariableID:4002:15}"
+            ],
+            "style.text": [
+              "{style.supportingText}"
+            ],
+            "VECTOR.strokes": [
+              "{semantic.stroke.icon_inverse}"
+            ]
+          }
+        }
+      }
+    },
+    "Inline_tip": {
+      "Inline tip": {
+        "$type": "componentSet",
+        "$value": {
+          "figma": {
+            "id": "3914:207",
+            "key": "fcbf069973a7eaf89b4bd8aa7faa5210a85400e0",
+            "page": "Primitive/Inline_tip"
+          },
+          "componentProperties": {
+            "Status": {
+              "type": "VARIANT",
+              "defaultValue": "Info",
+              "variantOptions": [
+                "Info",
+                "Risk",
+                "Warning"
+              ]
+            },
+            "Action": {
+              "type": "VARIANT",
+              "defaultValue": "Dismiss",
+              "variantOptions": [
+                "Dismiss",
+                "Navigate"
+              ]
+            }
+          },
+          "variantCount": 6,
+          "tokens": {
+            "width": [
+              343
+            ],
+            "height": [
+              40,
+              72
+            ],
+            "paddingTop": [
+              12
+            ],
+            "paddingRight": [
+              16
+            ],
+            "paddingBottom": [
+              12
+            ],
+            "paddingLeft": [
+              16
+            ],
+            "itemSpacing": [
+              8
+            ],
+            "cornerRadius": [
+              16
+            ],
+            "layoutMode": [
+              "HORIZONTAL"
+            ]
+          },
+          "bindings": {
+            "COMPONENT.fills": [
+              "{primitive.color.blue.500_a20}",
+              "{primitive.color.orange.500_a20}",
+              "{primitive.color.red.500_a20}"
+            ],
+            "INSTANCE.width": [
+              "{primitive.size.16}"
+            ],
+            "INSTANCE.height": [
+              "{primitive.size.16}"
+            ],
+            "VECTOR.fills": [
+              "{semantic.fill.action}",
+              "{semantic.fill.error}",
+              "{semantic.fill.warning}"
+            ],
+            "TEXT.fills": [
+              "{primitive.color.navy.900}"
+            ],
+            "style.text": [
+              "{style.supportingText}"
+            ],
+            "BOOLEAN_OPERATION.fills": [
+              "{semantic.fill.secondary}"
+            ],
+            "VECTOR.strokes": [
+              "{semantic.stroke.icon_primary}",
+              "{semantic.stroke.icon_secondary}"
+            ],
+            "ELLIPSE.fills": [
+              "{semantic.background.general}"
+            ]
+          }
+        }
+      }
+    },
+    "Button": {
+      "Button": {
+        "$type": "componentSet",
+        "$value": {
+          "figma": {
+            "id": "3593:126",
+            "key": "8810f89c6fc8997ada67eb9eed8e67eeb851acc4",
+            "page": "Primitive/Button"
+          },
+          "componentProperties": {
+            "Label#3593:42": {
+              "type": "TEXT",
+              "defaultValue": "Button label"
+            },
+            "Has Icon#3607:0": {
+              "type": "BOOLEAN",
+              "defaultValue": false
+            },
+            "Icon#3607:43": {
+              "type": "INSTANCE_SWAP",
+              "defaultValue": "3515:943"
+            },
+            "Hierarchy": {
+              "type": "VARIANT",
+              "defaultValue": "Primary",
+              "variantOptions": [
+                "Primary",
+                "Outline",
+                "Ghost",
+                "Foreground",
+                "Destructive",
+                "Link"
+              ]
+            },
+            "State": {
+              "type": "VARIANT",
+              "defaultValue": "Active",
+              "variantOptions": [
+                "Active",
+                "Disabled"
+              ]
+            },
+            "Size": {
+              "type": "VARIANT",
+              "defaultValue": "lg",
+              "variantOptions": [
+                "lg",
+                "default",
+                "sm"
+              ]
+            },
+            "Width": {
+              "type": "VARIANT",
+              "defaultValue": "Full",
+              "variantOptions": [
+                "Full",
+                "Auto"
+              ]
+            }
+          },
+          "variantCount": 48,
+          "tokens": {
+            "width": [
+              113,
+              131,
+              343
+            ],
+            "height": [
+              44,
+              48,
+              52
+            ],
+            "paddingTop": [
+              0
+            ],
+            "paddingRight": [
+              12,
+              16
+            ],
+            "paddingBottom": [
+              0
+            ],
+            "paddingLeft": [
+              12,
+              16
+            ],
+            "itemSpacing": [
+              8
+            ],
+            "cornerRadius": [
+              9999
+            ],
+            "layoutMode": [
+              "HORIZONTAL"
+            ]
+          },
+          "bindings": {
+            "COMPONENT.itemSpacing": [
+              "{primitive.spacing.8}"
+            ],
+            "COMPONENT.paddingLeft": [
+              "{primitive.spacing.12}",
+              "{primitive.spacing.16}"
+            ],
+            "COMPONENT.paddingRight": [
+              "{primitive.spacing.12}",
+              "{primitive.spacing.16}"
+            ],
+            "COMPONENT.topLeftRadius": [
+              "{primitive.radius.full}"
+            ],
+            "COMPONENT.topRightRadius": [
+              "{primitive.radius.full}"
+            ],
+            "COMPONENT.bottomLeftRadius": [
+              "{primitive.radius.full}"
+            ],
+            "COMPONENT.bottomRightRadius": [
+              "{primitive.radius.full}"
+            ],
+            "COMPONENT.minHeight": [
+              "{primitive.size.44}",
+              "{primitive.size.48}",
+              "{primitive.size.52}"
+            ],
+            "style.stroke": [
+              "{style.component.button.primary.stroke}"
+            ],
+            "INSTANCE.fills": [
+              "{semantic.text.action}",
+              "{semantic.text.error}",
+              "{semantic.text.inverse}",
+              "{semantic.text.primary}",
+              "{semantic.text.secondary}"
+            ],
+            "VECTOR.strokes": [
+              "{semantic.stroke.icon_primary}"
+            ],
+            "TEXT.fills": [
+              "{semantic.text.action}",
+              "{semantic.text.error}",
+              "{semantic.text.inverse}",
+              "{semantic.text.primary}",
+              "{semantic.text.secondary}"
+            ],
+            "style.text": [
+              "{style.actionLabel}",
+              "{style.sectionTitle}"
+            ],
+            "COMPONENT.strokes": [
+              "{semantic.border.default}"
+            ],
+            "COMPONENT.fills": [
+              "{semantic.fill.secondary}"
+            ]
+          }
+        }
+      }
+    },
+    "Toast": {
+      "Toast": {
+        "$type": "componentSet",
+        "$value": {
+          "figma": {
+            "id": "3340:624",
+            "key": "268e7b3f1992b28bde59df9210114cc2f945a060",
+            "page": "Primitive/Toast"
+          },
+          "componentProperties": {
+            "Message#3202:0": {
+              "type": "TEXT",
+              "defaultValue": "Transaction submitted. Tap to check status. "
+            },
+            "Show Close Icon#6411:3": {
+              "type": "BOOLEAN",
+              "defaultValue": false
+            },
+            "Show Link Icon#6411:4": {
+              "type": "BOOLEAN",
+              "defaultValue": false
+            },
+            "Show Copy Icon#6411:5": {
+              "type": "BOOLEAN",
+              "defaultValue": false
+            },
+            "Width": {
+              "type": "VARIANT",
+              "defaultValue": "Fixed",
+              "variantOptions": [
+                "Fixed",
+                "Hug"
+              ]
+            },
+            "Status": {
+              "type": "VARIANT",
+              "defaultValue": "Success",
+              "variantOptions": [
+                "Success",
+                "Info",
+                "Warning",
+                "Error"
+              ]
+            }
+          },
+          "variantCount": 8,
+          "tokens": {
+            "width": [
+              324,
+              343
+            ],
+            "height": [
+              44
+            ],
+            "paddingTop": [
+              12
+            ],
+            "paddingRight": [
+              16
+            ],
+            "paddingBottom": [
+              12
+            ],
+            "paddingLeft": [
+              16
+            ],
+            "itemSpacing": [
+              10
+            ],
+            "cornerRadius": [
+              9999
+            ],
+            "layoutMode": [
+              "HORIZONTAL"
+            ]
+          },
+          "bindings": {
+            "COMPONENT.itemSpacing": [
+              "{unresolved.VariableID:3323:3}"
+            ],
+            "COMPONENT.paddingLeft": [
+              "{primitive.spacing.16}"
+            ],
+            "COMPONENT.paddingTop": [
+              "{primitive.spacing.12}"
+            ],
+            "COMPONENT.paddingRight": [
+              "{primitive.spacing.16}"
+            ],
+            "COMPONENT.paddingBottom": [
+              "{primitive.spacing.12}"
+            ],
+            "COMPONENT.topLeftRadius": [
+              "{primitive.radius.full}"
+            ],
+            "COMPONENT.topRightRadius": [
+              "{primitive.radius.full}"
+            ],
+            "COMPONENT.bottomLeftRadius": [
+              "{primitive.radius.full}"
+            ],
+            "COMPONENT.bottomRightRadius": [
+              "{primitive.radius.full}"
+            ],
+            "COMPONENT.fills": [
+              "{semantic.background.modal_section}"
+            ],
+            "style.effect": [
+              "{style.effect.shadow.floating-toast}"
+            ],
+            "FRAME.itemSpacing": [
+              "{primitive.spacing.8}"
+            ],
+            "VECTOR.fills": [
+              "{semantic.status.error}",
+              "{semantic.status.success}",
+              "{semantic.status.warning}",
+              "{semantic.text.action}"
+            ],
+            "VECTOR.strokes": [
+              "{semantic.stroke.icon_secondary}",
+              "{semantic.text.inverse}"
+            ],
+            "TEXT.fills": [
+              "{semantic.text.primary}"
+            ],
+            "style.text": [
+              "{style.supportingText}"
+            ]
+          }
+        }
+      }
+    },
+    "Toggle": {
+      "Toggle": {
+        "$type": "componentSet",
+        "$value": {
+          "figma": {
+            "id": "3340:720",
+            "key": "7937daf7d9d1ea3e7d98de8b13d0984e2f8c38fc",
+            "page": "Primitive/Toggle"
+          },
+          "componentProperties": {
+            "Status": {
+              "type": "VARIANT",
+              "defaultValue": "On",
+              "variantOptions": [
+                "Off",
+                "On"
+              ]
+            }
+          },
+          "variantCount": 2,
+          "tokens": {
+            "width": [
+              72
+            ],
+            "height": [
+              32
+            ],
+            "paddingTop": [
+              0
+            ],
+            "paddingRight": [
+              0
+            ],
+            "paddingBottom": [
+              0
+            ],
+            "paddingLeft": [
+              0
+            ],
+            "itemSpacing": [
+              0
+            ],
+            "cornerRadius": [
+              0
+            ],
+            "layoutMode": [
+              "NONE"
+            ]
+          },
+          "bindings": {
+            "RECTANGLE.topLeftRadius": [
+              "{primitive.radius.full}"
+            ],
+            "RECTANGLE.topRightRadius": [
+              "{primitive.radius.full}"
+            ],
+            "RECTANGLE.bottomLeftRadius": [
+              "{primitive.radius.full}"
+            ],
+            "RECTANGLE.bottomRightRadius": [
+              "{primitive.radius.full}"
+            ],
+            "RECTANGLE.fills": [
+              "{semantic.fill.action}",
+              "{semantic.fill.icon_chip}",
+              "{semantic.fill.secondary}"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "pattern": {
+    "Modal": {
+      "Modal": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3340:429",
+            "key": "2658662a1050139fe1e15c5e51f3ef804f1d8d26",
+            "page": "Product/Modal"
+          },
+          "componentProperties": {
+            "Type": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Default",
+                "Default with subtitle",
+                "Level 2",
+                "Dialog",
+                "Tour"
+              ]
+            },
+            "Platform": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Mobile",
+                "Web"
+              ]
+            }
+          },
+          "variantCount": 10,
+          "tokens": {
+            "width": [
+              375,
+              560
+            ],
+            "height": [
+              284,
+              290,
+              294,
+              318,
+              346,
+              600,
+              624
+            ],
+            "paddingTop": [
+              8,
+              16
+            ],
+            "paddingRight": [
+              16
+            ],
+            "paddingBottom": [
+              20,
+              40
+            ],
+            "paddingLeft": [
+              16
+            ],
+            "itemSpacing": [
+              4,
+              20,
+              24
+            ],
+            "cornerRadius": [
+              16
+            ],
+            "layoutMode": [
+              "VERTICAL"
+            ]
+          },
+          "bindings": [
+            "{primitive.radius.full}",
+            "{primitive.radius.lg}",
+            "{primitive.radius.sm}",
+            "{primitive.size.48}",
+            "{primitive.size.52}",
+            "{primitive.spacing.12}",
+            "{primitive.spacing.16}",
+            "{primitive.spacing.20}",
+            "{primitive.spacing.24}",
+            "{primitive.spacing.32}",
+            "{primitive.spacing.40}",
+            "{primitive.spacing.48}",
+            "{primitive.spacing.4}",
+            "{primitive.spacing.8}",
+            "{primitive.typography.lineHeight.normal}",
+            "{primitive.typography.size.2xl}",
+            "{semantic.background.modal_section_inner}",
+            "{semantic.background.modal_section}",
+            "{semantic.background.modal}",
+            "{semantic.border.default}",
+            "{semantic.fill.action}",
+            "{semantic.fill.secondary}",
+            "{semantic.fill.warning_subtle}",
+            "{semantic.status.warning}",
+            "{semantic.stroke.icon_primary}",
+            "{semantic.stroke.icon_secondary}",
+            "{semantic.text.core}",
+            "{semantic.text.inverse}",
+            "{semantic.text.placeholder}",
+            "{semantic.text.primary}",
+            "{semantic.text.secondary}",
+            "{style.actionLabel}",
+            "{style.bodySecondary}",
+            "{style.component.button.primary.stroke}",
+            "{style.heroAmount}",
+            "{style.navTitle}",
+            "{style.supportingText}"
+          ]
+        }
+      }
+    },
+    "Error": {
+      "Error": {
+        "$type": "pattern",
+        "$value": {
+          "figma": {
+            "id": "3783:29",
+            "key": "dd8146273745d098e413d9971f813fad48580236",
+            "page": "Product/Error"
+          },
+          "componentProperties": {
+            "Title#3203:176": {
+              "type": "TEXT"
+            },
+            "Description#3203:177": {
+              "type": "TEXT"
+            },
+            "Action label#3203:178": {
+              "type": "TEXT"
+            }
+          },
+          "variantCount": 1,
+          "tokens": {
+            "width": [
+              343
+            ],
+            "height": [
+              286
+            ],
+            "paddingTop": [
+              0
+            ],
+            "paddingRight": [
+              0
+            ],
+            "paddingBottom": [
+              0
+            ],
+            "paddingLeft": [
+              0
+            ],
+            "itemSpacing": [
+              48
+            ],
+            "cornerRadius": [
+              0
+            ],
+            "layoutMode": [
+              "VERTICAL"
+            ]
+          },
+          "bindings": [
+            "{primitive.radius.full}",
+            "{primitive.size.52}",
+            "{primitive.spacing.16}",
+            "{primitive.spacing.32}",
+            "{primitive.spacing.48}",
+            "{primitive.spacing.8}",
+            "{semantic.stroke.icon_primary}",
+            "{semantic.text.core}",
+            "{semantic.text.inverse}",
+            "{semantic.text.secondary}",
+            "{style.actionLabel}",
+            "{style.bodySecondary}",
+            "{style.component.button.primary.stroke}",
+            "{style.navTitle}"
+          ]
+        }
+      }
+    },
+    "Navigation": {
+      "Navigation Shell": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3340:6",
+            "key": "cfa969e35762d5e99498f99992407e5363e0de63",
+            "page": "Product/Navigation"
+          },
+          "componentProperties": {
+            "State": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Default",
+                "TokenMainScroll"
+              ]
+            }
+          },
+          "variantCount": 2,
+          "tokens": {
+            "width": [
+              343
+            ],
+            "height": [
+              24
+            ],
+            "itemSpacing": [
+              248
+            ],
+            "layoutMode": [
+              "HORIZONTAL"
+            ]
+          },
+          "bindings": [
+            "{primitive.spacing.8}",
+            "{semantic.stroke.icon_primary}",
+            "{semantic.stroke.icon_secondary}",
+            "{semantic.stroke.logo}"
+          ]
+        }
+      },
+      "Navigation Token Cluster": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3340:29",
+            "key": "4c26d6dd9cd5c094d0fc42a54f99016025b3eee0",
+            "page": "Product/Navigation"
+          },
+          "componentProperties": {
+            "State": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Default",
+                "Expanded"
+              ]
+            }
+          },
+          "variantCount": 2,
+          "tokens": {
+            "width": [
+              94,
+              196
+            ],
+            "height": [
+              32
+            ],
+            "paddingTop": [
+              4
+            ],
+            "paddingRight": [
+              8
+            ],
+            "paddingBottom": [
+              4
+            ],
+            "paddingLeft": [
+              8
+            ],
+            "itemSpacing": [
+              10
+            ],
+            "cornerRadius": [
+              9999
+            ],
+            "layoutMode": [
+              "VERTICAL"
+            ]
+          },
+          "bindings": [
+            "{primitive.radius.full}",
+            "{primitive.spacing.4}",
+            "{primitive.spacing.8}",
+            "{semantic.background.card}",
+            "{semantic.background.modal_section_inner}",
+            "{semantic.border.default}",
+            "{semantic.fill.secondary}",
+            "{semantic.stroke.icon_secondary}",
+            "{unresolved.VariableID:3323:2}",
+            "{unresolved.VariableID:3323:3}"
+          ]
+        }
+      },
+      "Account Menu": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3340:99",
+            "key": "c529c40b087d37c4813ed7bb62be109e244ce7f6",
+            "page": "Product/Navigation"
+          },
+          "componentProperties": {
+            "AuthState": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "SignedOut",
+                "SignedIn"
+              ]
+            }
+          },
+          "variantCount": 2,
+          "tokens": {
+            "width": [
+              210
+            ],
+            "height": [
+              176,
+              297.9995
+            ],
+            "paddingBottom": [
+              20
+            ],
+            "itemSpacing": [
+              16
+            ],
+            "cornerRadius": [
+              16
+            ],
+            "layoutMode": [
+              "VERTICAL"
+            ]
+          },
+          "bindings": [
+            "{primitive.radius.lg}",
+            "{primitive.spacing.16}",
+            "{primitive.spacing.20}",
+            "{primitive.spacing.4}",
+            "{primitive.spacing.8}",
+            "{semantic.background.card}",
+            "{semantic.background.modal_section}",
+            "{semantic.background.modal}",
+            "{semantic.border.default}",
+            "{semantic.stroke.icon_primary}",
+            "{semantic.stroke.icon_secondary}",
+            "{semantic.text.primary}",
+            "{semantic.text.secondary}",
+            "{style.actionLabel}",
+            "{style.bodySecondary}",
+            "{style.effect.shadow.floating-menu}",
+            "{style.supportingText}",
+            "{unresolved.VariableID:3323:3}"
+          ]
+        }
+      },
+      "Beta badge": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3340:186",
+            "key": "2ddb420ab1a4cb8774f858d002633483da3f41b7",
+            "page": "Product/Navigation"
+          },
+          "componentProperties": {
+            "State": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Beta"
+              ]
+            }
+          },
+          "variantCount": 1,
+          "tokens": {
+            "width": [
+              38
+            ],
+            "height": [
+              18
+            ],
+            "paddingTop": [
+              2
+            ],
+            "paddingRight": [
+              8
+            ],
+            "paddingBottom": [
+              2
+            ],
+            "paddingLeft": [
+              8
+            ],
+            "itemSpacing": [
+              10
+            ],
+            "cornerRadius": [
+              4
+            ],
+            "layoutMode": [
+              "HORIZONTAL"
+            ]
+          },
+          "bindings": [
+            "{primitive.radius.sm}",
+            "{primitive.spacing.8}",
+            "{style.effect.shadow.glass-beta}",
+            "{unresolved.VariableID:3323:2}",
+            "{unresolved.VariableID:3323:3}"
+          ]
+        }
+      },
+      "Web Navigation": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3340:189",
+            "key": "dfe25a5ce3fb63744a84fb2f5ed47fa14fc1a7db",
+            "page": "Product/Navigation"
+          },
+          "componentProperties": {
+            "AuthState": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "SignedOut",
+                "SignedIn"
+              ]
+            }
+          },
+          "variantCount": 2,
+          "tokens": {
+            "width": [
+              1200
+            ],
+            "height": [
+              68
+            ],
+            "paddingTop": [
+              20
+            ],
+            "paddingBottom": [
+              20
+            ],
+            "itemSpacing": [
+              1151
+            ],
+            "layoutMode": [
+              "HORIZONTAL"
+            ]
+          },
+          "bindings": [
+            "{primitive.radius.full}",
+            "{primitive.radius.lg}",
+            "{primitive.size.44}",
+            "{primitive.spacing.12}",
+            "{primitive.spacing.16}",
+            "{primitive.spacing.20}",
+            "{primitive.spacing.4}",
+            "{primitive.spacing.8}",
+            "{semantic.background.general}",
+            "{semantic.background.modal_section_inner}",
+            "{semantic.background.modal}",
+            "{semantic.border.default}",
+            "{semantic.fill.action_subtle}",
+            "{semantic.fill.secondary}",
+            "{semantic.stroke.icon_primary}",
+            "{semantic.stroke.icon_secondary}",
+            "{semantic.stroke.logo}",
+            "{semantic.text.core}",
+            "{semantic.text.primary}",
+            "{style.bodySecondary}",
+            "{style.sectionTitle}"
+          ]
+        }
+      },
+      "Mobile Navigation": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3340:258",
+            "key": "f6670e6f02e6693b593cc6e816a5ed2ccd83ec48",
+            "page": "Product/Navigation"
+          },
+          "componentProperties": {
+            "Level": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Primary",
+                "Secondary"
+              ]
+            }
+          },
+          "variantCount": 2,
+          "tokens": {
+            "width": [
+              375
+            ],
+            "height": [
+              56,
+              90
+            ],
+            "layoutMode": [
+              "NONE"
+            ]
+          },
+          "bindings": [
+            "{primitive.radius.full}",
+            "{primitive.radius.lg}",
+            "{primitive.radius.sm}",
+            "{primitive.spacing.16}",
+            "{primitive.spacing.20}",
+            "{primitive.spacing.4}",
+            "{primitive.spacing.8}",
+            "{semantic.background.card}",
+            "{semantic.background.general}",
+            "{semantic.background.modal_section_inner}",
+            "{semantic.background.modal_section}",
+            "{semantic.background.modal}",
+            "{semantic.border.default}",
+            "{semantic.fill.secondary}",
+            "{semantic.stroke.icon_primary}",
+            "{semantic.stroke.icon_secondary}",
+            "{semantic.stroke.logo}",
+            "{semantic.text.core}",
+            "{semantic.text.primary}",
+            "{semantic.text.secondary}",
+            "{style.actionLabel}",
+            "{style.bodySecondary}",
+            "{style.effect.blur.background-none}",
+            "{style.effect.shadow.floating-menu}",
+            "{style.effect.shadow.glass-beta}",
+            "{style.navTitle}",
+            "{style.supportingText}",
+            "{style.tabLabel}",
+            "{unresolved.VariableID:3323:2}",
+            "{unresolved.VariableID:3323:3}",
+            "{unresolved.VariableID:955:21401}",
+            "{unresolved.VariableID:955:21402}"
+          ]
+        }
+      },
+      "_Navigation/CreateAccountButton": {
+        "$type": "pattern",
+        "$value": {
+          "figma": {
+            "id": "3706:1376",
+            "key": "329c3ac066700dc3eeca1cc51bf7fcfc831beee2",
+            "page": "Product/Navigation"
+          },
+          "componentProperties": {
+            "Label#3706:0": {
+              "type": "TEXT"
+            }
+          },
+          "variantCount": 1,
+          "tokens": {
+            "width": [
+              144
+            ],
+            "height": [
+              44
+            ],
+            "paddingTop": [
+              10
+            ],
+            "paddingRight": [
+              16
+            ],
+            "paddingBottom": [
+              10
+            ],
+            "paddingLeft": [
+              16
+            ],
+            "itemSpacing": [
+              10
+            ],
+            "cornerRadius": [
+              24
+            ],
+            "layoutMode": [
+              "HORIZONTAL"
+            ]
+          },
+          "bindings": [
+            "{semantic.background.modal_section_inner}",
+            "{semantic.text.core}"
+          ]
+        }
+      }
+    },
+    "Action Footer": {
+      "Action Footer": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3673:119",
+            "key": "380856bfc74193fdbd095efbf68b7902f35409a9",
+            "page": "Product/Action Footer"
+          },
+          "componentProperties": {
+            "Viewport": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Mobile",
+                "Web"
+              ]
+            },
+            "Container": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Page",
+                "Modal"
+              ]
+            },
+            "Layout": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Single",
+                "DoubleVertical",
+                "DoubleHorizontal"
+              ]
+            },
+            "Supporting": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "None",
+                "Message",
+                "Tip"
+              ]
+            }
+          },
+          "variantCount": 5,
+          "tokens": {
+            "width": [
+              375,
+              560
+            ],
+            "height": [
+              92,
+              134,
+              160
+            ],
+            "paddingTop": [
+              0,
+              20
+            ],
+            "paddingRight": [
+              0,
+              16
+            ],
+            "paddingBottom": [
+              0,
+              20
+            ],
+            "paddingLeft": [
+              0,
+              16
+            ],
+            "itemSpacing": [
+              0,
+              10
+            ],
+            "layoutMode": [
+              "NONE"
+            ]
+          },
+          "bindings": [
+            "{primitive.color.white.0}",
+            "{primitive.color.white}",
+            "{primitive.radius.full}",
+            "{primitive.size.52}",
+            "{primitive.spacing.16}",
+            "{primitive.spacing.4}",
+            "{primitive.spacing.8}",
+            "{semantic.border.default}",
+            "{semantic.stroke.icon_primary}",
+            "{semantic.text.inverse}",
+            "{semantic.text.primary}",
+            "{style.Light.gradient.bar_backdrop}",
+            "{style.actionLabel}",
+            "{style.component.button.primary.stroke}",
+            "{style.effect.blur.background-none}",
+            "{unresolved.VariableID:955:21401}",
+            "{unresolved.VariableID:955:21402}",
+            "{unresolved.VariableID:99:9571}"
+          ]
+        }
+      }
+    },
+    "Token Function Bar": {
+      "Token Function Bar": {
+        "$type": "patternSet",
+        "$value": {
+          "figma": {
+            "id": "3665:87",
+            "key": "4572d5145cc8a282117e53a89b0531de0d3a41ad",
+            "page": "Product/Token Function Bar"
+          },
+          "componentProperties": {
+            "Type": {
+              "type": "VARIANT",
+              "variantOptions": [
+                "Actions",
+                "Redirection"
+              ]
+            }
+          },
+          "variantCount": 2,
+          "tokens": {
+            "width": [
+              375
+            ],
+            "height": [
+              109
+            ],
+            "layoutMode": [
+              "NONE"
+            ]
+          },
+          "bindings": [
+            "{primitive.radius.full}",
+            "{primitive.spacing.12}",
+            "{primitive.spacing.16}",
+            "{primitive.spacing.20}",
+            "{primitive.spacing.24}",
+            "{primitive.spacing.8}",
+            "{style.component.button.primary.fill}",
+            "{style.effect.blur.background-none}",
+            "{unresolved.VariableID:3323:2}",
+            "{unresolved.VariableID:3323:3}",
+            "{unresolved.VariableID:87fa7f4dd3bbc4da71771b1a9b2af581a8fb00ce/19630:2}",
+            "{unresolved.VariableID:955:21401}",
+            "{unresolved.VariableID:955:21402}",
+            "{unresolved.VariableID:97:9749}",
+            "{unresolved.VariableID:99:9570}",
+            "{unresolved.VariableID:99:9573}",
+            "{unresolved.VariableID:99:9577}"
+          ]
+        }
+      }
+    }
+  },
+  "$themes": [
+    {
+      "id": "figma-light",
+      "name": "Figma Light",
+      "selectedTokenSets": {
+        "primitive": "enabled",
+        "semantic": "enabled",
+        "style": "enabled",
+        "component": "enabled",
+        "pattern": "enabled"
+      }
+    },
+    {
+      "id": "figma-dark",
+      "name": "Figma Dark",
+      "selectedTokenSets": {
+        "primitive": "enabled",
+        "semantic": "enabled",
+        "style": "enabled",
+        "component": "enabled",
+        "pattern": "enabled"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — imToken Webapp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Source+Code+Pro:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─────────────────────────────────────────────────────────────────
+       imToken Webapp V1 — Design System Tokens
+       Source: webapp_design_v1.md
+    ───────────────────────────────────────────────────────────────── */
+    :root {
+      /* ── Primitive colors ─────────────────────────────────────── */
+
+      /* Navy scale */
+      --navy-50:    #ECEDF0;   /* border.default */
+      --navy-200:   #D0D2DB;   /* text.placeholder */
+      --navy-700:   #A0A5B7;   /* text.secondary, stroke.icon_secondary */
+      --navy-900:   #111D4A;   /* text.core / text.primary, fill.secondary */
+
+      /* Blue scale */
+      --blue-50:    #F9FDFF;   /* gradient start */
+      --blue-100:   #D6EBFF;   /* gradient end (main) */
+      --blue-500:   #007FFF;   /* fill.action, text.action */
+      --blue-600:   #066BD2;   /* dark-mode action */
+      --blue-a8:    rgba(0,127,255,0.08);   /* selected surface, nav active bg */
+      --blue-a20:   rgba(0,127,255,0.20);   /* fill.action_subtle, badge bg */
+
+      /* Gray scale */
+      --gray-50:    #F9FAFB;   /* background.modal */
+      --gray-100:   #F0F1F3;   /* background.modal_section_inner, gradient end (general) */
+      --gray-200:   #F0F1F3;   /* fill.icon_chip */
+
+      /* Status */
+      --green-500:  #4BCE71;
+      --green-a20:  rgba(75,206,113,0.20);
+      --green-a40:  rgba(75,206,113,0.40);
+      --green-dark: #2D7C44;
+
+      --red-500:    #F3636F;
+      --red-a20:    rgba(243,99,111,0.20);
+      --red-a40:    rgba(243,99,111,0.40);
+      --red-dark:   #923B43;
+
+      --orange-500: #FC8C4D;
+      --orange-a20: rgba(252,140,77,0.20);
+
+      /* ── Semantic roles — light ───────────────────────────────── */
+
+      /* Text */
+      --text-core:        var(--navy-900);   /* balances, amounts, headings */
+      --text-primary:     var(--navy-900);   /* subheadings, labels */
+      --text-secondary:   var(--navy-700);   /* supporting text */
+      --text-action:      var(--blue-500);   /* links, CTAs */
+      --text-inverse:     #FFFFFF;
+      --text-placeholder: var(--navy-200);
+
+      /* Background */
+      --bg-general:   #FFFFFF;   /* background.general */
+      --bg-card:      #FFFFFF;   /* background.card */
+      --bg-modal:     var(--gray-50);
+      --bg-chip:      var(--gray-100);   /* fill.icon_chip */
+
+      /* Page gradient (gradient.general) */
+      --page-gradient: linear-gradient(180deg, var(--blue-50) 0%, var(--gray-100) 100%);
+
+      /* Border */
+      --border-default:   var(--navy-50);    /* #ECEDF0 */
+
+      /* Fill */
+      --fill-action:        var(--blue-500);
+      --fill-action-subtle: var(--blue-a20);
+      --fill-secondary:     var(--navy-900);
+      --fill-tertiary:      #FFFFFF;
+
+      /* Status semantic */
+      --status-success:        var(--green-500);
+      --status-success-bg:     var(--green-a20);
+      --status-success-border: var(--green-a40);
+      --status-success-text:   var(--green-dark);
+
+      --status-error:          var(--red-500);
+      --status-error-bg:       var(--red-a20);
+      --status-error-border:   var(--red-a40);
+      --status-error-text:     var(--red-dark);
+
+      --status-warning:        var(--orange-500);
+      --status-warning-bg:     var(--orange-a20);
+
+      /* Shadows */
+      --shadow-sm:  0px 1px 4px rgba(17,29,74,0.06), 0px 1px 2px rgba(17,29,74,0.04);
+      --shadow-md:  0px 4px 16px rgba(17,29,74,0.08), 0px 2px 4px rgba(17,29,74,0.04);
+      --shadow-lg:  0px 8px 28px rgba(17,29,74,0.10), 0px 2px 6px rgba(17,29,74,0.05);
+
+      /* Radius — V1 scale */
+      --radius-sm:    4px;     /* tight elements */
+      --radius-xs:    8px;     /* chips, tags, badge */
+      --radius-md:    10px;    /* inputs, icon chips */
+      --radius-lg:    16px;    /* cards, panels */
+      --radius-full:  9999px;  /* pills — buttons, avatars */
+
+      /* Spacing */
+      --space-4:  4px;
+      --space-6:  6px;
+      --space-8:  8px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-20: 20px;
+      --space-24: 24px;
+      --space-28: 28px;
+      --space-32: 32px;
+
+      /* Sidebar */
+      --sidebar-w: 240px;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      /* V1: Noto Sans, three weights only (400/500/700) */
+      font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      /* V1: 140% line-height, 0.04em letter-spacing on all text */
+      line-height: 1.4;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      /* V1: gradient.general page background */
+      background: var(--page-gradient);
+      background-attachment: fixed;
+      min-height: 100vh;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Tabular numerals for all financial data */
+    .num {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      letter-spacing: 0; /* reset tracking for numbers */
+    }
+
+    code, .mono {
+      font-family: 'Source Code Pro', 'SFMono-Regular', Menlo, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       LAYOUT
+    ───────────────────────────────────────────────────────────────── */
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ─── Sidebar ───────────────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      /* V1: background.general = #FFFFFF */
+      background: var(--bg-general);
+      border-right: 1px solid var(--border-default);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 40;
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+      padding: var(--space-20) var(--space-20) 18px;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      /* V1: fill.action = #007FFF */
+      background: var(--fill-action);
+      /* V1: radius-md = 10px for icon chips */
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-mark span {
+      /* V1: navTitle — 16px, Bold 700 */
+      font-size: 15px;
+      font-weight: 700;
+      /* V1: text.inverse = #FFFFFF */
+      color: var(--text-inverse);
+      letter-spacing: 0;
+    }
+
+    .logo-name {
+      /* V1: navTitle — 16px Bold */
+      font-size: 16px;
+      font-weight: 700;
+      /* V1: text.core = navy.900 */
+      color: var(--text-core);
+      letter-spacing: 0.04em;
+    }
+
+    .sidebar-section {
+      padding: var(--space-8) var(--space-12);
+      margin-top: var(--space-8);
+    }
+
+    .sidebar-section-label {
+      /* V1: supportingText — 12px Regular, adapted as uppercase label */
+      font-size: 11px;
+      font-weight: 500;
+      /* V1: text.secondary = navy.700 */
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0 var(--space-8);
+      margin-bottom: var(--space-4);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      padding: 8px var(--space-12);
+      /* V1: radius-xs = 8px for interactive rows */
+      border-radius: var(--radius-xs);
+      /* V1: bodySecondary — 14px Regular */
+      font-size: 14px;
+      font-weight: 400;
+      /* V1: text.secondary = navy.700 */
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.1s, color 0.1s;
+      line-height: 1.4;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-item:hover {
+      /* V1: fill.icon_chip = gray.100 for hover */
+      background: var(--bg-chip);
+      color: var(--text-primary);
+    }
+
+    .nav-item.active {
+      /* V1: blue.500_a8 = rgba(0,127,255,0.08) for selected surface */
+      background: var(--blue-a8);
+      /* V1: text.action = blue.500 */
+      color: var(--text-action);
+      /* V1: sectionTitle — 14px Medium */
+      font-weight: 500;
+    }
+
+    .nav-item .nav-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.65;
+      flex-shrink: 0;
+    }
+
+    .nav-item.active .nav-icon { opacity: 1; }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--status-success-bg);
+      color: var(--status-success-text);
+      border: 1px solid var(--status-success-border);
+      /* V1: radius.full = pill */
+      border-radius: var(--radius-full);
+      /* V1: supportingText — 12px */
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-default);
+      padding: var(--space-16) var(--space-20);
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      /* V1: radius.full */
+      border-radius: var(--radius-full);
+      /* V1: gradient using blue.500 */
+      background: linear-gradient(135deg, var(--blue-500) 0%, #3B49DE 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      /* V1: text.inverse */
+      color: var(--text-inverse);
+      flex-shrink: 0;
+      letter-spacing: 0;
+    }
+
+    .avatar-info { min-width: 0; }
+    .avatar-name {
+      /* V1: sectionTitle — 14px Medium */
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.04em;
+    }
+    .avatar-role {
+      /* V1: supportingText — 12px Regular */
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* ─── Main area ─────────────────────────────────────────────── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* V1: transparent so body gradient shows through */
+      background: transparent;
+    }
+
+    /* ─── Topbar ────────────────────────────────────────────────── */
+    .topbar {
+      height: 56px;
+      /* V1: background.general = white; frosted on scroll */
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--space-28);
+      gap: var(--space-12);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+
+    .topbar-title {
+      /* V1: navTitle — 16px Bold */
+      font-size: 16px;
+      font-weight: 700;
+      /* V1: text.core = navy.900 */
+      color: var(--text-core);
+      letter-spacing: 0.04em;
+    }
+
+    .topbar-spacer { flex: 1; }
+
+    .date-range {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      /* V1: bodySecondary — 14px Regular */
+      font-size: 13px;
+      font-weight: 400;
+      /* V1: text.secondary */
+      color: var(--text-secondary);
+      padding: 6px var(--space-16);
+      border: 1px solid var(--border-default);
+      /* V1: radius.full for pill-shaped selector */
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      background: var(--bg-general);
+      transition: border-color 0.1s;
+      letter-spacing: 0.04em;
+    }
+    .date-range:hover { border-color: var(--blue-500); }
+
+    /* ── Buttons ─────────────────────────────────────────────────
+       V1: actionLabel — 16px Regular, radius.full (pill), height per size scale
+       primary uses gradient.button_primary_fill = radial #0CC5FF → #007FFF
+    ─────────────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-6);
+      /* V1: btn default height = 44px, paddingX = spacing/12 */
+      padding: 10px var(--space-20);
+      /* V1: radius.full — pill */
+      border-radius: var(--radius-full);
+      /* V1: actionLabel — 16px Regular */
+      font-size: 14px;
+      font-weight: 400;
+      font-family: 'Noto Sans', sans-serif;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.12s, filter 0.12s;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* V1: primary emphasis — gradient.button_primary_fill */
+    .btn-primary {
+      background: radial-gradient(ellipse at center, #0CC5FF 0%, #007FFF 100%);
+      /* V1: text.inverse = white */
+      color: var(--text-inverse);
+      box-shadow: 0px 2px 8px rgba(0,127,255,0.30);
+    }
+    .btn-primary:hover { filter: brightness(1.06); }
+
+    /* V1: outline emphasis — fill.tertiary bg, border.default */
+    .btn-ghost {
+      background: var(--fill-tertiary);
+      /* V1: text.secondary */
+      color: var(--text-secondary);
+      border: 1px solid var(--border-default);
+    }
+    .btn-ghost:hover {
+      border-color: var(--navy-700);
+      color: var(--text-primary);
+    }
+
+    /* ─── Content ───────────────────────────────────────────────── */
+    .content {
+      padding: var(--space-28) var(--space-32);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-24);
+      flex: 1;
+      /* V1: transparent so page gradient shows through */
+      background: transparent;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-16);
+    }
+
+    /* V1: sectionLead — 20px Medium */
+    .section-title {
+      font-size: 20px;
+      font-weight: 500;
+      /* V1: text.primary = navy.900 */
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+    }
+
+    .section-link {
+      /* V1: bodySecondary — 14px Regular */
+      font-size: 14px;
+      font-weight: 400;
+      /* V1: text.action = blue.500 */
+      color: var(--text-action);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .section-link:hover { opacity: 0.75; }
+
+    /* ─── KPI Cards ─────────────────────────────────────────────── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-16);
+    }
+
+    .kpi-card {
+      /* V1: background.card = #FFFFFF */
+      background: var(--bg-card);
+      border: 1px solid var(--border-default);
+      /* V1: radius-lg = 16px for cards */
+      border-radius: var(--radius-lg);
+      padding: var(--space-20);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      transition: box-shadow 0.15s;
+    }
+
+    .kpi-card:hover { box-shadow: var(--shadow-md); }
+
+    /* V1: supportingText — 12px Regular, secondary color */
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* V1: heroAmount — 24px Bold (financial amounts) */
+    .kpi-value {
+      font-size: 24px;
+      font-weight: 700;
+      /* V1: text.core = navy.900 */
+      color: var(--text-core);
+      line-height: 1.3;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      letter-spacing: 0;
+    }
+
+    .kpi-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      /* V1: supportingText — 12px */
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ─── Badges ─────────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      /* V1: supportingText — 12px Regular */
+      font-size: 12px;
+      font-weight: 400;
+      padding: 2px var(--space-8);
+      /* V1: radius.full — pill badges */
+      border-radius: var(--radius-full);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0;
+    }
+
+    /* V1: green.500_a20 bg, green.800 text, green.500_a40 border */
+    .badge-success {
+      background: var(--status-success-bg);
+      color: var(--status-success-text);
+      border: 1px solid var(--status-success-border);
+    }
+
+    /* V1: red.500_a20 bg, red.800 text, red.500_a40 border */
+    .badge-error {
+      background: var(--status-error-bg);
+      color: var(--status-error-text);
+      border: 1px solid var(--status-error-border);
+    }
+
+    .badge-neutral {
+      /* V1: fill.icon_chip = gray.100 */
+      background: var(--bg-chip);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-default);
+    }
+
+    /* ─── Two-column row ────────────────────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+
+    /* ─── Card ──────────────────────────────────────────────────── */
+    .card {
+      /* V1: background.card = #FFFFFF */
+      background: var(--bg-card);
+      border: 1px solid var(--border-default);
+      /* V1: radius-lg = 16px */
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-16) var(--space-20) var(--space-12);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    /* V1: sectionTitle — 14px Medium */
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+    }
+
+    /* V1: supportingText — 12px Regular, secondary */
+    .card-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Action Summary Card ────────────────────────────────────
+       V1: fill.action = #007FFF hero surface with gradient feel
+    ─────────────────────────────────────────────────────────────── */
+    .summary-card {
+      /* V1: gradient.main feel — blue hero surface */
+      background: linear-gradient(135deg, #0099FF 0%, #007FFF 60%, #005FCC 100%);
+      border-radius: var(--radius-lg);
+      padding: var(--space-24) var(--space-28);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-24);
+      align-items: center;
+      box-shadow: 0px 6px 24px rgba(0,127,255,0.28), 0px 2px 6px rgba(0,127,255,0.16);
+    }
+
+    .summary-stat { display: flex; flex-direction: column; gap: var(--space-4); }
+
+    .summary-label {
+      /* V1: supportingText — 12px, adapted for inverse surface */
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .summary-value {
+      /* V1: heroAmount — 24px Bold */
+      font-size: 24px;
+      font-weight: 700;
+      /* V1: text.inverse = white */
+      color: var(--text-inverse);
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .summary-sub {
+      /* V1: supportingText — 12px, inverse surface */
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0;
+    }
+
+    .summary-divider {
+      width: 1px;
+      height: 48px;
+      background: rgba(255,255,255,0.20);
+      display: none;
+    }
+
+    /* ─── Chart ─────────────────────────────────────────────────── */
+    .chart-area { padding: var(--space-20) var(--space-20) var(--space-8); }
+
+    .chart-legend {
+      display: flex;
+      gap: var(--space-16);
+      padding: 0 var(--space-20) var(--space-16);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      /* V1: supportingText — 12px Regular */
+      font-size: 12px;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+    }
+
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    .chart-svg { width: 100%; height: 180px; display: block; }
+
+    /* V1: tabLabel / supportingText — 10-12px */
+    .y-label {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 10px;
+      /* V1: text.secondary = navy.700 */
+      fill: #A0A5B7;
+      font-feature-settings: "tnum";
+    }
+    .x-label {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 10px;
+      /* V1: tabLabel — 10px */
+      fill: #A0A5B7;
+    }
+
+    /* ─── Funnel card ───────────────────────────────────────────── */
+    .funnel-body {
+      padding: var(--space-16) var(--space-20);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+    }
+
+    .funnel-step { display: flex; flex-direction: column; gap: var(--space-6); }
+
+    .funnel-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* V1: bodySecondary — 14px */
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    /* V1: text.secondary */
+    .funnel-label { color: var(--text-secondary); font-weight: 400; }
+    /* V1: sectionTitle — 14px Medium, text.primary */
+    .funnel-value { color: var(--text-primary); font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: 0; }
+
+    .funnel-bar-track {
+      height: 4px;
+      /* V1: gray.100 background */
+      background: var(--gray-100);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .funnel-bar-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      /* V1: fill.action = blue.500 */
+      background: var(--fill-action);
+    }
+
+    /* V1: supportingText — 12px, secondary */
+    .funnel-pct { font-size: 11px; color: var(--text-secondary); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+
+    /* ─── Table ─────────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+    thead th {
+      padding: var(--space-8) var(--space-20);
+      text-align: left;
+      /* V1: supportingText — 12px Regular, adapted as header */
+      font-size: 11px;
+      font-weight: 500;
+      /* V1: text.secondary */
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      /* V1: gray.100 for subtle header bg */
+      background: var(--gray-100);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border-default);
+      transition: background 0.08s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    /* V1: blue.500_a8 hover for rows */
+    tbody tr:hover { background: rgba(0,127,255,0.03); }
+
+    tbody td {
+      padding: 12px var(--space-20);
+      /* V1: text.primary = navy.900 */
+      color: var(--text-primary);
+      vertical-align: middle;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .td-mono {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      /* V1: text.secondary */
+      color: var(--text-secondary);
+      letter-spacing: 0;
+    }
+
+    .td-amount {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    /* V1: text.action = blue.500 */
+    .tx-id { color: var(--text-action); font-weight: 500; font-size: 12px; }
+
+    .tx-card-info { display: flex; align-items: center; gap: var(--space-8); }
+
+    .card-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 20px;
+      /* V1: background.card */
+      background: var(--bg-card);
+      border: 1px solid var(--border-default);
+      /* V1: radius-xs = 8px for chip elements */
+      border-radius: var(--radius-xs);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: var(--text-secondary);
+    }
+
+    .card-brand.visa  { color: #1A1F71; }
+    .card-brand.mc    { color: #EB001B; }
+    .card-brand.amex  { color: #2E77BC; }
+
+    /* ─── Three-column row ──────────────────────────────────────── */
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-16);
+    }
+
+    /* ─── Stat list ─────────────────────────────────────────────── */
+    .stat-list { padding: var(--space-4) 0; }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px var(--space-20);
+      border-bottom: 1px solid var(--border-default);
+      /* V1: bodySecondary — 14px */
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+    .stat-item:last-child { border-bottom: none; }
+
+    .stat-name {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      /* V1: text.secondary */
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .stat-flag {
+      width: 20px;
+      height: 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-value-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1px;
+    }
+
+    .stat-amount {
+      /* V1: sectionTitle — 14px Medium */
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      /* V1: text.core */
+      color: var(--text-core);
+      letter-spacing: 0;
+    }
+
+    .stat-pct {
+      /* V1: supportingText — 12px */
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0;
+    }
+
+    .method-icon {
+      width: 28px;
+      height: 18px;
+      /* V1: radius-xs = 8px */
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border-default);
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+    }
+
+    /* ─── Activity feed ─────────────────────────────────────────── */
+    .activity-list { padding: var(--space-4) 0; }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-12);
+      padding: 12px var(--space-20);
+      border-bottom: 1px solid var(--border-default);
+    }
+    .activity-item:last-child { border-bottom: none; }
+
+    .activity-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    /* V1: status colors */
+    .activity-dot-success { background: var(--status-success); }   /* #4BCE71 */
+    .activity-dot-action  { background: var(--fill-action); }      /* #007FFF */
+    .activity-dot-warning { background: var(--status-warning); }   /* #FC8C4D */
+    .activity-dot-error   { background: var(--status-error); }     /* #F3636F */
+
+    .activity-body { min-width: 0; }
+
+    /* V1: bodySecondary — 14px Regular */
+    .activity-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      letter-spacing: 0.04em;
+    }
+    /* V1: sectionTitle weight on strong */
+    .activity-text strong { font-weight: 500; color: var(--text-primary); }
+
+    /* V1: supportingText — 12px Regular, 130% line height */
+    .activity-time {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      line-height: 1.3;
+      letter-spacing: 0.04em;
+    }
+
+    /* V1: focus ring = blue.500 */
+    :focus-visible {
+      outline: 2px solid var(--blue-500);
+      outline-offset: 2px;
+    }
+
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ─── Sidebar ───────────────────────────────────────────────── -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <span>i</span>
+      </div>
+      <span class="logo-name">imToken</span>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Overview</div>
+      <a class="nav-item active" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8L14 8M8 2L14 8L8 14"/></svg>
+        Payments
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+        Subscriptions
+      </a>
+      <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h7M3 12h4"/></svg>
+        Invoices
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Finance</div>
+      <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 6h14"/></svg>
+        Balances
+      </a>
+      <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12L6 8L9 11L14 4"/></svg>
+        Reports
+      </a>
+      <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5.5V8l1.5 1.5"/></svg>
+        Payouts
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Configure</div>
+      <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg>
+        Settings
+      </a>
+      <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8.5L14 8L12 7.5M4 8.5L2 8L4 7.5"/><rect x="5" y="5" width="6" height="6" rx="1"/></svg>
+        API Keys
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar">AS</div>
+      <div class="avatar-info">
+        <div class="avatar-name">Alex Smith</div>
+        <div class="avatar-role">Administrator</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Main ──────────────────────────────────────────────────── -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-title">Dashboard</div>
+      <div class="topbar-spacer"></div>
+      <div class="date-range">
+        <span>📅</span>
+        Apr 1 – Apr 13, 2026
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#A0A5B7" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <button class="btn btn-ghost">Export</button>
+      <button class="btn btn-primary">+ New payment</button>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- ─── Action Summary Bar (fill.action hero surface) ──── -->
+      <div class="summary-card">
+        <div class="summary-stat">
+          <div class="summary-label">Available Balance</div>
+          <div class="summary-value num">$24,150.00</div>
+          <div class="summary-sub">USD · Payout in 2 days</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-label">In Transit</div>
+          <div class="summary-value num">$7,832.14</div>
+          <div class="summary-sub">Expected Apr 15</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-label">Pending</div>
+          <div class="summary-value num">$12,048.50</div>
+          <div class="summary-sub">Under review</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-label">Success Rate</div>
+          <div class="summary-value num">97.2%</div>
+          <div class="summary-sub">↑ 0.4% from last week</div>
+        </div>
+      </div>
+
+      <!-- ─── KPI Cards ───────────────────────────────────────── -->
+      <div>
+        <div class="section-header">
+          <div class="section-title">Key metrics</div>
+          <a class="section-link" href="#">View all reports →</a>
+        </div>
+        <div class="kpi-grid">
+
+          <div class="kpi-card">
+            <div class="kpi-label">Gross Volume</div>
+            <div class="kpi-value">$1,284,930</div>
+            <div class="kpi-meta">
+              <span class="badge badge-success">↑ 18.4%</span>
+              <span>vs last month</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Net Revenue</div>
+            <div class="kpi-value">$38,721</div>
+            <div class="kpi-meta">
+              <span class="badge badge-success">↑ 6.2%</span>
+              <span>after fees &amp; refunds</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">MRR</div>
+            <div class="kpi-value">$92,480</div>
+            <div class="kpi-meta">
+              <span class="badge badge-success">↑ 3.8%</span>
+              <span>1,204 active subs</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">Churn Rate</div>
+            <div class="kpi-value">2.4%</div>
+            <div class="kpi-meta">
+              <span class="badge badge-error">↑ 0.3%</span>
+              <span>28 churned this month</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ─── Revenue Chart + Conversion Funnel ──────────────── -->
+      <div class="two-col">
+
+        <!-- Revenue Chart -->
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Revenue over time</div>
+              <div class="card-sub">Gross volume vs net revenue, April 2026</div>
+            </div>
+            <button class="btn btn-ghost" style="padding:6px 14px; font-size:13px;">Weekly</button>
+          </div>
+          <div class="chart-area">
+            <svg class="chart-svg" viewBox="0 0 620 180" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid lines — V1: border.default = navy.50 = #ECEDF0 -->
+              <line x1="48" y1="20"  x2="600" y2="20"  stroke="#ECEDF0" stroke-width="1"/>
+              <line x1="48" y1="55"  x2="600" y2="55"  stroke="#ECEDF0" stroke-width="1"/>
+              <line x1="48" y1="90"  x2="600" y2="90"  stroke="#ECEDF0" stroke-width="1"/>
+              <line x1="48" y1="125" x2="600" y2="125" stroke="#ECEDF0" stroke-width="1"/>
+              <line x1="48" y1="155" x2="600" y2="155" stroke="#ECEDF0" stroke-width="1"/>
+
+              <!-- Y labels -->
+              <text x="40" y="24"  class="y-label" text-anchor="end">$120k</text>
+              <text x="40" y="59"  class="y-label" text-anchor="end">$90k</text>
+              <text x="40" y="94"  class="y-label" text-anchor="end">$60k</text>
+              <text x="40" y="129" class="y-label" text-anchor="end">$30k</text>
+              <text x="40" y="159" class="y-label" text-anchor="end">$0</text>
+
+              <!-- Area fill — action blue -->
+              <defs>
+                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#007FFF" stop-opacity="0.10"/>
+                  <stop offset="100%" stop-color="#007FFF" stop-opacity="0.00"/>
+                </linearGradient>
+              </defs>
+              <path d="M55,120 C80,110 100,95 130,80 C160,65 185,70 215,55 C245,40 270,45 300,35 C330,25 355,30 385,22 C415,14 440,20 470,18 C500,16 525,24 555,28 L555,155 L55,155 Z"
+                    fill="url(#areaGrad)"/>
+
+              <!-- Gross volume line — action blue -->
+              <path d="M55,120 C80,110 100,95 130,80 C160,65 185,70 215,55 C245,40 270,45 300,35 C330,25 355,30 385,22 C415,14 440,20 470,18 C500,16 525,24 555,28"
+                    fill="none" stroke="#007FFF" stroke-width="2" stroke-linejoin="round"/>
+
+              <!-- Net revenue line — V1: navy.50 = #ECEDF0 for secondary line -->
+              <path d="M55,140 C80,136 100,130 130,125 C160,120 185,122 215,118 C245,114 270,116 300,112 C330,108 355,110 385,106 C415,102 440,104 470,102 C500,100 525,103 555,105"
+                    fill="none" stroke="#ECEDF0" stroke-width="2" stroke-dasharray="4 3" stroke-linejoin="round"/>
+
+              <!-- Data points -->
+              <circle cx="300" cy="35"  r="3.5" fill="#007FFF" stroke="white" stroke-width="2"/>
+              <circle cx="385" cy="22"  r="3.5" fill="#007FFF" stroke="white" stroke-width="2"/>
+              <circle cx="555" cy="28"  r="3.5" fill="#007FFF" stroke="white" stroke-width="2"/>
+
+              <!-- X labels -->
+              <text x="55"  y="175" class="x-label" text-anchor="middle">Apr 1</text>
+              <text x="130" y="175" class="x-label" text-anchor="middle">Apr 3</text>
+              <text x="215" y="175" class="x-label" text-anchor="middle">Apr 5</text>
+              <text x="300" y="175" class="x-label" text-anchor="middle">Apr 7</text>
+              <text x="385" y="175" class="x-label" text-anchor="middle">Apr 9</text>
+              <text x="470" y="175" class="x-label" text-anchor="middle">Apr 11</text>
+              <text x="555" y="175" class="x-label" text-anchor="middle">Apr 13</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#007FFF;"></div>
+              Gross volume
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#ECEDF0; border:1px solid #D0D2DB;"></div>
+              Net revenue
+            </div>
+          </div>
+        </div>
+
+        <!-- Conversion Funnel -->
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Payment funnel</div>
+              <div class="card-sub">Checkout conversion, Apr 2026</div>
+            </div>
+          </div>
+          <div class="funnel-body">
+
+            <div class="funnel-step">
+              <div class="funnel-row">
+                <span class="funnel-label">Checkout initiated</span>
+                <span class="funnel-value num">48,210</span>
+              </div>
+              <div class="funnel-bar-track">
+                <div class="funnel-bar-fill" style="width:100%;"></div>
+              </div>
+              <div class="funnel-pct">100% — baseline</div>
+            </div>
+
+            <div class="funnel-step">
+              <div class="funnel-row">
+                <span class="funnel-label">Payment info entered</span>
+                <span class="funnel-value num">39,412</span>
+              </div>
+              <div class="funnel-bar-track">
+                <div class="funnel-bar-fill" style="width:81.7%;"></div>
+              </div>
+              <div class="funnel-pct">81.7% — ↓ 18.3% drop</div>
+            </div>
+
+            <div class="funnel-step">
+              <div class="funnel-row">
+                <span class="funnel-label">Payment attempted</span>
+                <span class="funnel-value num">37,180</span>
+              </div>
+              <div class="funnel-bar-track">
+                <div class="funnel-bar-fill" style="width:77.1%;"></div>
+              </div>
+              <div class="funnel-pct">77.1% of initiated</div>
+            </div>
+
+            <div class="funnel-step">
+              <div class="funnel-row">
+                <span class="funnel-label">Payment succeeded</span>
+                <span class="funnel-value num">36,150</span>
+              </div>
+              <div class="funnel-bar-track">
+                <div class="funnel-bar-fill" style="width:75.0%; background:var(--status-success);"></div>
+              </div>
+              <div class="funnel-pct" style="color:var(--status-success-text);">75.0% — 97.2% auth rate</div>
+            </div>
+
+            <div class="funnel-step">
+              <div class="funnel-row">
+                <span class="funnel-label">Refunded / disputed</span>
+                <span class="funnel-value num">412</span>
+              </div>
+              <div class="funnel-bar-track">
+                <div class="funnel-bar-fill" style="width:0.9%; background:var(--status-error);"></div>
+              </div>
+              <div class="funnel-pct" style="color:var(--status-error-text);">0.9% dispute rate</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ─── Recent Transactions ─────────────────────────────── -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Recent transactions</div>
+            <div class="card-sub">Last 24 hours across all channels</div>
+          </div>
+          <a class="section-link" href="#">View all →</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Transaction ID</th>
+                <th>Customer</th>
+                <th>Payment method</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-mono tx-id">pi_3Pxk7A2eZvKYlo2</td>
+                <td style="color:var(--text-secondary);">Sarah Chen</td>
+                <td>
+                  <div class="tx-card-info">
+                    <span class="card-brand visa">VISA</span>
+                    <span class="td-mono">•••• 4242</span>
+                  </div>
+                </td>
+                <td class="td-amount num">$1,290.00</td>
+                <td><span class="badge badge-success">✓ Succeeded</span></td>
+                <td class="td-mono" style="color:var(--text-tertiary);">Apr 13, 09:41</td>
+              </tr>
+              <tr>
+                <td class="td-mono tx-id">pi_3Pxj9B2eZvKYlo2</td>
+                <td style="color:var(--text-secondary);">James Wilson</td>
+                <td>
+                  <div class="tx-card-info">
+                    <span class="card-brand mc">MC</span>
+                    <span class="td-mono">•••• 5555</span>
+                  </div>
+                </td>
+                <td class="td-amount num">$480.00</td>
+                <td><span class="badge badge-success">✓ Succeeded</span></td>
+                <td class="td-mono" style="color:var(--text-tertiary);">Apr 13, 08:17</td>
+              </tr>
+              <tr>
+                <td class="td-mono tx-id">pi_3Pxi8C2eZvKYlo2</td>
+                <td style="color:var(--text-secondary);">Emma Torres</td>
+                <td>
+                  <div class="tx-card-info">
+                    <span class="card-brand amex">AMEX</span>
+                    <span class="td-mono">•••• 0005</span>
+                  </div>
+                </td>
+                <td class="td-amount num">$3,750.00</td>
+                <td><span class="badge badge-neutral">⟳ Processing</span></td>
+                <td class="td-mono" style="color:var(--text-tertiary);">Apr 13, 07:55</td>
+              </tr>
+              <tr>
+                <td class="td-mono tx-id">pi_3Pxh7D2eZvKYlo2</td>
+                <td style="color:var(--text-secondary);">Liam Park</td>
+                <td>
+                  <div class="tx-card-info">
+                    <span class="card-brand visa">VISA</span>
+                    <span class="td-mono">•••• 1234</span>
+                  </div>
+                </td>
+                <td class="td-amount num">$99.00</td>
+                <td><span class="badge badge-error">✗ Failed</span></td>
+                <td class="td-mono" style="color:var(--text-tertiary);">Apr 13, 06:30</td>
+              </tr>
+              <tr>
+                <td class="td-mono tx-id">pi_3Pxg6E2eZvKYlo2</td>
+                <td style="color:var(--text-secondary);">Mia Johnson</td>
+                <td>
+                  <div class="tx-card-info">
+                    <span class="card-brand mc">MC</span>
+                    <span class="td-mono">•••• 8210</span>
+                  </div>
+                </td>
+                <td class="td-amount num">$2,100.00</td>
+                <td><span class="badge badge-success">✓ Succeeded</span></td>
+                <td class="td-mono" style="color:var(--text-tertiary);">Apr 12, 23:48</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─── Bottom: Methods + Countries + Activity ──────────── -->
+      <div class="three-col">
+
+        <!-- Payment methods -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Payment methods</div>
+          </div>
+          <div class="stat-list">
+            <div class="stat-item">
+              <div class="stat-name">
+                <div class="method-icon" style="color:#1A1F71; font-weight:700;">VISA</div>
+                Visa
+              </div>
+              <div class="stat-value-right">
+                <div class="stat-amount num">$612,480</div>
+                <div class="stat-pct">47.7%</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">
+                <div class="method-icon" style="color:#EB001B; font-weight:700;">MC</div>
+                Mastercard
+              </div>
+              <div class="stat-value-right">
+                <div class="stat-amount num">$384,210</div>
+                <div class="stat-pct">29.9%</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">
+                <div class="method-icon" style="color:#2E77BC; font-weight:700;">AX</div>
+                Amex
+              </div>
+              <div class="stat-value-right">
+                <div class="stat-amount num">$198,040</div>
+                <div class="stat-pct">15.4%</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">
+                <div class="method-icon">🏦</div>
+                Bank ACH
+              </div>
+              <div class="stat-value-right">
+                <div class="stat-amount num">$90,200</div>
+                <div class="stat-pct">7.0%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top countries -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Revenue by country</div>
+          </div>
+          <div class="stat-list">
+            <div class="stat-item">
+              <div class="stat-name">
+                <div class="stat-flag">🇺🇸</div>
+                United States
+              </div>
+              <div class="stat-value-right">
+                <div class="stat-amount num">$728,400</div>
+                <div class="stat-pct">56.7%</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">
+                <div class="stat-flag">🇬🇧</div>
+                United Kingdom
+              </div>
+              <div class="stat-value-right">
+                <div class="stat-amount num">$192,600</div>
+                <div class="stat-pct">15.0%</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">
+                <div class="stat-flag">🇩🇪</div>
+                Germany
+              </div>
+              <div class="stat-value-right">
+                <div class="stat-amount num">$128,400</div>
+                <div class="stat-pct">10.0%</div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-name">
+                <div class="stat-flag">🇨🇦</div>
+                Canada
+              </div>
+              <div class="stat-value-right">
+                <div class="stat-amount num">$96,300</div>
+                <div class="stat-pct">7.5%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity feed -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Activity</div>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-success"></div>
+              <div class="activity-body">
+                <div class="activity-text"><strong>$3,750.00</strong> payment by Emma Torres entered processing</div>
+                <div class="activity-time">2 min ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-error"></div>
+              <div class="activity-body">
+                <div class="activity-text"><strong>$99.00</strong> charge by Liam Park declined — insufficient funds</div>
+                <div class="activity-time">24 min ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-action"></div>
+              <div class="activity-body">
+                <div class="activity-text">Payout of <strong>$24,150.00</strong> scheduled for Apr 15</div>
+                <div class="activity-time">1 hr ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-warning"></div>
+              <div class="activity-body">
+                <div class="activity-text">Dispute opened on <strong>pi_3Pxd4F...</strong> — $480.00 at risk</div>
+                <div class="activity-time">3 hrs ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-success"></div>
+              <div class="activity-body">
+                <div class="activity-text">New subscriber: <strong>Pro Annual</strong> · $1,290.00/yr</div>
+                <div class="activity-time">5 hrs ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+</body>
+</html>
